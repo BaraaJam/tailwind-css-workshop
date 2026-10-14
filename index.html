@@ -113,33 +113,129 @@
 
                     <!-- Bigger Bento Grid (Expanded Width, Height & Padding) -->
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch flex-1 max-h-[520px]">
-                        <!-- Left Card: Hashtag Performance (5 Cols) -->
+                        <!-- Left Card: Interactive Bento (5 Cols) -->
                         <div
-                            class="lg:col-span-5 bg-zinc-50 border border-zinc-200/80 rounded-3xl p-8 md:p-10 flex flex-col justify-between min-h-[380px] md:min-h-[440px]">
-                            <h3 class="text-xl md:text-2xl font-medium tracking-tight">Hashtag Performance</h3>
-                            <div class="flex flex-wrap gap-2.5 md:gap-3 py-6">
-                                <span
-                                    class="px-4 py-2 bg-white border border-zinc-300 rounded-full text-sm md:text-base -rotate-6 shadow-sm">#Nature</span>
-                                <span
-                                    class="px-4 py-2 bg-white border border-zinc-300 rounded-full text-sm md:text-base rotate-3 shadow-sm">#Art</span>
-                                <span
-                                    class="px-4 py-2 bg-white border border-zinc-300 rounded-full text-sm md:text-base -rotate-2 shadow-sm">#Photography</span>
-                                <span
-                                    class="px-4 py-2 bg-white border border-zinc-300 rounded-full text-sm md:text-base rotate-6 shadow-sm">#Cooking</span>
-                                <span
-                                    class="px-4 py-2 bg-white border border-zinc-300 rounded-full text-sm md:text-base -rotate-3 shadow-sm">#AI</span>
-                                <span
-                                    class="px-4 py-2 bg-white border border-zinc-300 rounded-full text-sm md:text-base rotate-2 shadow-sm">#Selfie</span>
-                                <span
-                                    class="px-4 py-2 bg-white border border-zinc-300 rounded-full text-sm md:text-base shadow-sm">#Foodie</span>
-                                <span
-                                    class="px-4 py-2 bg-white border border-zinc-300 rounded-full text-sm md:text-base -rotate-6 shadow-sm">#Fitness</span>
+                            class="lg:col-span-5 bg-zinc-50 border border-zinc-200/80 rounded-3xl p-6 md:p-8 flex flex-col justify-between min-h-[460px] md:min-h-[500px] select-none">
+                            <!-- Dynamic Slide Header -->
+                            <h3 id="bento-slide-title" class="text-xl md:text-2xl font-medium tracking-tight text-zinc-900 mb-4 transition-all duration-300">
+                                Hashtag Performance
+                            </h3>
+
+                            <!-- Inside White Container -->
+                            <div class="relative bg-white border border-zinc-200/90 rounded-2xl w-full flex-1 min-h-[310px] md:min-h-[350px] overflow-hidden shadow-sm flex flex-col justify-end">
+                                <!-- Slide 0: Stacked Hashtags Pile with falling animation (Matching Image 5) -->
+                                <div id="bento-slide-0" class="bento-slide absolute inset-0 p-3 overflow-hidden flex flex-col justify-end transition-opacity duration-500 opacity-100 z-10">
+                                    <div id="hashtag-pile" class="relative w-full h-[280px] md:h-[310px]">
+                                        <!-- 15 Hashtags stacked across 3 layers with physical pile rotations matching user sketches -->
+                                        <!-- Bottom Foundation Layer -->
+                                        <span class="hashtag-pill absolute bottom-[12px] left-[2%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none rotate-[36deg] will-change-transform z-10">#Travel</span>
+                                        <span class="hashtag-pill absolute bottom-[6px] left-[22%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[4deg] will-change-transform z-10">#Foodie</span>
+                                        <span class="hashtag-pill absolute bottom-[8px] left-[44%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none rotate-[6deg] will-change-transform z-10">#Explore</span>
+                                        <span class="hashtag-pill absolute bottom-[10px] right-[3%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[8deg] will-change-transform z-10">#Movie</span>
+
+                                        <!-- Middle Interlocking Layer -->
+                                        <span class="hashtag-pill absolute bottom-[54px] left-[10%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none rotate-[28deg] will-change-transform z-20">#Selfie</span>
+                                        <span class="hashtag-pill absolute bottom-[50px] left-[32%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[8deg] will-change-transform z-20">#Fun</span>
+                                        <span class="hashtag-pill absolute bottom-[52px] left-[52%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none rotate-[10deg] will-change-transform z-20">#AI</span>
+                                        <span class="hashtag-pill absolute bottom-[58px] right-[2%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[18deg] will-change-transform z-20">#Fitness</span>
+                                        <span class="hashtag-pill absolute bottom-[96px] left-[2%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[12deg] will-change-transform z-20">#Trending</span>
+
+                                        <!-- Top Tumbling Layer -->
+                                        <span class="hashtag-pill absolute bottom-[142px] left-[6%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[10deg] will-change-transform z-30">#Cooking</span>
+                                        <span class="hashtag-pill absolute bottom-[114px] left-[24%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none rotate-[4deg] will-change-transform z-30">#Nature</span>
+                                        <span class="hashtag-pill absolute bottom-[108px] left-[46%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[35deg] will-change-transform z-30">#Art</span>
+                                        <span class="hashtag-pill absolute bottom-[120px] right-[2%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[26deg] will-change-transform z-30">#Photography</span>
+                                        <span class="hashtag-pill absolute bottom-[168px] left-[27%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none rotate-[8deg] will-change-transform z-40">#Viral</span>
+                                        <span class="hashtag-pill absolute bottom-[164px] left-[50%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[15deg] will-change-transform z-40">#Design</span>
+                                    </div>
+                                </div>
+
+                                <!-- Slide 1: Audience Demographics (Matching Image 4) -->
+                                <div id="bento-slide-1" class="bento-slide absolute inset-0 p-4 sm:p-5 overflow-hidden flex flex-col justify-center gap-3 transition-opacity duration-500 opacity-0 pointer-events-none z-10">
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex-1 bg-[#ffb3d1] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            <div class="absolute inset-y-0 left-0 bg-[#F8529E] rounded-2xl w-[75%] flex items-center justify-end px-2.5 text-white text-xs font-bold">75%</div>
+                                        </div>
+                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Pet Owners</span>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex-1 bg-[#ffb3d1] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            <div class="absolute inset-y-0 left-0 bg-[#F8529E] rounded-2xl w-[49%] flex items-center justify-end px-2.5 text-white text-xs font-bold">49%</div>
+                                        </div>
+                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Travelers</span>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex-1 bg-[#ffb3d1] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            <div class="absolute inset-y-0 left-0 bg-[#F8529E] rounded-2xl w-[48%] flex items-center justify-end px-2.5 text-white text-xs font-bold">48%</div>
+                                        </div>
+                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Parents</span>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex-1 bg-[#ffb3d1] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            <div class="absolute inset-y-0 left-0 bg-[#F8529E] rounded-2xl w-[43%] flex items-center justify-end px-2.5 text-white text-xs font-bold">43%</div>
+                                        </div>
+                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Foodies</span>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex-1 bg-[#ffb3d1] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            <div class="absolute inset-y-0 left-0 bg-[#F8529E] rounded-2xl w-[39%] flex items-center justify-end px-2.5 text-white text-xs font-bold">39%</div>
+                                        </div>
+                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Fitness Enthusiasts</span>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex-1 bg-[#ffb3d1] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            <div class="absolute inset-y-0 left-0 bg-[#F8529E] rounded-2xl w-[28%] flex items-center justify-end px-2.5 text-white text-xs font-bold">28%</div>
+                                        </div>
+                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Fashionistas</span>
+                                    </div>
+                                </div>
+
+                                <!-- Slide 2: Platform Reach -->
+                                <div id="bento-slide-2" class="bento-slide absolute inset-0 p-4 sm:p-5 overflow-hidden flex flex-col justify-center gap-3 transition-opacity duration-500 opacity-0 pointer-events-none z-10">
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex-1 bg-[#fef08a] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            <div class="absolute inset-y-0 left-0 bg-[#FCD332] rounded-2xl w-[82%] flex items-center justify-end px-2.5 text-zinc-900 text-xs font-bold">82%</div>
+                                        </div>
+                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Reels & Video</span>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex-1 bg-[#fef08a] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            <div class="absolute inset-y-0 left-0 bg-[#FCD332] rounded-2xl w-[64%] flex items-center justify-end px-2.5 text-zinc-900 text-xs font-bold">64%</div>
+                                        </div>
+                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Stories</span>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex-1 bg-[#fef08a] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            <div class="absolute inset-y-0 left-0 bg-[#FCD332] rounded-2xl w-[58%] flex items-center justify-end px-2.5 text-zinc-900 text-xs font-bold">58%</div>
+                                        </div>
+                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Carousels</span>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex-1 bg-[#fef08a] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            <div class="absolute inset-y-0 left-0 bg-[#FCD332] rounded-2xl w-[45%] flex items-center justify-end px-2.5 text-zinc-900 text-xs font-bold">45%</div>
+                                        </div>
+                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Direct Messages</span>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex-1 bg-[#fef08a] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            <div class="absolute inset-y-0 left-0 bg-[#FCD332] rounded-2xl w-[33%] flex items-center justify-end px-2.5 text-zinc-900 text-xs font-bold">33%</div>
+                                        </div>
+                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Link In Bio</span>
+                                    </div>
+                                </div>
                             </div>
-                            <!-- Indicator bars at bottom -->
-                            <div class="flex gap-2 pt-2">
-                                <div class="h-1.5 w-16 bg-[#4314E5] rounded-full"></div>
-                                <div class="h-1.5 w-16 bg-[#F8529E]/30 rounded-full"></div>
-                                <div class="h-1.5 w-16 bg-[#FCD332]/30 rounded-full"></div>
+
+                            <!-- 3 Bottom Timer Lines (Full Width of Card Container) -->
+                            <div id="bento-timer-bars" class="grid grid-cols-3 gap-3 w-full pt-4">
+                                <div class="h-2.5 bg-[#4314E5]/15 rounded-full overflow-hidden cursor-pointer" onclick="switchBentoSlide(0)" title="Hashtag Performance">
+                                    <div id="bento-fill-0" class="h-full bg-[#4314E5] rounded-full w-0"></div>
+                                </div>
+                                <div class="h-2.5 bg-[#F8529E]/20 rounded-full overflow-hidden cursor-pointer" onclick="switchBentoSlide(1)" title="Audience Demographics">
+                                    <div id="bento-fill-1" class="h-full bg-[#F8529E] rounded-full w-0"></div>
+                                </div>
+                                <div class="h-2.5 bg-[#FCD332]/30 rounded-full overflow-hidden cursor-pointer" onclick="switchBentoSlide(2)" title="Platform Reach">
+                                    <div id="bento-fill-2" class="h-full bg-[#FCD332] rounded-full w-0"></div>
+                                </div>
                             </div>
                         </div>
 
@@ -330,6 +426,7 @@
                 yPercent: 105,
                 borderRadius: "2.5rem 2.5rem 0 0"
             });
+            gsap.set(".hashtag-pill", { y: -380, opacity: 0 });
             gsap.set("#hero-buttons-group", { transformOrigin: "center center" });
             gsap.set(["#card-yellow", "#card-pink", "#card-purple"], { transformOrigin: "bottom center" });
 
@@ -342,7 +439,26 @@
                     pin: "#hero-section",
                     scrub: 0.8,
                     anticipatePin: 1,
-                    invalidateOnRefresh: true
+                    invalidateOnRefresh: true,
+                    onUpdate: (self) => {
+                        // Section 2 scroll-linked activation of interactive timer
+                        if (self.progress >= 0.68) {
+                            if (!timerIsRunning) {
+                                timerIsRunning = true;
+                                startSlideTimer();
+                            }
+                        } else {
+                            if (timerIsRunning || currentSlide !== 0) {
+                                timerIsRunning = false;
+                                if (timerAnimFrame) cancelAnimationFrame(timerAnimFrame);
+                                switchBentoSlide(0, false);
+                                for (let i = 0; i < 3; i++) {
+                                    const fillEl = document.querySelector(`#bento-fill-${i}`);
+                                    if (fillEl) fillEl.style.width = "0%";
+                                }
+                            }
+                        }
+                    }
                 }
             });
 
@@ -451,6 +567,17 @@
                     duration: 0.18,
                     ease: "power1.out"
                 }, 0.65)
+                // 13b. Hashtags fall down into the white container as Section 2 is showing
+                .to(".hashtag-pill", {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.16,
+                    stagger: {
+                        amount: 0.12,
+                        from: "random"
+                    },
+                    ease: "power2.out"
+                }, 0.63)
                 // 14. White card top angles straighten up when close to the top edge until covered
                 .to(featuresSection, {
                     borderRadius: "0px",
@@ -484,6 +611,86 @@
                     opacity: 1,
                     duration: 0.16
                 }, 0.84);
+
+            // Bento Slide Interactive Timer
+            let currentSlide = 0;
+            let slideStartTime = null;
+            const SLIDE_DURATION = 3500;
+            let timerAnimFrame = null;
+            let timerIsRunning = false;
+
+            const slideTitles = [
+                "Hashtag Performance",
+                "Audience Demographics",
+                "Platform Reach"
+            ];
+
+            function switchBentoSlide(index, autoStart = true) {
+                if (timerAnimFrame) cancelAnimationFrame(timerAnimFrame);
+                document.querySelectorAll(".bento-slide").forEach((el, i) => {
+                    if (i === index) {
+                        el.classList.remove("opacity-0", "pointer-events-none");
+                        el.classList.add("opacity-100", "pointer-events-auto");
+                    } else {
+                        el.classList.add("opacity-0", "pointer-events-none");
+                        el.classList.remove("opacity-100", "pointer-events-auto");
+                    }
+                });
+
+                const titleEl = document.querySelector("#bento-slide-title");
+                if (titleEl) {
+                    titleEl.textContent = slideTitles[index];
+                }
+
+                for (let i = 0; i < 3; i++) {
+                    const fillEl = document.querySelector(`#bento-fill-${i}`);
+                    if (!fillEl) continue;
+                    if (i < index) {
+                        fillEl.style.width = "100%";
+                    } else if (i > index) {
+                        fillEl.style.width = "0%";
+                    }
+                }
+
+                currentSlide = index;
+                if (autoStart) {
+                    timerIsRunning = true;
+                    startSlideTimer();
+                }
+            }
+
+            function startSlideTimer() {
+                if (timerAnimFrame) cancelAnimationFrame(timerAnimFrame);
+                slideStartTime = performance.now();
+
+                function step(now) {
+                    const elapsed = now - slideStartTime;
+                    const progress = Math.min(elapsed / SLIDE_DURATION, 1);
+
+                    const activeFill = document.querySelector(`#bento-fill-${currentSlide}`);
+                    if (activeFill) {
+                        activeFill.style.width = `${progress * 100}%`;
+                    }
+
+                    if (progress < 1) {
+                        timerAnimFrame = requestAnimationFrame(step);
+                    } else {
+                        const nextSlide = (currentSlide + 1) % 3;
+                        if (nextSlide === 0) {
+                            for (let i = 0; i < 3; i++) {
+                                const fillEl = document.querySelector(`#bento-fill-${i}`);
+                                if (fillEl) fillEl.style.width = "0%";
+                            }
+                        }
+                        switchBentoSlide(nextSlide, true);
+                    }
+                }
+
+                timerAnimFrame = requestAnimationFrame(step);
+            }
+
+            window.switchBentoSlide = switchBentoSlide;
+            window.startSlideTimer = startSlideTimer;
         });
     </script>
 </body>
