@@ -4,14 +4,304 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tailwind Landing Page</title>
+    <title>Lexicon - Tailwind CSS Workshop</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
+<body class="bg-white text-zinc-900 antialiased selection:bg-[#4314E5] selection:text-white">
 
-    <!-- Write Your HTML Here -->
+    <!-- 1. NAVBAR -->
+    <header id="main-header" class="fixed top-0 inset-x-0 z-50 bg-white/80 backdrop-blur-md transition-colors duration-300">
+        <nav class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="text-2xl font-extrabold tracking-tighter">LEXICON</a>
+            <div class="hidden md:flex items-center gap-8 text-sm text-zinc-600">
+                <a href="#features" class="hover:text-black">Features</a>
+                <a href="#integrations" class="hover:text-black">Integrations</a>
+                <a href="#metrics" class="hover:text-black">Pricing</a>
+                <a href="#faq" class="hover:text-black">About us</a>
+            </div>
+            <div class="flex items-center gap-4 text-sm font-medium">
+                <a href="#" class="hidden sm:inline-block hover:text-zinc-600">Log In</a>
+                <a href="#" class="bg-zinc-900 text-white px-5 py-2.5 rounded-full hover:bg-zinc-700 transition">
+                    Start Free Trial
+                </a>
+            </div>
+        </nav>
+    </header>
 
+    <!-- 2. HERO SCROLL TRACK (STAGE 2 SCROLL-LINKED) -->
+    <div id="hero-scroll-track" class="relative w-full">
+        <section id="hero-section" class="relative w-full h-screen flex flex-col justify-between overflow-hidden px-6 pt-28 pb-0">
+            <!-- Hero Center Text & Actions (Curtain Masked Container) -->
+            <div id="hero-text-mask" class="relative overflow-hidden max-w-3xl mx-auto z-10 w-full py-1">
+                <div id="hero-text-content" class="text-center will-change-transform">
+                    <h1 id="hero-headline" class="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight leading-[1.15] text-zinc-900">
+                        Maximize Your Social<br>Media Presence
+                    </h1>
+                    <div id="hero-buttons-group" class="mt-8 flex flex-wrap justify-center items-center gap-4 text-sm font-medium will-change-transform">
+                        <a href="#" class="bg-[#4314E5] text-white px-7 py-3.5 rounded-full hover:opacity-90 transition shadow-sm">
+                            Start Free Trial
+                        </a>
+                        <a href="#" class="bg-zinc-100 text-zinc-800 px-7 py-3.5 rounded-full hover:bg-zinc-200 transition">
+                            Create Free Account
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3 Layered Tilted Cards Teaser at Bottom Fold -->
+            <div id="cards-stack-container" class="relative w-full max-w-5xl mx-auto h-56 sm:h-64 md:h-72 lg:h-80 select-none will-change-transform">
+                <!-- Back Card: Yellow (#FCD332) -->
+                <div id="card-yellow"
+                    class="absolute inset-x-6 sm:inset-x-10 top-0 h-full bg-[#FCD332] rounded-3xl md:rounded-[2.5rem] rotate-1 origin-bottom shadow-md will-change-transform">
+                </div>
+
+                <!-- Middle Card: Hot Pink (#F8529E) -->
+                <div id="card-pink"
+                    class="absolute inset-x-3 sm:inset-x-6 top-3 md:top-4 h-full bg-[#F8529E] rounded-3xl md:rounded-[2.5rem] -rotate-1 origin-bottom shadow-md will-change-transform">
+                </div>
+
+                <!-- Front Card: Deep Purple (#4314E5) Blueprint -->
+                <div id="card-purple"
+                    class="relative top-6 md:top-8 h-full bg-[#4314E5] rounded-t-3xl md:rounded-t-[2.5rem] -rotate-3 md:-rotate-[3.5deg] origin-bottom shadow-xl flex items-center justify-center overflow-hidden will-change-transform">
+                    <!-- Blueprint placeholder for 2.5D Illustration Stage -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 3. ANALYTICS BENTO GRID -->
+    <section id="features" class="max-w-6xl mx-auto px-6 py-24">
+        <h2 class="text-3xl md:text-5xl text-center tracking-tight mb-14">
+            Advanced Analytics<br>and Reporting
+        </h2>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Left Card: Hashtag Pile (5 Cols) -->
+            <div
+                class="lg:col-span-5 bg-zinc-50 border border-zinc-200/80 rounded-3xl p-8 flex flex-col justify-between min-h-[360px]">
+                <h3 class="text-xl font-medium">Hashtag Performance</h3>
+                <div class="flex flex-wrap gap-2.5 pt-12">
+                    <span
+                        class="px-4 py-1.5 bg-white border border-zinc-300 rounded-full text-sm -rotate-6">#Nature</span>
+                    <span class="px-4 py-1.5 bg-white border border-zinc-300 rounded-full text-sm rotate-3">#Art</span>
+                    <span
+                        class="px-4 py-1.5 bg-white border border-zinc-300 rounded-full text-sm -rotate-2">#Photography</span>
+                    <span
+                        class="px-4 py-1.5 bg-white border border-zinc-300 rounded-full text-sm rotate-6">#Cooking</span>
+                    <span class="px-4 py-1.5 bg-white border border-zinc-300 rounded-full text-sm -rotate-3">#AI</span>
+                    <span
+                        class="px-4 py-1.5 bg-white border border-zinc-300 rounded-full text-sm rotate-2">#Selfie</span>
+                    <span class="px-4 py-1.5 bg-white border border-zinc-300 rounded-full text-sm">#Foodie</span>
+                    <span
+                        class="px-4 py-1.5 bg-white border border-zinc-300 rounded-full text-sm -rotate-6">#Fitness</span>
+                </div>
+            </div>
+
+            <!-- Right Card: Optimizing Performance (7 Cols) -->
+            <div class="lg:col-span-7 bg-zinc-50 border border-zinc-200/80 rounded-3xl p-8">
+                <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+                    <h3 class="text-xl font-medium">Optimizing Performance</h3>
+                    <div class="flex gap-1 bg-white p-1 rounded-full border border-zinc-200 text-xs">
+                        <span class="px-3 py-1 rounded-full text-zinc-500">3 days</span>
+                        <span class="px-3 py-1 rounded-full bg-zinc-900 text-white">1 week</span>
+                        <span class="px-3 py-1 rounded-full text-zinc-500">1 month</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-[#FCD332] rounded-2xl p-6">
+                        <p class="text-xs text-zinc-800 mb-6">Engagement Rate</p>
+                        <p class="text-4xl font-semibold">+62%</p>
+                    </div>
+                    <div class="bg-[#F8529E] text-white rounded-2xl p-6">
+                        <p class="text-xs text-white/90 mb-6">Followers</p>
+                        <p class="text-4xl font-semibold">+69%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. INTEGRATIONS BANNER + STAGGERED 01/02/03 CARDS -->
+    <section id="integrations" class="max-w-6xl mx-auto px-6 py-20">
+        <div class="flex items-center justify-center gap-4 text-4xl md:text-7xl tracking-tight mb-24">
+            <span>Integrations</span>
+            <span class="bg-[#FCD332] text-white px-5 py-1 rounded-2xl font-bold">wollo</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+            <!-- Card 01 -->
+            <div class="bg-zinc-50 border border-zinc-200/70 rounded-3xl p-3">
+                <div class="p-5">
+                    <h3 class="text-lg font-medium">Amplify Your Social Media Reach</h3>
+                </div>
+                <div class="bg-[#F06A24] text-white rounded-2xl p-6 h-56 flex flex-col justify-between">
+                    <span class="text-xs opacity-90">Partnership Engaging</span>
+                    <div class="flex items-end justify-between">
+                        <span class="text-6xl font-light leading-none">01</span>
+                        <span class="text-xl">→</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 02 (Staggered Upward on Desktop) -->
+            <div class="bg-zinc-50 border border-zinc-200/70 rounded-3xl p-3 md:-translate-y-10">
+                <div class="p-5">
+                    <h3 class="text-lg font-medium">Connect, Manage, and Analyze</h3>
+                </div>
+                <div class="bg-[#F8529E] text-white rounded-2xl p-6 h-56 flex flex-col justify-between">
+                    <span class="text-xs opacity-90">Content Scheduling</span>
+                    <div class="flex items-end justify-between">
+                        <span class="text-6xl font-light leading-none">02</span>
+                        <span class="text-xl">→</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 03 -->
+            <div class="bg-zinc-50 border border-zinc-200/70 rounded-3xl p-3">
+                <div class="p-5">
+                    <h3 class="text-lg font-medium">Centralize and Streamline Communication</h3>
+                </div>
+                <div class="bg-[#4314E5] text-white rounded-2xl p-6 h-56 flex flex-col justify-between">
+                    <span class="text-xs opacity-90">Messages Management</span>
+                    <div class="flex items-end justify-between">
+                        <span class="text-6xl font-light leading-none">03</span>
+                        <span class="text-xl">→</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. KPI METRICS ROWS -->
+    <section id="metrics" class="max-w-6xl mx-auto px-6 py-20 divide-y divide-zinc-200">
+        <div class="py-10 grid grid-cols-1 md:grid-cols-12 items-center gap-6">
+            <div
+                class="md:col-span-3 w-28 h-28 rounded-2xl bg-[#4314E5] flex items-center justify-center text-3xl text-white">
+                👍</div>
+            <div class="md:col-span-5 relative">
+                <span
+                    class="inline-block bg-[#F06A24] text-white text-xs px-3 py-1 rounded-full -rotate-12 mb-1">Likes</span>
+                <p class="text-6xl md:text-7xl font-light tracking-tight">+270K</p>
+            </div>
+            <p class="md:col-span-4 text-sm text-zinc-600">
+                Wollo's intelligent algorithms analyze social media data in real-time, offering actionable insights.
+            </p>
+        </div>
+
+        <div class="py-10 grid grid-cols-1 md:grid-cols-12 items-center gap-6">
+            <div
+                class="md:col-span-3 w-28 h-28 rounded-2xl bg-[#F8529E] flex items-center justify-center text-3xl text-white">
+                🚀</div>
+            <div class="md:col-span-5 relative">
+                <span
+                    class="inline-block bg-[#F8529E] text-white text-xs px-3 py-1 rounded-full -rotate-6 mb-1">Increase
+                    in Traffic</span>
+                <p class="text-6xl md:text-7xl font-light tracking-tight">8X</p>
+            </div>
+            <p class="md:col-span-4 text-sm text-zinc-600">
+                Track and analyze the impact of your social media campaigns in real time, pinpointing top strategies.
+            </p>
+        </div>
+    </section>
+
+    <!-- 6. PRE-FOOTER CTA & FOOTER -->
+    <footer class="max-w-6xl mx-auto px-6 pt-12 pb-16">
+        <div
+            class="bg-[#6950F3] text-white rounded-3xl p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="max-w-md">
+                <h2 class="text-3xl md:text-4xl font-normal leading-snug mb-6">
+                    Reach More People and Grow Your Brand Awareness.
+                </h2>
+                <a href="#"
+                    class="inline-block border border-white/80 text-white text-sm px-6 py-3 rounded-full hover:bg-white hover:text-[#6950F3] transition">
+                    Start Free Trial
+                </a>
+            </div>
+            <div class="text-7xl select-none">📓</div>
+        </div>
+
+        <div class="mt-12 flex flex-wrap items-center justify-between gap-6 text-sm text-zinc-600">
+            <div class="flex flex-wrap gap-8">
+                <a href="#" class="hover:text-black">Features</a>
+                <a href="#" class="hover:text-black">Integrations</a>
+                <a href="#" class="hover:text-black">Pricing</a>
+                <a href="#" class="hover:text-black">About us</a>
+                <a href="#" class="hover:text-black">Contact</a>
+            </div>
+            <div class="flex gap-4 font-semibold text-zinc-900">
+                <a href="#">f</a>
+                <a href="#">X</a>
+                <a href="#">IG</a>
+                <a href="#">in</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP & ScrollTrigger CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Configure initial origins
+            gsap.set(["#card-yellow", "#card-pink", "#card-purple"], {
+                transformOrigin: "bottom center"
+            });
+            gsap.set("#hero-buttons-group", {
+                transformOrigin: "center center"
+            });
+
+            // STAGE 2: Text Curtain Exit, Buttons Shrink & Card Straightening
+            const stage2Timeline = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#hero-scroll-track",
+                    start: "top top",
+                    end: "+=650",
+                    pin: "#hero-section",
+                    scrub: 0.8,
+                    anticipatePin: 1
+                }
+            });
+
+            stage2Timeline
+                // 1. Headline slides upward out of the curtain mask (NO fade out)
+                .to("#hero-text-content", {
+                    y: -300,
+                    ease: "power1.inOut"
+                }, 0)
+                // 2. Buttons shrink in size as they move up
+                .to("#hero-buttons-group", {
+                    scale: 0,
+                    opacity: 0,
+                    ease: "power1.inOut"
+                }, 0)
+                // 3. Yellow & Pink back cards rotate flat and tuck away behind purple card
+                .to("#card-yellow", {
+                    rotation: 0,
+                    y: 80,
+                    scale: 0.94,
+                    opacity: 0,
+                    ease: "power1.inOut"
+                }, 0)
+                .to("#card-pink", {
+                    rotation: 0,
+                    y: 60,
+                    scale: 0.96,
+                    opacity: 0,
+                    ease: "power1.inOut"
+                }, 0)
+                // 4. Purple card straightens clockwise to 0deg and centers
+                .to("#card-purple", {
+                    rotation: 0,
+                    y: -24,
+                    ease: "power1.inOut"
+                }, 0);
+        });
+    </script>
 </body>
 
 </html>
