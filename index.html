@@ -16,7 +16,50 @@
         html,
         body {
             -ms-overflow-style: none !important;
-            scrollbar-width: none !important;
+        }
+
+        @supports (scrollbar-width: none) {
+            html,
+            body {
+                scrollbar-width: none !important;
+            }
+        }
+
+        /* Seamless gliding marquee for uppercase SOLUTIONS: flows out to left and re-enters from right */
+        @keyframes solutionsGlideLoop {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-6.5em);
+            }
+        }
+
+        .solutions-glide-track {
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
+            animation: solutionsGlideLoop 4.5s linear infinite;
+            will-change: transform;
+        }
+
+        .solutions-glide-item {
+            width: 6.5em;
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        #integrations-text {
+            font-size: clamp(3.0rem, 6.2vw, 6.6rem);
+        }
+
+        #solutions-yellow-container {
+            font-size: clamp(3.0rem, 6.2vw, 6.6rem);
+            height: 1.25em;
+            width: 6.5em;
         }
     </style>
 </head>
@@ -24,21 +67,22 @@
 <body class="bg-white text-zinc-900 antialiased selection:bg-[#4314E5] selection:text-white">
 
     <!-- 1. NAVBAR -->
-    <header id="main-header" class="fixed top-3 inset-x-0 z-50 ">
+    <header id="main-header" class="fixed top-3 inset-x-0 z-50">
         <nav class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
             <a href="#" id="navbar-logo" class="text-2xl font-extrabold tracking-tighter">LEXICON</a>
             <div id="navbar-links"
-                class="hidden md:flex items-center gap-8 text-sm text-zinc-600 backdrop-blur-md bg-zinc-100/50 rounded-lg p-3 px-8">
-                <a href="#features" class="hover:text-black">Features</a>
-                <a href="#integrations" class="hover:text-black">Integrations</a>
-                <a href="#metrics" class="hover:text-black">Pricing</a>
-                <a href="#faq" class="hover:text-black">About us</a>
+                class="hidden md:flex items-center gap-7 text-sm font-medium text-zinc-900 backdrop-blur-md bg-zinc-100/50 rounded-lg p-3 px-7">
+                <a href="#trainings" class="hover:text-zinc-600 transition">Trainings</a>
+                <a href="#services" class="hover:text-zinc-600 transition">Services</a>
+                <a href="#business-areas" class="hover:text-zinc-600 transition">Business areas</a>
+                <a href="#about-lexicon" class="hover:text-zinc-600 transition">About Lexicon</a>
+                <a href="#contact" class="hover:text-zinc-600 transition">Contact</a>
             </div>
             <div class="flex items-center gap-4 text-sm font-medium">
-                <a href="#" id="navbar-login" class="hidden sm:inline-block hover:text-zinc-600">Log In</a>
+                <a href="#" id="navbar-login" class="hidden sm:inline-block text-zinc-900 hover:text-zinc-600 transition">Log In</a>
                 <a href="#" id="navbar-cta-btn"
-                    class="bg-zinc-900 text-white px-5 py-2.5 rounded-lg hover:bg-zinc-700 transition">
-                    Start Free Trial
+                    class="bg-zinc-900 text-white font-medium px-5 py-2.5 rounded-lg hover:bg-zinc-700 transition">
+                    Start Learning Today
                 </a>
             </div>
         </nav>
@@ -50,21 +94,21 @@
             class="relative w-full h-screen flex flex-col justify-between overflow-hidden px-6 pt-28 pb-0">
             <!-- Hero Center Text & Actions -->
             <div id="hero-text-mask"
-                class="relative max-w-3xl mx-auto z-10 p-10 w-full text-center will-change-transform">
+                class="relative max-w-4xl mx-auto z-10 p-10 w-full text-center will-change-transform">
                 <h1 id="hero-headline"
                     class="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight leading-[1.2] text-zinc-900 select-none">
-                    <span class="block overflow-hidden py-1">
-                        <span id="hero-line-1" class="block will-change-transform">Maximize Your Social</span>
+                    <span class="block overflow-hidden py-2 pb-3">
+                        <span id="hero-line-1" class="block will-change-transform">Sweden's Leading</span>
                     </span>
-                    <span class="block overflow-hidden py-1">
-                        <span id="hero-line-2" class="block will-change-transform">Media Presence</span>
+                    <span class="block overflow-hidden py-2 pb-3">
+                        <span id="hero-line-2" class="block will-change-transform">Skills Developer</span>
                     </span>
                 </h1>
                 <div id="hero-buttons-group"
                     class="mt-8 flex flex-wrap justify-center items-center gap-4 text-sm font-medium will-change-transform">
                     <a href="#"
                         class="bg-[#4314E5] text-white px-7 py-3.5 rounded-lg hover:opacity-90 transition shadow-sm">
-                        Start Free Trial
+                        Start Learning Today
                     </a>
                     <a href="#" class="bg-zinc-100 text-zinc-800 px-7 py-3.5 rounded-lg hover:bg-zinc-200 transition">
                         Create Free Account
@@ -96,17 +140,17 @@
 
             <!-- 3. ANALYTICS BENTO GRID (SECTION 2 - FULL SCREEN SHEET) -->
             <section id="features"
-                class="absolute inset-x-0 bottom-0 w-full h-screen bg-white rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-2xl flex flex-col px-6 pt-28 md:pt-[118px] pb-0 z-30 will-change-transform">
+                class="absolute inset-x-0 -bottom-1 w-full h-[calc(100vh+8px)] bg-white rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-2xl flex flex-col px-6 pt-28 md:pt-[118px] pb-2 z-30 will-change-transform">
                 <div class="max-w-7xl mx-auto w-full flex flex-col h-full">
                     <!-- Section 2 Headline (Settled in EXACT Same Position as Hero Headline: top 127px) -->
                     <div class="w-full text-center shrink-0 pt-0 md:pt-1">
                         <h2 id="features-headline"
                             class="text-4xl sm:text-5xl md:text-6xl font-normal text-center tracking-tight leading-[1.2] text-zinc-900 select-none mb-1 md:mb-2">
                             <span class="block overflow-hidden py-2">
-                                <span id="features-line-1" class="block will-change-transform">Advanced Analytics</span>
+                                <span id="features-line-1" class="block will-change-transform">Professional Skills</span>
                             </span>
                             <span class="block overflow-hidden py-2 pb-3">
-                                <span id="features-line-2" class="block will-change-transform">and Reporting</span>
+                                <span id="features-line-2" class="block will-change-transform">and Certifications</span>
                             </span>
                         </h2>
                     </div>
@@ -118,176 +162,189 @@
                             class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch w-full -mt-2 max-h-[540px]">
                         <!-- Left Card: Interactive Bento (5 Cols) -->
                         <div
-                            class="lg:col-span-5 bg-zinc-100/50 backdrop-blur-md rounded-3xl p-6 md:p-8 flex flex-col justify-between min-h-[460px] md:min-h-[500px] select-none">
+                            class="lg:col-span-5 bg-zinc-100/70 rounded-3xl p-6 md:p-8 flex flex-col justify-between min-h-[460px] md:min-h-[500px] select-none">
                             <!-- Dynamic Slide Header -->
                             <h3 id="bento-slide-title"
                                 class="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-900 mb-4 transition-all duration-300">
-                                Hashtag Performance
+                                In-Demand Skills & Tools
                             </h3>
 
                             <!-- Inside White Container -->
                             <div
-                                class="relative bg-white/80 backdrop-blur-md rounded-2xl w-full flex-1 min-h-[310px] md:min-h-[350px] overflow-hidden flex flex-col justify-end">
-                                <!-- Slide 0: Stacked Hashtags Pile with falling animation (Matching Image 5) -->
+                                class="relative bg-white rounded-2xl w-full flex-1 min-h-[310px] md:min-h-[350px] overflow-hidden flex flex-col justify-end">
+                                <!-- Slide 0: Stacked Skills Pills with falling animation -->
                                 <div id="bento-slide-0"
                                     class="bento-slide absolute inset-0 p-3 overflow-hidden flex flex-col justify-end transition-opacity duration-500 opacity-100 z-10">
                                     <div id="hashtag-pile" class="relative w-full h-[280px] md:h-[310px]">
-                                        <!-- 15 Hashtags stacked across 3 layers with physical pile rotations matching user sketches -->
-                                        <!-- Bottom Foundation Layer -->
+                                        <!-- 15 Lexicon Training Topic Pills with identical size and organic layout -->
+                                        <!-- Row 1 (Floor level - resting on bottom) -->
                                         <span
-                                            class="hashtag-pill absolute bottom-[12px] left-[2%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none rotate-[36deg] will-change-transform z-10">#Travel</span>
+                                             class="hashtag-pill hashtag-row-1 absolute bottom-[8px] left-[1%] w-28 h-9 flex items-center justify-center bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm font-semibold shadow-sm select-none -rotate-[4deg] z-10">Python</span>
                                         <span
-                                            class="hashtag-pill absolute bottom-[6px] left-[22%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[4deg] will-change-transform z-10">#Foodie</span>
+                                             class="hashtag-pill hashtag-row-1 absolute bottom-[6px] left-[25%] w-28 h-9 flex items-center justify-center bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm font-semibold shadow-sm select-none rotate-[3deg] z-10">Excel Pro</span>
                                         <span
-                                            class="hashtag-pill absolute bottom-[8px] left-[44%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none rotate-[6deg] will-change-transform z-10">#Explore</span>
+                                             class="hashtag-pill hashtag-row-1 absolute bottom-[8px] left-[49%] w-28 h-9 flex items-center justify-center bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm font-semibold shadow-sm select-none -rotate-[2deg] z-10">Azure AI</span>
                                         <span
-                                            class="hashtag-pill absolute bottom-[10px] right-[3%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[8deg] will-change-transform z-10">#Movie</span>
+                                             class="hashtag-pill hashtag-row-1 absolute bottom-[6px] right-[1%] w-28 h-9 flex items-center justify-center bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm font-semibold shadow-sm select-none rotate-[6deg] z-10">C#.NET</span>
 
-                                        <!-- Middle Interlocking Layer -->
+                                        <!-- Row 2 (Resting directly on floor pills) -->
                                         <span
-                                            class="hashtag-pill absolute bottom-[54px] left-[10%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none rotate-[28deg] will-change-transform z-20">#Selfie</span>
+                                             class="hashtag-pill hashtag-row-2 absolute bottom-[38px] left-[2%] w-28 h-9 flex items-center justify-center bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm font-semibold shadow-sm select-none rotate-[10deg] z-20">Copilot</span>
                                         <span
-                                            class="hashtag-pill absolute bottom-[50px] left-[32%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[8deg] will-change-transform z-20">#Fun</span>
+                                             class="hashtag-pill hashtag-row-2 absolute bottom-[32px] left-[26%] w-28 h-9 flex items-center justify-center bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm font-semibold shadow-sm select-none -rotate-[6deg] z-20">Security</span>
                                         <span
-                                            class="hashtag-pill absolute bottom-[52px] left-[52%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none rotate-[10deg] will-change-transform z-20">#AI</span>
+                                             class="hashtag-pill hashtag-row-2 absolute bottom-[34px] left-[50%] w-28 h-9 flex items-center justify-center bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm font-semibold shadow-sm select-none rotate-[5deg] z-20">Leadership</span>
                                         <span
-                                            class="hashtag-pill absolute bottom-[58px] right-[2%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[18deg] will-change-transform z-20">#Fitness</span>
-                                        <span
-                                            class="hashtag-pill absolute bottom-[96px] left-[2%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[12deg] will-change-transform z-20">#Trending</span>
+                                             class="hashtag-pill hashtag-row-2 absolute bottom-[36px] right-[2%] w-28 h-9 flex items-center justify-center bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm font-semibold shadow-sm select-none -rotate-[10deg] z-20">IPMA Pro</span>
 
-                                        <!-- Top Tumbling Layer -->
+                                        <!-- Row 3 (Resting on row 1 & 2 valley contacts) -->
                                         <span
-                                            class="hashtag-pill absolute bottom-[142px] left-[6%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[10deg] will-change-transform z-30">#Cooking</span>
+                                             class="hashtag-pill hashtag-row-3 absolute bottom-[68px] left-[8%] w-28 h-9 flex items-center justify-center bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm font-semibold shadow-sm select-none -rotate-[8deg] z-30">Power BI</span>
                                         <span
-                                            class="hashtag-pill absolute bottom-[114px] left-[24%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none rotate-[4deg] will-change-transform z-30">#Nature</span>
+                                             class="hashtag-pill hashtag-row-3 absolute bottom-[64px] left-[33%] w-28 h-9 flex items-center justify-center bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm font-semibold shadow-sm select-none rotate-[8deg] z-30">Agile/SAFe</span>
                                         <span
-                                            class="hashtag-pill absolute bottom-[108px] left-[46%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[35deg] will-change-transform z-30">#Art</span>
+                                             class="hashtag-pill hashtag-row-3 absolute bottom-[66px] left-[58%] w-28 h-9 flex items-center justify-center bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm font-semibold shadow-sm select-none -rotate-[5deg] z-30">ITIL 4</span>
                                         <span
-                                            class="hashtag-pill absolute bottom-[120px] right-[2%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[26deg] will-change-transform z-30">#Photography</span>
+                                             class="hashtag-pill hashtag-row-3 absolute bottom-[72px] right-[3%] w-28 h-9 flex items-center justify-center bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm font-semibold shadow-sm select-none rotate-[12deg] z-30">Frontend</span>
+
+                                        <!-- Row 4 (Top pile crown - nestled securely in mid-tier dips) -->
                                         <span
-                                            class="hashtag-pill absolute bottom-[168px] left-[27%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none rotate-[8deg] will-change-transform z-40">#Viral</span>
+                                             class="hashtag-pill hashtag-row-4 absolute bottom-[102px] left-[15%] w-28 h-9 flex items-center justify-center bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm font-semibold shadow-sm select-none rotate-[6deg] z-40">MS 365</span>
                                         <span
-                                            class="hashtag-pill absolute bottom-[164px] left-[50%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[15deg] will-change-transform z-40">#Design</span>
+                                             class="hashtag-pill hashtag-row-4 absolute bottom-[98px] left-[42%] w-28 h-9 flex items-center justify-center bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm font-semibold shadow-sm select-none -rotate-[8deg] z-40">Teams</span>
+                                        <span
+                                             class="hashtag-pill hashtag-row-4 absolute bottom-[106px] right-[10%] w-28 h-9 flex items-center justify-center bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm font-semibold shadow-sm select-none rotate-[14deg] z-40">DevOps</span>
                                     </div>
                                 </div>
 
-                                <!-- Slide 1: Audience Demographics (Matching Image 4) -->
+                                <!-- Slide 1: Course Categories (Lexicon Real Business Areas) -->
                                 <div id="bento-slide-1"
-                                    class="bento-slide absolute inset-0 p-4 sm:p-5 overflow-hidden flex flex-col justify-center gap-3 transition-opacity duration-500 opacity-0 pointer-events-none z-10">
-                                    <div class="flex items-center gap-3">
+                                    class="bento-slide absolute inset-0 p-2 sm:p-2.5 overflow-hidden flex flex-col justify-between gap-1.5 transition-opacity duration-500 opacity-0 pointer-events-none z-10 bg-white">
+                                    <div class="flex items-center gap-2 flex-1">
                                         <div
-                                            class="flex-1 bg-[#ffb3d1] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            class="flex-1 bg-[#ffb3d1] rounded-lg h-full max-h-11 overflow-hidden relative flex items-center justify-end px-3">
                                             <div
-                                                class="absolute inset-y-0 left-0 bg-[#F8529E] rounded-2xl w-[75%] flex items-center justify-end px-2.5 text-white text-xs font-bold">
-                                                75%</div>
+                                                class="slide1-bar absolute inset-y-0 left-0 bg-[#F8529E] rounded-lg flex items-center justify-end px-2.5 text-white text-xs font-bold w-0"
+                                                data-pct="88">
+                                                <span class="slide1-val">0%</span></div>
                                         </div>
-                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Pet
-                                            Owners</span>
+                                        <span class="text-xs sm:text-sm font-semibold text-zinc-900 w-28 shrink-0">IT & AI Pro</span>
                                     </div>
-                                    <div class="flex items-center gap-3">
+                                    <div class="flex items-center gap-2 flex-1">
                                         <div
-                                            class="flex-1 bg-[#ffb3d1] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            class="flex-1 bg-[#ffb3d1] rounded-lg h-full max-h-11 overflow-hidden relative flex items-center justify-end px-3">
                                             <div
-                                                class="absolute inset-y-0 left-0 bg-[#F8529E] rounded-2xl w-[49%] flex items-center justify-end px-2.5 text-white text-xs font-bold">
-                                                49%</div>
+                                                class="slide1-bar absolute inset-y-0 left-0 bg-[#F8529E] rounded-lg flex items-center justify-end px-2.5 text-white text-xs font-bold w-0"
+                                                data-pct="76">
+                                                <span class="slide1-val">0%</span></div>
                                         </div>
-                                        <span
-                                            class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Travelers</span>
+                                        <span class="text-xs sm:text-sm font-semibold text-zinc-900 w-28 shrink-0">Leadership</span>
                                     </div>
-                                    <div class="flex items-center gap-3">
+                                    <div class="flex items-center gap-2 flex-1">
                                         <div
-                                            class="flex-1 bg-[#ffb3d1] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            class="flex-1 bg-[#ffb3d1] rounded-lg h-full max-h-11 overflow-hidden relative flex items-center justify-end px-3">
                                             <div
-                                                class="absolute inset-y-0 left-0 bg-[#F8529E] rounded-2xl w-[48%] flex items-center justify-end px-2.5 text-white text-xs font-bold">
-                                                48%</div>
+                                                class="slide1-bar absolute inset-y-0 left-0 bg-[#F8529E] rounded-lg flex items-center justify-end px-2.5 text-white text-xs font-bold w-0"
+                                                data-pct="70">
+                                                <span class="slide1-val">0%</span></div>
                                         </div>
-                                        <span
-                                            class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Parents</span>
+                                        <span class="text-xs sm:text-sm font-semibold text-zinc-900 w-28 shrink-0">Project (IPMA)</span>
                                     </div>
-                                    <div class="flex items-center gap-3">
+                                    <div class="flex items-center gap-2 flex-1">
                                         <div
-                                            class="flex-1 bg-[#ffb3d1] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            class="flex-1 bg-[#ffb3d1] rounded-lg h-full max-h-11 overflow-hidden relative flex items-center justify-end px-3">
                                             <div
-                                                class="absolute inset-y-0 left-0 bg-[#F8529E] rounded-2xl w-[43%] flex items-center justify-end px-2.5 text-white text-xs font-bold">
-                                                43%</div>
+                                                class="slide1-bar absolute inset-y-0 left-0 bg-[#F8529E] rounded-lg flex items-center justify-end px-2.5 text-white text-xs font-bold w-0"
+                                                data-pct="64">
+                                                <span class="slide1-val">0%</span></div>
                                         </div>
-                                        <span
-                                            class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Foodies</span>
+                                        <span class="text-xs sm:text-sm font-semibold text-zinc-900 w-28 shrink-0">Cybersecurity</span>
                                     </div>
-                                    <div class="flex items-center gap-3">
+                                    <div class="flex items-center gap-2 flex-1">
                                         <div
-                                            class="flex-1 bg-[#ffb3d1] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            class="flex-1 bg-[#ffb3d1] rounded-lg h-full max-h-11 overflow-hidden relative flex items-center justify-end px-3">
                                             <div
-                                                class="absolute inset-y-0 left-0 bg-[#F8529E] rounded-2xl w-[39%] flex items-center justify-end px-2.5 text-white text-xs font-bold">
-                                                39%</div>
+                                                class="slide1-bar absolute inset-y-0 left-0 bg-[#F8529E] rounded-lg flex items-center justify-end px-2.5 text-white text-xs font-bold w-0"
+                                                data-pct="58">
+                                                <span class="slide1-val">0%</span></div>
                                         </div>
-                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Fitness
-                                            Enthusiasts</span>
+                                        <span class="text-xs sm:text-sm font-semibold text-zinc-900 w-28 shrink-0">Microsoft 365</span>
                                     </div>
-                                    <div class="flex items-center gap-3">
+                                    <div class="flex items-center gap-2 flex-1">
                                         <div
-                                            class="flex-1 bg-[#ffb3d1] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            class="flex-1 bg-[#ffb3d1] rounded-lg h-full max-h-11 overflow-hidden relative flex items-center justify-end px-3">
                                             <div
-                                                class="absolute inset-y-0 left-0 bg-[#F8529E] rounded-2xl w-[28%] flex items-center justify-end px-2.5 text-white text-xs font-bold">
-                                                28%</div>
+                                                class="slide1-bar absolute inset-y-0 left-0 bg-[#F8529E] rounded-lg flex items-center justify-end px-2.5 text-white text-xs font-bold w-0"
+                                                data-pct="50">
+                                                <span class="slide1-val">0%</span></div>
                                         </div>
-                                        <span
-                                            class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Fashionistas</span>
+                                        <span class="text-xs sm:text-sm font-semibold text-zinc-900 w-28 shrink-0">YH Programs</span>
                                     </div>
                                 </div>
 
-                                <!-- Slide 2: Platform Reach -->
+                                <!-- Slide 2: Enterprise Impact & Quality Metrics (Distinct from bar chart) -->
                                 <div id="bento-slide-2"
-                                    class="bento-slide absolute inset-0 p-4 sm:p-5 overflow-hidden flex flex-col justify-center gap-3 transition-opacity duration-500 opacity-0 pointer-events-none z-10">
-                                    <div class="flex items-center gap-3">
-                                        <div
-                                            class="flex-1 bg-[#fef08a] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
-                                            <div
-                                                class="absolute inset-y-0 left-0 bg-[#FCD332] rounded-2xl w-[82%] flex items-center justify-end px-2.5 text-zinc-900 text-xs font-bold">
-                                                82%</div>
+                                    class="bento-slide absolute inset-0 p-2 sm:p-2.5 overflow-hidden flex flex-col justify-between gap-2 transition-opacity duration-500 opacity-0 pointer-events-none z-10 bg-white">
+                                    <div class="grid grid-cols-2 gap-2 flex-1">
+                                        <!-- Metric 1: Enterprise Client Satisfaction -->
+                                        <div class="slide2-card bg-[#fef08a] rounded-lg p-3 sm:p-4 flex flex-col justify-between border border-[#FCD332]/40">
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-[11px] sm:text-xs font-bold text-zinc-700 uppercase tracking-wide">Client Rating</span>
+                                                <span class="w-2 h-2 rounded-full bg-[#eab308]"></span>
+                                            </div>
+                                            <div>
+                                                <p class="text-2xl sm:text-3xl font-extrabold text-zinc-900"><span id="slide2-num-0">0.0</span><span class="text-base sm:text-lg font-medium text-zinc-700">/5</span></p>
+                                                <p class="text-[11px] sm:text-xs text-zinc-700 font-medium mt-0.5">Customer Satisfaction</p>
+                                                <div class="h-1.5 w-full bg-zinc-700/10 rounded-full overflow-hidden mt-2">
+                                                    <div class="slide2-meter h-full bg-[#ca8a04] rounded-full w-0" data-pct="96"></div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Reels &
-                                            Video</span>
-                                    </div>
-                                    <div class="flex items-center gap-3">
-                                        <div
-                                            class="flex-1 bg-[#fef08a] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
-                                            <div
-                                                class="absolute inset-y-0 left-0 bg-[#FCD332] rounded-2xl w-[64%] flex items-center justify-end px-2.5 text-zinc-900 text-xs font-bold">
-                                                64%</div>
+
+                                        <!-- Metric 2: Certified Expert Instructors -->
+                                        <div class="slide2-card bg-[#FCD332] rounded-lg p-3 sm:p-4 flex flex-col justify-between shadow-sm">
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-[11px] sm:text-xs font-bold text-zinc-900 uppercase tracking-wide">Instructors</span>
+                                                <span class="w-2 h-2 rounded-full bg-zinc-900"></span>
+                                            </div>
+                                            <div>
+                                                <p class="text-2xl sm:text-3xl font-extrabold text-zinc-900"><span id="slide2-num-1">0</span>%</p>
+                                                <p class="text-[11px] sm:text-xs text-zinc-800 font-medium mt-0.5">Accredited Experts</p>
+                                                <div class="h-1.5 w-full bg-zinc-900/15 rounded-full overflow-hidden mt-2">
+                                                    <div class="slide2-meter h-full bg-zinc-900 rounded-full w-0" data-pct="100"></div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <span
-                                            class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Stories</span>
-                                    </div>
-                                    <div class="flex items-center gap-3">
-                                        <div
-                                            class="flex-1 bg-[#fef08a] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
-                                            <div
-                                                class="absolute inset-y-0 left-0 bg-[#FCD332] rounded-2xl w-[58%] flex items-center justify-end px-2.5 text-zinc-900 text-xs font-bold">
-                                                58%</div>
+
+                                        <!-- Metric 3: Career Growth & Promotion -->
+                                        <div class="slide2-card bg-[#FCD332] rounded-lg p-3 sm:p-4 flex flex-col justify-between shadow-sm">
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-[11px] sm:text-xs font-bold text-zinc-900 uppercase tracking-wide">Impact</span>
+                                                <span class="w-2 h-2 rounded-full bg-zinc-900"></span>
+                                            </div>
+                                            <div>
+                                                <p class="text-2xl sm:text-3xl font-extrabold text-zinc-900"><span id="slide2-num-2">0</span>%</p>
+                                                <p class="text-[11px] sm:text-xs text-zinc-800 font-medium mt-0.5">Direct Career Impact</p>
+                                                <div class="h-1.5 w-full bg-zinc-900/15 rounded-full overflow-hidden mt-2">
+                                                    <div class="slide2-meter h-full bg-zinc-900 rounded-full w-0" data-pct="89"></div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <span
-                                            class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Carousels</span>
-                                    </div>
-                                    <div class="flex items-center gap-3">
-                                        <div
-                                            class="flex-1 bg-[#fef08a] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
-                                            <div
-                                                class="absolute inset-y-0 left-0 bg-[#FCD332] rounded-2xl w-[45%] flex items-center justify-end px-2.5 text-zinc-900 text-xs font-bold">
-                                                45%</div>
+
+                                        <!-- Metric 4: Nationwide Centers -->
+                                        <div class="slide2-card bg-[#fef08a] rounded-lg p-3 sm:p-4 flex flex-col justify-between border border-[#FCD332]/40">
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-[11px] sm:text-xs font-bold text-zinc-700 uppercase tracking-wide">Presence</span>
+                                                <span class="w-2 h-2 rounded-full bg-[#eab308]"></span>
+                                            </div>
+                                            <div>
+                                                <p class="text-2xl sm:text-3xl font-extrabold text-zinc-900"><span id="slide2-num-3">0</span>+ <span class="text-sm font-semibold text-zinc-700">Sites</span></p>
+                                                <p class="text-[11px] sm:text-xs text-zinc-700 font-medium mt-0.5">Throughout Sweden</p>
+                                                <div class="h-1.5 w-full bg-zinc-700/10 rounded-full overflow-hidden mt-2">
+                                                    <div class="slide2-meter h-full bg-[#ca8a04] rounded-full w-0" data-pct="92"></div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Direct
-                                            Messages</span>
-                                    </div>
-                                    <div class="flex items-center gap-3">
-                                        <div
-                                            class="flex-1 bg-[#fef08a] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
-                                            <div
-                                                class="absolute inset-y-0 left-0 bg-[#FCD332] rounded-2xl w-[33%] flex items-center justify-end px-2.5 text-zinc-900 text-xs font-bold">
-                                                33%</div>
-                                        </div>
-                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Link In
-                                            Bio</span>
                                     </div>
                                 </div>
                             </div>
@@ -295,15 +352,15 @@
                             <!-- 3 Bottom Timer Lines (Full Width of Card Container) -->
                             <div id="bento-timer-bars" class="grid grid-cols-3 gap-3 w-full pt-4">
                                 <div class="h-2.5 bg-[#4314E5]/15 rounded-full overflow-hidden cursor-pointer"
-                                    onclick="switchBentoSlide(0)" title="Hashtag Performance">
+                                    onclick="switchBentoSlide(0)" title="In-Demand Skills & Tools">
                                     <div id="bento-fill-0" class="h-full bg-[#4314E5] rounded-full w-0"></div>
                                 </div>
                                 <div class="h-2.5 bg-[#F8529E]/20 rounded-full overflow-hidden cursor-pointer"
-                                    onclick="switchBentoSlide(1)" title="Audience Demographics">
+                                    onclick="switchBentoSlide(1)" title="Popular Training Areas">
                                     <div id="bento-fill-1" class="h-full bg-[#F8529E] rounded-full w-0"></div>
                                 </div>
                                 <div class="h-2.5 bg-[#FCD332]/30 rounded-full overflow-hidden cursor-pointer"
-                                    onclick="switchBentoSlide(2)" title="Platform Reach">
+                                    onclick="switchBentoSlide(2)" title="Enterprise Quality & Impact">
                                     <div id="bento-fill-2" class="h-full bg-[#FCD332] rounded-full w-0"></div>
                                 </div>
                             </div>
@@ -311,31 +368,31 @@
 
                         <!-- Right Card: Optimizing Performance (7 Cols) matching user sketch -->
                         <div
-                            class="lg:col-span-7 bg-zinc-100/50 backdrop-blur-md rounded-3xl p-6 md:p-8 flex flex-col justify-between min-h-[460px] md:min-h-[500px]">
+                            class="lg:col-span-7 bg-zinc-100/70 rounded-3xl p-6 md:p-8 flex flex-col justify-between min-h-[460px] md:min-h-[500px]">
                             <!-- Header -->
                             <h3 class="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-900 mb-4 md:mb-5">
-                                Optimizing Performance
+                                Measurable Competence Growth
                             </h3>
 
                             <!-- Content: 2 Columns (Left: Yellow & Pink stacked, Right: Outlined Dates filter + Chart) -->
                             <div class="grid grid-cols-1 md:grid-cols-12 gap-5 flex-1 items-stretch">
-                                <!-- Left Column: Yellow (+30%) and Pink (+48%) Cards Stacked Vertically -->
+                                <!-- Left Column: Yellow (Course Completion) and Pink (Certified Professionals) Cards Stacked Vertically -->
                                 <div class="md:col-span-4 flex flex-col gap-4 justify-between">
-                                    <!-- Yellow Card: Engagement Rate (+30%) -->
+                                    <!-- Yellow Card: Competence Increase (+30%) -->
                                     <div
                                         class="bg-[#FCD332] rounded-3xl p-5 md:p-6 flex-1 flex flex-col justify-between min-h-[140px]">
-                                        <p class="text-xs sm:text-sm font-medium text-zinc-900">Engagement Rate</p>
+                                        <p class="text-xs sm:text-sm font-medium text-zinc-900">Pass Rate on Certifications</p>
                                         <p
                                             class="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-zinc-900">
-                                            +30%</p>
+                                            <span id="stat-pass-rate">96</span>%</p>
                                     </div>
-                                    <!-- Pink Card: Followers (+48%) -->
+                                    <!-- Pink Card: Trained Professionals (1.7M) -->
                                     <div
                                         class="bg-[#F8529E] text-white rounded-3xl p-5 md:p-6 flex-1 flex flex-col justify-between min-h-[140px]">
-                                        <p class="text-xs sm:text-sm font-medium text-white/95">Followers</p>
+                                        <p class="text-xs sm:text-sm font-medium text-white/95">Educated Since 1979</p>
                                         <p
                                             class="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-white">
-                                            +48%</p>
+                                            <span id="stat-educated">1.7</span>M</p>
                                     </div>
                                 </div>
 
@@ -366,47 +423,47 @@
                                         </div>
                                     </div>
 
-                                    <!-- Chart Area: 3 Dashed Grid Lines, Pink Polyline, Vertical Drop-lines, and +24% / +43% Badges matching Image 2 -->
+                                    <!-- Chart Area: 3 Dashed Grid Lines, Pink Curve, Vertical Dashed Drop-lines, and Badges matching user Image 2 -->
                                     <div
-                                        class="relative w-full flex-1 min-h-[220px] md:min-h-[260px] flex items-center justify-center pt-2">
-                                        <svg class="w-full h-full overflow-visible" viewBox="0 0 360 200" fill="none"
-                                            preserveAspectRatio="none">
-                                            <!-- 3 Horizontal Dashed Grid Lines -->
-                                            <line x1="10" y1="52" x2="350" y2="52" stroke="#e4e4e7" stroke-width="1.5"
+                                        class="relative w-full flex-1 min-h-[250px] md:min-h-[285px] flex items-center justify-center pt-2 pb-1">
+                                        <svg class="w-full h-full overflow-visible" viewBox="0 0 380 280" fill="none"
+                                            preserveAspectRatio="xMidYMid meet">
+                                            <!-- 3 Horizontal Dashed Grid Lines across background matching Image 2 -->
+                                            <line x1="10" y1="28" x2="370" y2="28" stroke="#e4e4e7" stroke-width="1.5"
                                                 stroke-dasharray="4,4" />
-                                            <line x1="10" y1="106" x2="350" y2="106" stroke="#e4e4e7" stroke-width="1.5"
+                                            <line x1="10" y1="135" x2="370" y2="135" stroke="#e4e4e7" stroke-width="1.5"
                                                 stroke-dasharray="4,4" />
-                                            <line x1="10" y1="160" x2="350" y2="160" stroke="#e4e4e7" stroke-width="1.5"
+                                            <line x1="10" y1="242" x2="370" y2="242" stroke="#e4e4e7" stroke-width="1.5"
                                                 stroke-dasharray="4,4" />
 
-                                            <!-- Vertical Dashed Drop Lines from peak dots down to baseline -->
-                                            <line x1="90" y1="52" x2="90" y2="180" stroke="#F8529E" stroke-width="1.5"
-                                                stroke-dasharray="3,3" opacity="0.8" />
-                                            <line x1="250" y1="106" x2="250" y2="180" stroke="#F8529E"
-                                                stroke-width="1.5" stroke-dasharray="3,3" opacity="0.8" />
+                                            <!-- Vertical Dashed Drop Lines (dashed 4,4 matching background dashes) -->
+                                            <line id="chart-drop-1" x1="64.7" y1="167.9" x2="64.7" y2="242" stroke="#F8529E" stroke-width="1.5"
+                                                stroke-dasharray="4,4" opacity="0" />
+                                            <line id="chart-drop-2" x1="214.5" y1="151.7" x2="214.5" y2="242" stroke="#F8529E"
+                                                stroke-width="1.5" stroke-dasharray="4,4" opacity="0" />
 
-                                            <!-- Main Pink Curve Line matching Image 2 -->
-                                            <path
-                                                d="M 25 175 C 50 140, 70 52, 90 52 C 120 52, 145 145, 175 145 C 205 145, 230 106, 250 106 L 335 35"
-                                                stroke="#F8529E" stroke-width="4.5" stroke-linecap="round"
+                                            <!-- Main Pink Curve Line: Drawn with GSAP -->
+                                            <path id="chart-curve-path"
+                                                d="M 20 230 C 50 190, 80 135, 110 135 C 140 135, 155 185, 180 185 C 215 185, 240 75, 265 65 L 355 25"
+                                                stroke="#F8529E" stroke-width="4" stroke-linecap="round"
                                                 stroke-linejoin="round" />
 
-                                            <!-- Pink Circle Dots at Data Points -->
-                                            <circle cx="90" cy="52" r="5.5" fill="#F8529E" />
-                                            <circle cx="250" cy="106" r="5.5" fill="#F8529E" />
+                                            <!-- Pink Circle Dots at Data Points (walk along the curve) -->
+                                            <circle id="chart-dot-1" cx="64.7" cy="167.9" r="5.5" fill="#F8529E" />
+                                            <circle id="chart-dot-2" cx="214.5" cy="151.7" r="5.5" fill="#F8529E" />
 
-                                            <!-- Badges situated directly to the left of peak dots on the dashed line -->
-                                            <g>
-                                                <rect x="36" y="41" width="46" height="22" rx="11" fill="#18181b" />
-                                                <text x="59" y="56" fill="#ffffff" font-size="11" font-weight="700"
+                                            <!-- Badges: exactly proportioned like the '1 week' date filter pill, walking with dots -->
+                                            <g id="chart-badge-1">
+                                                <rect x="18.7" y="156.9" width="38" height="22" rx="11" fill="#18181b" />
+                                                <text id="chart-text-1" x="37.7" y="167.9" dominant-baseline="central" fill="#ffffff" font-size="9.5" font-weight="700"
                                                     text-anchor="middle"
-                                                    font-family="Inter, system-ui, sans-serif">+24%</text>
+                                                    font-family="Inter, system-ui, sans-serif">+15%</text>
                                             </g>
-                                            <g>
-                                                <rect x="196" y="95" width="46" height="22" rx="11" fill="#18181b" />
-                                                <text x="219" y="110" fill="#ffffff" font-size="11" font-weight="700"
+                                            <g id="chart-badge-2">
+                                                <rect x="168.5" y="140.7" width="38" height="22" rx="11" fill="#18181b" />
+                                                <text id="chart-text-2" x="187.5" y="151.7" dominant-baseline="central" fill="#ffffff" font-size="9.5" font-weight="700"
                                                     text-anchor="middle"
-                                                    font-family="Inter, system-ui, sans-serif">+43%</text>
+                                                    font-family="Inter, system-ui, sans-serif">+36%</text>
                                             </g>
                                         </svg>
                                     </div>
@@ -420,51 +477,88 @@
         </section>
     </div>
 
-    <!-- 4. INTEGRATIONS BANNER + STAGGERED 01/02/03 CARDS -->
-    <section id="integrations" class="max-w-6xl mx-auto px-6 py-20">
-        <div class="flex items-center justify-center gap-4 text-4xl md:text-7xl tracking-tight mb-24">
-            <span>Integrations</span>
-            <span class="bg-[#FCD332] text-white px-5 py-1 rounded-2xl font-bold">wollo</span>
-        </div>
+    <!-- 4. SECTION 3: PINNED "EXPLORE LEXICON'S" + "SOLUTIONS" SMOOTH SCROLL SHOWCASE -->
+    <div id="solutions-scroll-track" class="relative w-full bg-white">
+        <section id="solutions-pin-section"
+            class="relative w-full h-screen overflow-hidden flex flex-col justify-center items-center px-6 bg-white z-20 select-none">
+            
+            <div id="solutions-hero-wrap" class="relative w-full max-w-7xl flex flex-col items-center justify-center">
+                
+                <!-- Main Lockup (Word "Explore Lexicon's" + Yellow "SOLUTIONS" Container Underneath) -->
+                <div id="integrations-lockup" class="relative flex flex-col items-center justify-center text-center will-change-transform">
+                    
+                    <!-- Massive Brand Heading: "Explore Lexicon's" (Revealing letter-by-letter as you scroll) -->
+                    <h2 id="integrations-text"
+                        class="font-normal tracking-tight text-zinc-900 inline-flex items-center overflow-visible will-change-transform whitespace-nowrap leading-none">
+                        <span class="overflow-hidden inline-block py-1"><span class="reveal-char inline-block will-change-transform">E</span></span><span class="overflow-hidden inline-block py-1"><span class="reveal-char inline-block will-change-transform">x</span></span><span class="overflow-hidden inline-block py-1"><span class="reveal-char inline-block will-change-transform">p</span></span><span class="overflow-hidden inline-block py-1"><span class="reveal-char inline-block will-change-transform">l</span></span><span class="overflow-hidden inline-block py-1"><span class="reveal-char inline-block will-change-transform">o</span></span><span class="overflow-hidden inline-block py-1"><span class="reveal-char inline-block will-change-transform">r</span></span><span class="overflow-hidden inline-block py-1"><span class="reveal-char inline-block will-change-transform">e</span></span><span class="inline-block py-1">&nbsp;</span><span class="overflow-hidden inline-block py-1"><span class="reveal-char inline-block will-change-transform">L</span></span><span class="overflow-hidden inline-block py-1"><span class="reveal-char inline-block will-change-transform">e</span></span><span class="overflow-hidden inline-block py-1"><span class="reveal-char inline-block will-change-transform">x</span></span><span class="overflow-hidden inline-block py-1"><span class="reveal-char inline-block will-change-transform">i</span></span><span class="overflow-hidden inline-block py-1"><span class="reveal-char inline-block will-change-transform">c</span></span><span class="overflow-hidden inline-block py-1"><span class="reveal-char inline-block will-change-transform">o</span></span><span class="overflow-hidden inline-block py-1"><span class="reveal-char inline-block will-change-transform">n</span></span><span class="overflow-hidden inline-block py-1"><span class="reveal-char inline-block will-change-transform">'</span></span><span class="overflow-hidden inline-block py-1"><span class="reveal-char inline-block will-change-transform">s</span></span>
+                    </h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-            <!-- Card 01 -->
-            <div class="bg-zinc-50 border border-zinc-200/70 rounded-3xl p-3">
-                <div class="p-5">
-                    <h3 class="text-lg font-medium">Amplify Your Social Media Reach</h3>
+                    <!-- Fitted Yellow Container with continuous seamless marquee "SOLUTIONS" at ~60% opacity, rounded-lg, same font size as Explore Lexicon's, sized to word -->
+                    <div id="solutions-yellow-container"
+                        class="relative bg-[#FCD332] rounded-lg flex items-center justify-start overflow-hidden will-change-transform select-none shrink-0 mt-4 sm:mt-6 shadow-sm">
+                        <!-- Continuous seamless glide marquee: flows out to left and re-enters from right without blink or cutoff -->
+                        <div class="solutions-glide-track inline-flex items-center whitespace-nowrap">
+                            <div class="solutions-glide-item">
+                                <span class="font-extrabold tracking-wider text-white/60 uppercase select-none leading-none">SOLUTIONS</span>
+                            </div>
+                            <div class="solutions-glide-item">
+                                <span class="font-extrabold tracking-wider text-white/60 uppercase select-none leading-none">SOLUTIONS</span>
+                            </div>
+                            <div class="solutions-glide-item">
+                                <span class="font-extrabold tracking-wider text-white/60 uppercase select-none leading-none">SOLUTIONS</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="bg-[#F06A24] text-white rounded-2xl p-6 h-56 flex flex-col justify-between">
-                    <span class="text-xs opacity-90">Partnership Engaging</span>
+
+            </div>
+        </section>
+    </div>
+
+    <!-- Business Area Cards Section (On their own section below the pinned showcase) -->
+    <section id="solutions-cards-section" class="relative w-full max-w-6xl mx-auto px-6 py-20 bg-white">
+        <div class="mb-10 text-center md:text-left">
+            <span class="text-xs font-semibold tracking-widest uppercase text-zinc-400">Lexicon Business Areas</span>
+            <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900 mt-2">Comprehensive Competence Solutions</h2>
+        </div>
+        <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+            <!-- Card 01 -->
+            <div class="solutions-card bg-zinc-50 border border-zinc-200/70 rounded-3xl p-3 shadow-sm hover:shadow-md transition">
+                <div class="p-5">
+                    <h3 class="text-lg font-medium text-zinc-900">IT & Proffsutbildningar</h3>
+                </div>
+                <div class="bg-[#F06A24] text-white rounded-2xl p-6 h-48 sm:h-52 flex flex-col justify-between">
+                    <span class="text-xs opacity-90">AI, Python, C#.NET, ITIL, Azure</span>
                     <div class="flex items-end justify-between">
-                        <span class="text-6xl font-light leading-none">01</span>
+                        <span class="text-5xl sm:text-6xl font-light leading-none">01</span>
                         <span class="text-xl">→</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Card 02 (Staggered Upward on Desktop) -->
-            <div class="bg-zinc-50 border border-zinc-200/70 rounded-3xl p-3 md:-translate-y-10">
+            <!-- Card 02 (Staggered upward on desktop) -->
+            <div class="solutions-card bg-zinc-50 border border-zinc-200/70 rounded-3xl p-3 md:-translate-y-6 shadow-sm hover:shadow-md transition">
                 <div class="p-5">
-                    <h3 class="text-lg font-medium">Connect, Manage, and Analyze</h3>
+                    <h3 class="text-lg font-medium text-zinc-900">Affärs- & Ledarskap</h3>
                 </div>
-                <div class="bg-[#F8529E] text-white rounded-2xl p-6 h-56 flex flex-col justify-between">
-                    <span class="text-xs opacity-90">Content Scheduling</span>
+                <div class="bg-[#F8529E] text-white rounded-2xl p-6 h-48 sm:h-52 flex flex-col justify-between">
+                    <span class="text-xs opacity-90">IPMA Project, Leadership & Teams</span>
                     <div class="flex items-end justify-between">
-                        <span class="text-6xl font-light leading-none">02</span>
+                        <span class="text-5xl sm:text-6xl font-light leading-none">02</span>
                         <span class="text-xl">→</span>
                     </div>
                 </div>
             </div>
 
             <!-- Card 03 -->
-            <div class="bg-zinc-50 border border-zinc-200/70 rounded-3xl p-3">
+            <div class="solutions-card bg-zinc-50 border border-zinc-200/70 rounded-3xl p-3 shadow-sm hover:shadow-md transition">
                 <div class="p-5">
-                    <h3 class="text-lg font-medium">Centralize and Streamline Communication</h3>
+                    <h3 class="text-lg font-medium text-zinc-900">Lexicon 365 & E-Learning</h3>
                 </div>
-                <div class="bg-[#4314E5] text-white rounded-2xl p-6 h-56 flex flex-col justify-between">
-                    <span class="text-xs opacity-90">Messages Management</span>
+                <div class="bg-[#4314E5] text-white rounded-2xl p-6 h-48 sm:h-52 flex flex-col justify-between">
+                    <span class="text-xs opacity-90">Digital Learning, MS Copilot, Support</span>
                     <div class="flex items-end justify-between">
-                        <span class="text-6xl font-light leading-none">03</span>
+                        <span class="text-5xl sm:text-6xl font-light leading-none">03</span>
                         <span class="text-xl">→</span>
                     </div>
                 </div>
@@ -472,34 +566,33 @@
         </div>
     </section>
 
-    <!-- 5. KPI METRICS ROWS -->
+    <!-- 5. KPI METRICS ROWS (Real Lexicongruppen Stats) -->
     <section id="metrics" class="max-w-6xl mx-auto px-6 py-20 divide-y divide-zinc-200">
         <div class="py-10 grid grid-cols-1 md:grid-cols-12 items-center gap-6">
             <div
                 class="md:col-span-3 w-28 h-28 rounded-2xl bg-[#4314E5] flex items-center justify-center text-3xl text-white">
-                👍</div>
+                🎓</div>
             <div class="md:col-span-5 relative">
                 <span
-                    class="inline-block bg-[#F06A24] text-white text-xs px-3 py-1 rounded-full -rotate-12 mb-1">Likes</span>
-                <p class="text-6xl md:text-7xl font-light tracking-tight">+270K</p>
+                    class="inline-block bg-[#F06A24] text-white text-xs px-3 py-1 rounded-full -rotate-6 mb-1">Educated People</span>
+                <p class="text-6xl md:text-7xl font-light tracking-tight">1.7M+</p>
             </div>
             <p class="md:col-span-4 text-sm text-zinc-600">
-                Wollo's intelligent algorithms analyze social media data in real-time, offering actionable insights.
+                Since 1979, Lexicon has developed skills for over 1.6 million people across Sweden, enabling companies to thrive.
             </p>
         </div>
 
         <div class="py-10 grid grid-cols-1 md:grid-cols-12 items-center gap-6">
             <div
                 class="md:col-span-3 w-28 h-28 rounded-2xl bg-[#F8529E] flex items-center justify-center text-3xl text-white">
-                🚀</div>
+                👥</div>
             <div class="md:col-span-5 relative">
                 <span
-                    class="inline-block bg-[#F8529E] text-white text-xs px-3 py-1 rounded-full -rotate-6 mb-1">Increase
-                    in Traffic</span>
-                <p class="text-6xl md:text-7xl font-light tracking-tight">8X</p>
+                    class="inline-block bg-[#F8529E] text-white text-xs px-3 py-1 rounded-full -rotate-6 mb-1">Consultants & Trainers</span>
+                <p class="text-6xl md:text-7xl font-light tracking-tight">630+</p>
             </div>
             <p class="md:col-span-4 text-sm text-zinc-600">
-                Track and analyze the impact of your social media campaigns in real time, pinpointing top strategies.
+                With 420+ accredited courses and 47 years in the industry, our nationwide network delivers tailored competence solutions.
             </p>
         </div>
     </section>
@@ -510,29 +603,49 @@
             class="bg-[#6950F3] text-white rounded-3xl p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8">
             <div class="max-w-md">
                 <h2 class="text-3xl md:text-4xl font-normal leading-snug mb-6">
-                    Reach More People and Grow Your Brand Awareness.
+                    Strengthen Your Organization's Competence Today.
                 </h2>
                 <a href="#"
                     class="inline-block border border-white/80 text-white text-sm px-6 py-3 rounded-full hover:bg-white hover:text-[#6950F3] transition">
-                    Start Free Trial
+                    Start Learning Today
                 </a>
             </div>
-            <div class="text-7xl select-none">📓</div>
+            <div class="text-7xl select-none">🇸🇪</div>
         </div>
 
-        <div class="mt-12 flex flex-wrap items-center justify-between gap-6 text-sm text-zinc-600">
+        <div class="mt-12 flex flex-wrap items-center justify-between gap-6 text-sm font-medium text-zinc-900">
             <div class="flex flex-wrap gap-8">
-                <a href="#" class="hover:text-black">Features</a>
-                <a href="#" class="hover:text-black">Integrations</a>
-                <a href="#" class="hover:text-black">Pricing</a>
-                <a href="#" class="hover:text-black">About us</a>
-                <a href="#" class="hover:text-black">Contact</a>
+                <a href="#trainings" class="hover:text-zinc-600 transition">Trainings</a>
+                <a href="#services" class="hover:text-zinc-600 transition">Services</a>
+                <a href="#business-areas" class="hover:text-zinc-600 transition">Business areas</a>
+                <a href="#about-lexicon" class="hover:text-zinc-600 transition">About Lexicon</a>
+                <a href="#contact" class="hover:text-zinc-600 transition">Contact</a>
             </div>
-            <div class="flex gap-4 font-semibold text-zinc-900">
-                <a href="#">f</a>
-                <a href="#">X</a>
-                <a href="#">IG</a>
-                <a href="#">in</a>
+            <div class="flex items-center gap-5 text-zinc-900">
+                <!-- Facebook -->
+                <a href="#" class="hover:text-zinc-600 transition" aria-label="Facebook">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                </a>
+                <!-- X / Twitter -->
+                <a href="#" class="hover:text-zinc-600 transition" aria-label="X">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                </a>
+                <!-- Instagram -->
+                <a href="#" class="hover:text-zinc-600 transition" aria-label="Instagram">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                </a>
+                <!-- LinkedIn -->
+                <a href="#" class="hover:text-zinc-600 transition" aria-label="LinkedIn">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                </a>
             </div>
         </div>
     </footer>
@@ -557,29 +670,319 @@
             const navbarLogin = document.querySelector("#navbar-login");
 
             // Configure initial origins & positions
-            gsap.set(["#hero-line-1", "#hero-line-2"], { yPercent: 0 });
+            gsap.set(["#hero-line-1", "#hero-line-2"], { yPercent: 0, opacity: 1 });
+            gsap.set("#hero-text-mask", { opacity: 1 });
             gsap.set(["#features-line-1", "#features-line-2"], { yPercent: 120 });
             gsap.set(featuresSection, {
                 yPercent: 105,
                 borderRadius: "2.5rem 2.5rem 0 0"
             });
-            gsap.set(".hashtag-pill", { y: -380, opacity: 0 });
+            gsap.set(".hashtag-pill", { y: -420, opacity: 1 });
             gsap.set("#hero-buttons-group", { transformOrigin: "center center" });
             gsap.set(["#card-yellow", "#card-pink", "#card-purple"], { transformOrigin: "bottom center" });
+            // Helper functions to position dots, dashed drop-lines, and badges along the curve path
+            function setChartPoint1(dist, val) {
+                const path = document.querySelector("#chart-curve-path");
+                const dot1 = document.querySelector("#chart-dot-1");
+                const drop1 = document.querySelector("#chart-drop-1");
+                const badge1 = document.querySelector("#chart-badge-1");
+                const rect1 = badge1?.querySelector("rect");
+                const text1 = document.querySelector("#chart-text-1");
+                if (!path || !dot1) return;
+                const pt = path.getPointAtLength(dist);
+                dot1.setAttribute("cx", pt.x);
+                dot1.setAttribute("cy", pt.y);
+                if (drop1) {
+                    drop1.setAttribute("x1", pt.x);
+                    drop1.setAttribute("y1", pt.y);
+                    drop1.setAttribute("x2", pt.x);
+                    drop1.setAttribute("y2", 242);
+                }
+                if (rect1) {
+                    rect1.setAttribute("x", pt.x - 46);
+                    rect1.setAttribute("y", pt.y - 11);
+                }
+                if (text1) {
+                    text1.setAttribute("x", pt.x - 27);
+                    text1.setAttribute("y", pt.y);
+                    text1.textContent = `+${Math.round(val)}%`;
+                }
+            }
+
+            function setChartPoint2(dist, val) {
+                const path = document.querySelector("#chart-curve-path");
+                const dot2 = document.querySelector("#chart-dot-2");
+                const drop2 = document.querySelector("#chart-drop-2");
+                const badge2 = document.querySelector("#chart-badge-2");
+                const rect2 = badge2?.querySelector("rect");
+                const text2 = document.querySelector("#chart-text-2");
+                if (!path || !dot2) return;
+                const pt = path.getPointAtLength(dist);
+                dot2.setAttribute("cx", pt.x);
+                dot2.setAttribute("cy", pt.y);
+                if (drop2) {
+                    drop2.setAttribute("x1", pt.x);
+                    drop2.setAttribute("y1", pt.y);
+                    drop2.setAttribute("x2", pt.x);
+                    drop2.setAttribute("y2", 242);
+                }
+                if (rect2) {
+                    rect2.setAttribute("x", pt.x - 46);
+                    rect2.setAttribute("y", pt.y - 11);
+                }
+                if (text2) {
+                    text2.setAttribute("x", pt.x - 27);
+                    text2.setAttribute("y", pt.y);
+                    text2.textContent = `+${Math.round(val)}%`;
+                }
+            }
+
+            // Initialize both points at their start positions on the curve
+            setChartPoint1(76.5, 15);
+            setChartPoint2(273.0, 36);
+
+            let hashtagsDropped = false;
+            let hashtagDropTween = null;
+            let numbersAnimated = false;
+            let chartAnimated = false;
+            let chartWalkTween = null;
+
+            function animateChart() {
+                if (chartAnimated) return;
+                chartAnimated = true;
+
+                // 1. Main Pink curve line draws in from left to right
+                gsap.fromTo("#chart-curve-path",
+                    { strokeDasharray: 600, strokeDashoffset: 600 },
+                    { strokeDashoffset: 0, duration: 1.4, ease: "power2.out" }
+                );
+
+                // 2. Both dots and badges appear directly on the curve at their starting positions (no jumping from outside)
+                setChartPoint1(76.5, 15);
+                setChartPoint2(273.0, 36);
+
+                gsap.to(["#chart-dot-1", "#chart-badge-1", "#chart-dot-2", "#chart-badge-2"], {
+                    scale: 1,
+                    opacity: 1,
+                    duration: 0.35,
+                    delay: 0.22,
+                    ease: "back.out(1.8)"
+                });
+                gsap.to(["#chart-drop-1", "#chart-drop-2"], {
+                    opacity: 0.85,
+                    duration: 0.35,
+                    delay: 0.22
+                });
+
+                // 3. Both dots simultaneously walk along the curve while their percentages grow:
+                // Point 1: starts at 15% and walks up to 24%
+                // Point 2: starts at 36% and walks up to 43%
+                const walkState = {
+                    dist1: 76.5,
+                    val1: 15,
+                    dist2: 273.0,
+                    val2: 36
+                };
+
+                if (chartWalkTween) chartWalkTween.kill();
+                chartWalkTween = gsap.to(walkState, {
+                    dist1: 134.0,
+                    val1: 24,
+                    dist2: 374.0,
+                    val2: 43,
+                    duration: 1.5,
+                    delay: 0.35,
+                    ease: "power2.out",
+                    onUpdate: () => {
+                        setChartPoint1(walkState.dist1, walkState.val1);
+                        setChartPoint2(walkState.dist2, walkState.val2);
+                    }
+                });
+            }
+
+            function resetChart() {
+                if (!chartAnimated) return;
+                chartAnimated = false;
+                if (chartWalkTween) chartWalkTween.kill();
+                gsap.set("#chart-curve-path", { strokeDashoffset: 600, strokeDasharray: 600 });
+                gsap.set(["#chart-drop-1", "#chart-drop-2"], { opacity: 0 });
+                gsap.set(["#chart-dot-1", "#chart-dot-2", "#chart-badge-1", "#chart-badge-2"], { scale: 0, opacity: 0 });
+                setChartPoint1(76.5, 15);
+                setChartPoint2(273.0, 36);
+            }
+
+            function animateNumbers() {
+                if (numbersAnimated) return;
+                numbersAnimated = true;
+                animateChart();
+
+                const passRateEl = document.querySelector("#stat-pass-rate");
+                const educatedEl = document.querySelector("#stat-educated");
+
+                if (passRateEl) {
+                    const passObj = { val: 0 };
+                    gsap.to(passObj, {
+                        val: 96,
+                        duration: 1.8,
+                        ease: "power2.out",
+                        onUpdate: () => {
+                            passRateEl.textContent = Math.round(passObj.val);
+                        }
+                    });
+                }
+
+                if (educatedEl) {
+                    const eduObj = { val: 0 };
+                    gsap.to(eduObj, {
+                        val: 1.7,
+                        duration: 1.8,
+                        ease: "power2.out",
+                        onUpdate: () => {
+                            educatedEl.textContent = eduObj.val.toFixed(1);
+                        }
+                    });
+                }
+            }
+
+            function resetNumbers() {
+                if (!numbersAnimated) return;
+                numbersAnimated = false;
+                resetChart();
+                const passRateEl = document.querySelector("#stat-pass-rate");
+                const educatedEl = document.querySelector("#stat-educated");
+                if (passRateEl) passRateEl.textContent = "0";
+                if (educatedEl) educatedEl.textContent = "0";
+            }
 
             // STAGE 2: Curtain Roll UP, Cards Stack UP, Purple Expansion, Purple Hold, & Section 2 Full Screen Transition
             const stage2Timeline = gsap.timeline({
                 scrollTrigger: {
                     trigger: "#hero-scroll-track",
                     start: "top top",
-                    end: "+=4200",
+                    end: "+=2200",
                     pin: "#hero-section",
                     scrub: 0.8,
                     anticipatePin: 1,
                     invalidateOnRefresh: true,
                     onUpdate: (self) => {
+                        const p = self.progress;
+
+                        // Autonomous physics rain drop when Section 2 cards begin to show
+                        if (p >= 0.58) {
+                            animateNumbers();
+                            if (!hashtagsDropped) {
+                                hashtagsDropped = true;
+                                if (hashtagDropTween) hashtagDropTween.kill();
+
+                                // Autonomous slow rain falling animation from outside
+                                hashtagDropTween = gsap.timeline();
+
+                                // 1. Floor row drops to ground (accelerating with gravity, soft rebound)
+                                hashtagDropTween.to(".hashtag-row-1", {
+                                    keyframes: [
+                                        { y: 0, duration: 0.60, ease: "power2.in" },
+                                        { y: -7, duration: 0.08, ease: "power1.out" },
+                                        { y: 0, duration: 0.08, ease: "power1.in" },
+                                        { y: -2, duration: 0.04, ease: "power1.out" },
+                                        { y: 0, duration: 0.04, ease: "power1.in" }
+                                    ],
+                                    stagger: 0.18
+                                }, 0);
+
+                                // 2. Row 2 drops onto Row 1
+                                hashtagDropTween.to(".hashtag-row-2", {
+                                    keyframes: [
+                                        { y: 0, duration: 0.56, ease: "power2.in" },
+                                        { y: -5, duration: 0.07, ease: "power1.out" },
+                                        { y: 0, duration: 0.07, ease: "power1.in" },
+                                        { y: -1.5, duration: 0.04, ease: "power1.out" },
+                                        { y: 0, duration: 0.04, ease: "power1.in" }
+                                    ],
+                                    stagger: 0.18
+                                }, 0.72);
+
+                                // Collision impact: Row 1 absorbs the shock when Row 2 strikes it
+                                hashtagDropTween.to(".hashtag-row-1", {
+                                    keyframes: [
+                                        { y: 2.5, duration: 0.05, ease: "power1.in" },
+                                        { y: 0, duration: 0.08, ease: "power1.out" }
+                                    ],
+                                    stagger: 0.04
+                                }, 1.30);
+                                hashtagDropTween.to(".hashtag-row-1", {
+                                    keyframes: [
+                                        { y: 2, duration: 0.05, ease: "power1.in" },
+                                        { y: 0, duration: 0.08, ease: "power1.out" }
+                                    ],
+                                    stagger: 0.04
+                                }, 1.65);
+
+                                // 3. Row 3 drops onto Row 2
+                                hashtagDropTween.to(".hashtag-row-3", {
+                                    keyframes: [
+                                        { y: 0, duration: 0.52, ease: "power2.in" },
+                                        { y: -4, duration: 0.06, ease: "power1.out" },
+                                        { y: 0, duration: 0.06, ease: "power1.in" },
+                                        { y: -1, duration: 0.03, ease: "power1.out" },
+                                        { y: 0, duration: 0.03, ease: "power1.in" }
+                                    ],
+                                    stagger: 0.18
+                                }, 1.44);
+
+                                // Collision impact: Row 2 absorbs the shock when Row 3 strikes
+                                hashtagDropTween.to(".hashtag-row-2", {
+                                    keyframes: [
+                                        { y: 2, duration: 0.05, ease: "power1.in" },
+                                        { y: 0, duration: 0.08, ease: "power1.out" }
+                                    ],
+                                    stagger: 0.04
+                                }, 1.98);
+                                hashtagDropTween.to(".hashtag-row-2", {
+                                    keyframes: [
+                                        { y: 1.5, duration: 0.05, ease: "power1.in" },
+                                        { y: 0, duration: 0.08, ease: "power1.out" }
+                                    ],
+                                    stagger: 0.04
+                                }, 2.32);
+
+                                // 4. Row 4 (top) drops onto Row 3
+                                hashtagDropTween.to(".hashtag-row-4", {
+                                    keyframes: [
+                                        { y: 0, duration: 0.48, ease: "power2.in" },
+                                        { y: -3.5, duration: 0.05, ease: "power1.out" },
+                                        { y: 0, duration: 0.05, ease: "power1.in" }
+                                    ],
+                                    stagger: 0.18
+                                }, 2.16);
+
+                                // Collision impact: Row 3 absorbs the shock when Row 4 strikes
+                                hashtagDropTween.to(".hashtag-row-3", {
+                                    keyframes: [
+                                        { y: 1.8, duration: 0.04, ease: "power1.in" },
+                                        { y: 0, duration: 0.06, ease: "power1.out" }
+                                    ],
+                                    stagger: 0.03
+                                }, 2.68);
+                                hashtagDropTween.to(".hashtag-row-3", {
+                                    keyframes: [
+                                        { y: 1.5, duration: 0.04, ease: "power1.in" },
+                                        { y: 0, duration: 0.06, ease: "power1.out" }
+                                    ],
+                                    stagger: 0.03
+                                }, 2.88);
+                            }
+                        } else if (p < 0.48) {
+                            // Reset when scrolled back up above Section 2
+                            if (hashtagsDropped) {
+                                hashtagsDropped = false;
+                                if (hashtagDropTween) hashtagDropTween.kill();
+                            }
+                            resetNumbers();
+                            gsap.set(".hashtag-pill", { y: -420, opacity: 1 });
+                        }
+
                         // Section 2 scroll-linked activation of interactive timer
-                        if (self.progress >= 0.68) {
+                        if (p >= 0.72) {
                             if (!timerIsRunning) {
                                 timerIsRunning = true;
                                 startSlideTimer();
@@ -608,16 +1011,24 @@
                 }, 0)
                 // 2. Line 1 rolls UP out of mask
                 .to("#hero-line-1", {
-                    yPercent: -120,
+                    yPercent: -150,
+                    opacity: 0,
                     duration: 0.20,
                     ease: "power1.inOut"
                 }, 0.03)
                 // 3. Line 2 rolls UP out of mask
                 .to("#hero-line-2", {
-                    yPercent: -120,
+                    yPercent: -150,
+                    opacity: 0,
                     duration: 0.20,
                     ease: "power1.inOut"
                 }, 0.03)
+                // Also fade out entire text container so absolutely zero descenders/dots remain
+                .to("#hero-text-mask", {
+                    opacity: 0,
+                    duration: 0.15,
+                    ease: "power1.inOut"
+                }, 0.10)
                 // 4. CTA buttons shrink to 0
                 .to("#hero-buttons-group", {
                     scale: 0,
@@ -704,20 +1115,15 @@
                     duration: 0.18,
                     ease: "power1.out"
                 }, 0.65)
-                // 13b. Hashtags fall down into the white container as Section 2 is showing
-                .to(".hashtag-pill", {
-                    y: 0,
-                    opacity: 1,
-                    duration: 0.16,
-                    stagger: {
-                        amount: 0.12,
-                        from: "random"
-                    },
-                    ease: "power2.out"
-                }, 0.63)
                 // 14. White card top angles straighten up when close to the top edge until covered
                 .to(featuresSection, {
                     borderRadius: "0px",
+                    duration: 0.10,
+                    ease: "power1.out"
+                }, 0.74)
+                // Fade out purple card so it cannot bleed through any subpixel seams at the bottom fold
+                .to(purpleCard, {
+                    opacity: 0,
                     duration: 0.10,
                     ease: "power1.out"
                 }, 0.74)
@@ -739,7 +1145,7 @@
                     ease: "power1.inOut"
                 }, 0.72)
                 .to(navbarLogin, {
-                    color: "#71717a",
+                    color: "#000000",
                     duration: 0.12,
                     ease: "power1.inOut"
                 }, 0.72)
@@ -752,15 +1158,113 @@
             // Bento Slide Interactive Timer
             let currentSlide = 0;
             let slideStartTime = null;
-            const SLIDE_DURATION = 3500;
+            const SLIDE_DURATION = 4200;
             let timerAnimFrame = null;
             let timerIsRunning = false;
 
             const slideTitles = [
-                "Hashtag Performance",
-                "Audience Demographics",
-                "Platform Reach"
+                "In-Demand Skills & Tools",
+                "Popular Training Areas",
+                "Enterprise Quality & Impact"
             ];
+
+            function animateSlide1() {
+                const bars = document.querySelectorAll(".slide1-bar");
+                bars.forEach((bar, index) => {
+                    const targetPct = parseInt(bar.getAttribute("data-pct"), 10) || 50;
+                    const valSpan = bar.querySelector(".slide1-val");
+                    const progressObj = { val: 0 };
+
+                    gsap.fromTo(bar,
+                        { width: "0%" },
+                        {
+                            width: targetPct + "%",
+                            duration: 1.1,
+                            ease: "power2.out",
+                            delay: index * 0.08
+                        }
+                    );
+
+                    if (valSpan) {
+                        valSpan.textContent = "0%";
+                        gsap.to(progressObj, {
+                            val: targetPct,
+                            duration: 1.1,
+                            ease: "power2.out",
+                            delay: index * 0.08,
+                            onUpdate: () => {
+                                valSpan.textContent = Math.round(progressObj.val) + "%";
+                            }
+                        });
+                    }
+                });
+            }
+
+            function animateSlide2() {
+                // Staggered card entrance pop
+                gsap.fromTo(".slide2-card",
+                    { scale: 0.94, opacity: 0.5 },
+                    { scale: 1, opacity: 1, duration: 0.5, ease: "power2.out", stagger: 0.08 }
+                );
+
+                // Meters fill up
+                const meters = document.querySelectorAll(".slide2-meter");
+                meters.forEach((meter, index) => {
+                    const targetPct = meter.getAttribute("data-pct") || "100";
+                    gsap.fromTo(meter,
+                        { width: "0%" },
+                        { width: targetPct + "%", duration: 1.1, ease: "power2.out", delay: 0.08 + index * 0.08 }
+                    );
+                });
+
+                // Numbers count up
+                const num0 = document.querySelector("#slide2-num-0");
+                if (num0) {
+                    const obj0 = { val: 0 };
+                    gsap.to(obj0, {
+                        val: 4.8,
+                        duration: 1.1,
+                        ease: "power2.out",
+                        onUpdate: () => { num0.textContent = obj0.val.toFixed(1); }
+                    });
+                }
+
+                const num1 = document.querySelector("#slide2-num-1");
+                if (num1) {
+                    const obj1 = { val: 0 };
+                    gsap.to(obj1, {
+                        val: 100,
+                        duration: 1.1,
+                        ease: "power2.out",
+                        delay: 0.08,
+                        onUpdate: () => { num1.textContent = Math.round(obj1.val); }
+                    });
+                }
+
+                const num2 = document.querySelector("#slide2-num-2");
+                if (num2) {
+                    const obj2 = { val: 0 };
+                    gsap.to(obj2, {
+                        val: 89,
+                        duration: 1.1,
+                        ease: "power2.out",
+                        delay: 0.16,
+                        onUpdate: () => { num2.textContent = Math.round(obj2.val); }
+                    });
+                }
+
+                const num3 = document.querySelector("#slide2-num-3");
+                if (num3) {
+                    const obj3 = { val: 0 };
+                    gsap.to(obj3, {
+                        val: 30,
+                        duration: 1.1,
+                        ease: "power2.out",
+                        delay: 0.24,
+                        onUpdate: () => { num3.textContent = Math.round(obj3.val); }
+                    });
+                }
+            }
 
             function switchBentoSlide(index, autoStart = true) {
                 if (timerAnimFrame) cancelAnimationFrame(timerAnimFrame);
@@ -790,6 +1294,14 @@
                 }
 
                 currentSlide = index;
+
+                // Trigger slide fill up animations
+                if (index === 1) {
+                    animateSlide1();
+                } else if (index === 2) {
+                    animateSlide2();
+                }
+
                 if (autoStart) {
                     timerIsRunning = true;
                     startSlideTimer();
@@ -825,6 +1337,65 @@
 
                 timerAnimFrame = requestAnimationFrame(step);
             }
+
+            // SECTION 3: PINNED "EXPLORE LEXICON'S" + "SOLUTIONS" SMOOTH SCROLL SHOWCASE
+            gsap.set(".reveal-char", { yPercent: 120, opacity: 0 });
+            gsap.set("#integrations-text", { y: 0 });
+            gsap.set("#solutions-yellow-container", { scale: 0.8, opacity: 0, y: 30 });
+            gsap.set("#integrations-lockup", { x: 0, y: 0, scale: 1 });
+
+            // 1. Reveal Explore Lexicon's letters starting as Section 3 approaches center, completing at top top
+            gsap.fromTo(".reveal-char", 
+                { yPercent: 120, opacity: 0 },
+                {
+                    scrollTrigger: {
+                        trigger: "#solutions-scroll-track",
+                        start: "top 50%",
+                        end: "top top",
+                        scrub: 0.8,
+                        invalidateOnRefresh: true,
+                    },
+                    yPercent: 0,
+                    opacity: 1,
+                    stagger: 0.02,
+                    ease: "power2.out"
+                }
+            );
+
+            // 2. Pinned showcase for Section 3: pushes Explore Lexicon's up and reveals SOLUTIONS underneath
+            const solutionsTimeline = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#solutions-scroll-track",
+                    start: "top top",
+                    end: "+=1600",
+                    pin: "#solutions-pin-section",
+                    scrub: 0.8,
+                    anticipatePin: 1,
+                    invalidateOnRefresh: true,
+                }
+            });
+
+            solutionsTimeline
+                // Explore Lexicon's pushes slightly upwards
+                .to("#integrations-text", {
+                    y: -28,
+                    duration: 0.20,
+                    ease: "power2.out"
+                }, 0.10)
+
+                // Yellow container with marquee "SOLUTIONS" scales in smoothly from underneath
+                .to("#solutions-yellow-container", {
+                    scale: 1,
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.20,
+                    ease: "back.out(1.6)"
+                }, 0.14)
+
+                // Pinned hold to let the user admire the complete lockup alone
+                .to("#integrations-lockup", {
+                    duration: 0.45
+                }, 0.35);
 
             window.switchBentoSlide = switchBentoSlide;
             window.startSlideTimer = startSlideTimer;
