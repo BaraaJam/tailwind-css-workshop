@@ -115,14 +115,14 @@
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch flex-1 max-h-[520px]">
                         <!-- Left Card: Interactive Bento (5 Cols) -->
                         <div
-                            class="lg:col-span-5 bg-zinc-50 border border-zinc-200/80 rounded-3xl p-6 md:p-8 flex flex-col justify-between min-h-[460px] md:min-h-[500px] select-none">
+                            class="lg:col-span-5 bg-zinc-100/50 backdrop-blur-md rounded-3xl p-6 md:p-8 flex flex-col justify-between min-h-[460px] md:min-h-[500px] select-none">
                             <!-- Dynamic Slide Header -->
-                            <h3 id="bento-slide-title" class="text-xl md:text-2xl font-medium tracking-tight text-zinc-900 mb-4 transition-all duration-300">
+                            <h3 id="bento-slide-title" class="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-900 mb-4 transition-all duration-300">
                                 Hashtag Performance
                             </h3>
 
                             <!-- Inside White Container -->
-                            <div class="relative bg-white border border-zinc-200/90 rounded-2xl w-full flex-1 min-h-[310px] md:min-h-[350px] overflow-hidden shadow-sm flex flex-col justify-end">
+                            <div class="relative bg-white/80 backdrop-blur-md rounded-2xl w-full flex-1 min-h-[310px] md:min-h-[350px] overflow-hidden flex flex-col justify-end">
                                 <!-- Slide 0: Stacked Hashtags Pile with falling animation (Matching Image 5) -->
                                 <div id="bento-slide-0" class="bento-slide absolute inset-0 p-3 overflow-hidden flex flex-col justify-end transition-opacity duration-500 opacity-100 z-10">
                                     <div id="hashtag-pile" class="relative w-full h-[280px] md:h-[310px]">
@@ -241,26 +241,26 @@
 
                         <!-- Right Card: Optimizing Performance (7 Cols) -->
                         <div
-                            class="lg:col-span-7 bg-zinc-50 border border-zinc-200/80 rounded-3xl p-8 md:p-10 flex flex-col justify-between min-h-[380px] md:min-h-[440px]">
-                            <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
-                                <h3 class="text-xl md:text-2xl font-medium tracking-tight">Optimizing Performance</h3>
+                            class="lg:col-span-7 bg-zinc-100/50 backdrop-blur-md rounded-3xl p-8 md:p-10 flex flex-col justify-between min-h-[380px] md:min-h-[440px]">
+                            <div class="flex flex-col items-start gap-3.5 mb-6">
+                                <h3 class="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-900">
+                                    Optimizing Performance
+                                </h3>
                                 <div
-                                    class="flex gap-1 bg-white p-1 rounded-full border border-zinc-200 text-xs md:text-sm">
-                                    <span class="px-3.5 py-1 rounded-full text-zinc-500">3 days</span>
-                                    <span class="px-3.5 py-1 rounded-full bg-zinc-900 text-white font-medium">1
-                                        week</span>
-                                    <span class="px-3.5 py-1 rounded-full text-zinc-500">1 month</span>
-                                    <span class="hidden sm:inline-block px-3.5 py-1 rounded-full text-zinc-500">3
-                                        months</span>
+                                    class="flex gap-1 bg-white/70 backdrop-blur-sm p-1 rounded-full text-xs md:text-sm">
+                                    <span class="px-3.5 py-1 rounded-full text-zinc-500 cursor-pointer">3 days</span>
+                                    <span class="px-3.5 py-1 rounded-full bg-zinc-900 text-white font-medium">1 week</span>
+                                    <span class="px-3.5 py-1 rounded-full text-zinc-500 cursor-pointer">1 month</span>
+                                    <span class="hidden sm:inline-block px-3.5 py-1 rounded-full text-zinc-500 cursor-pointer">3 months</span>
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-4">
-                                <div class="bg-[#FCD332] rounded-2xl p-6 md:p-7 shadow-sm">
+                                <div class="bg-[#FCD332] rounded-2xl p-6 md:p-7">
                                     <p class="text-xs md:text-sm font-medium text-zinc-800 mb-4">Engagement Rate</p>
                                     <p class="text-4xl md:text-5xl font-semibold tracking-tight">+62%</p>
                                 </div>
-                                <div class="bg-[#F8529E] text-white rounded-2xl p-6 md:p-7 shadow-sm">
+                                <div class="bg-[#F8529E] text-white rounded-2xl p-6 md:p-7">
                                     <p class="text-xs md:text-sm font-medium text-white/90 mb-4">Followers</p>
                                     <p class="text-4xl md:text-5xl font-semibold tracking-tight">+69%</p>
                                 </div>
