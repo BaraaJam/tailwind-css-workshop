@@ -13,7 +13,7 @@
     <!-- 1. NAVBAR -->
     <header id="main-header" class="fixed top-3 inset-x-0 z-50 ">
         <nav class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="#" class="text-2xl font-extrabold tracking-tighter">LEXICON</a>
+            <a href="#" id="navbar-logo" class="text-2xl font-extrabold tracking-tighter">LEXICON</a>
             <div
                 class="hidden md:flex items-center gap-8 text-sm text-zinc-600 backdrop-blur-md transition-colors duration-300 bg-zinc-100 rounded-lg p-3 px-8">
                 <a href="#features" class="hover:text-black">Features</a>
@@ -22,8 +22,8 @@
                 <a href="#faq" class="hover:text-black">About us</a>
             </div>
             <div class="flex items-center gap-4 text-sm font-medium">
-                <a href="#" class="hidden sm:inline-block hover:text-zinc-600">Log In</a>
-                <a href="#" class="bg-zinc-900 text-white px-5 py-2.5 rounded-lg hover:bg-zinc-700 transition">
+                <a href="#" id="navbar-login" class="hidden sm:inline-block hover:text-zinc-600">Log In</a>
+                <a href="#" id="navbar-cta-btn" class="bg-zinc-900 text-white px-5 py-2.5 rounded-lg hover:bg-zinc-700 transition">
                     Start Free Trial
                 </a>
             </div>
@@ -265,12 +265,16 @@
             const pinkCard = document.querySelector("#card-pink");
             const purpleCard = document.querySelector("#card-purple");
 
+            const navbarLogo = document.querySelector("#navbar-logo");
+            const navbarCtaBtn = document.querySelector("#navbar-cta-btn");
+            const navbarLogin = document.querySelector("#navbar-login");
+
             // Configure initial origins & positions
             gsap.set(["#hero-line-1", "#hero-line-2"], { yPercent: 0 });
             gsap.set("#hero-buttons-group", { transformOrigin: "center center" });
             gsap.set(["#card-yellow", "#card-pink", "#card-purple"], { transformOrigin: "bottom center" });
 
-            // STAGE 2: Curtain Roll UP, Cards Stack UP (No Fading), and Purple Card Full-Page Expansion
+            // STAGE 2: Curtain Roll UP, Cards Stack UP (No Fading), Purple Card Expansion & Navbar Color Shifts
             const stage2Timeline = gsap.timeline({
                 scrollTrigger: {
                     trigger: "#hero-scroll-track",
@@ -328,16 +332,40 @@
                     duration: 0.35,
                     ease: "power1.inOut"
                 }, 0)
-                // 7. Phase 2: Once covered, Purple Card expands until it covers the full page!
+                // 7. Phase 2: Once covered, Purple Card expands to full viewport width & height
                 .to(purpleCard, {
                     top: () => -cardsContainer.offsetTop,
                     left: () => -cardsContainer.offsetLeft,
                     width: () => heroSection.offsetWidth,
                     height: () => heroSection.offsetHeight,
-                    borderRadius: "0px",
                     duration: 0.65,
                     ease: "power1.inOut"
-                }, 0.35);
+                }, 0.35)
+                // 8. Edges do NOT shrink to become straight early; only very late when near edges (from 0.82 to 1.0)
+                // and keep some rounding (24px) rather than full hard 90° edges
+                .to(purpleCard, {
+                    borderRadius: "24px",
+                    duration: 0.18,
+                    ease: "power1.out"
+                }, 0.82)
+                // 9. Navbar LEXICON logo becomes pink (#F8529E)
+                .to(navbarLogo, {
+                    color: "#F8529E",
+                    duration: 0.25,
+                    ease: "power1.inOut"
+                }, 0.70)
+                // 10. Navbar button "Start Free Trial" becomes white
+                .to(navbarCtaBtn, {
+                    backgroundColor: "#ffffff",
+                    color: "#18181b",
+                    duration: 0.25,
+                    ease: "power1.inOut"
+                }, 0.70)
+                .to(navbarLogin, {
+                    color: "#ffffff",
+                    duration: 0.25,
+                    ease: "power1.inOut"
+                }, 0.70);
         });
     </script>
 </body>
