@@ -603,18 +603,32 @@
 
     <!-- 6. PRE-FOOTER CTA & FOOTER -->
     <footer class="max-w-6xl mx-auto px-6 pt-12 pb-16">
-        <div
-            class="bg-[#6950F3] text-white rounded-3xl p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8">
-            <div class="max-w-md">
+        <div id="bottom-cta-banner"
+            class="relative overflow-hidden bg-[#161328] text-white rounded-3xl p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl border border-white/10">
+            <!-- Interactive ASCII Matrix Background Canvas (Question Mark Shape) -->
+            <canvas id="bottom-matrix-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-90"></canvas>
+            
+            <div class="relative z-10 max-w-lg">
+                <span class="inline-block bg-[#F8529E] text-white text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-wider">
+                    Questions & Solutions
+                </span>
                 <h2 class="text-3xl md:text-4xl font-normal leading-snug mb-6">
                     Strengthen Your Organization's Competence Today.
                 </h2>
-                <a href="#"
-                    class="inline-block border border-white/80 text-white text-sm px-6 py-3 rounded-full hover:bg-white hover:text-[#6950F3] transition">
-                    Start Learning Today
-                </a>
+                <div class="flex flex-wrap items-center gap-4">
+                    <a href="#contact"
+                        class="inline-block bg-[#FCD332] text-zinc-950 font-semibold text-sm px-7 py-3.5 rounded-full hover:bg-[#fad028] transition shadow-sm">
+                        Start Learning Today
+                    </a>
+                    <a href="#services"
+                        class="inline-block border border-white/40 text-white text-sm px-6 py-3.5 rounded-full hover:bg-white/10 transition">
+                        Explore Trainings
+                    </a>
+                </div>
             </div>
-            <div class="text-7xl select-none">🇸🇪</div>
+            <div class="relative z-10 hidden md:flex items-center justify-center w-36 h-36">
+                <!-- Spacing clearance for Question Mark matrix canvas to illuminate on desktop right -->
+            </div>
         </div>
 
         <div class="mt-12 flex flex-wrap items-center justify-between gap-6 text-sm font-medium text-zinc-900">
@@ -1379,6 +1393,8 @@
                 }
             });
 
+            const arrowProgressObj = { val: 0 };
+
             solutionsTimeline
                 // Explore Lexicon's pushes slightly upwards
                 .to("#integrations-text", {
@@ -1396,10 +1412,35 @@
                     ease: "back.out(1.6)"
                 }, 0.14)
 
+                // When text & box scroll is finished, arrow streams down from top and gathers to shape the arrow
+                .to(arrowProgressObj, {
+                    val: 1,
+                    duration: 0.50,
+                    ease: "power1.inOut",
+                    onUpdate: () => {
+                        if (window.solutionsMatrix) {
+                            window.solutionsMatrix.setProgress(arrowProgressObj.val);
+                        }
+                    }
+                }, 0.35)
+
                 // Pinned hold to let the user admire the complete lockup alone
                 .to("#integrations-lockup", {
                     duration: 0.45
                 }, 0.35);
+
+            // 3. Bottom Banner: Scroll-linked Question Mark cascade gathering
+            ScrollTrigger.create({
+                trigger: "#bottom-cta-banner",
+                start: "top 95%",
+                end: "top 50%",
+                scrub: 0.8,
+                onUpdate: (self) => {
+                    if (window.bottomMatrix) {
+                        window.bottomMatrix.setProgress(self.progress);
+                    }
+                }
+            });
 
             window.switchBentoSlide = switchBentoSlide;
             window.startSlideTimer = startSlideTimer;

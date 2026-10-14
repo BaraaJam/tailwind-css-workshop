@@ -1,7 +1,8 @@
 /**
  * Lexicon Interactive ASCII Matrix Background Engine
  * Generates an interactive binary/ASCII glyph field that renders custom illuminated vector shapes
- * with mouse proximity spotlight, living character flicker, and Lexicon brand gradient colors.
+ * with mouse proximity spotlight, living character flicker, scroll-linked cascade gathering,
+ * and Lexicon brand gradient colors.
  */
 
 (function () {
@@ -15,6 +16,13 @@
             this.shapeType = options.shape || 'graduation-cap';
             this.cellSize = options.cellSize || 15;
             this.opacity = options.opacity || 0.88;
+            this.darkTheme = !!options.darkTheme;
+            this.position = options.position || 'default';
+
+            // Scroll-linked top-to-bottom cascade gathering progress [0..1]
+            this.fillProgress = options.fillProgress !== undefined ? options.fillProgress : 1.0;
+            this.currentProgress = this.fillProgress;
+            this.targetProgress = this.fillProgress;
 
             // Character pool matching Epic Games high-tech code aesthetic
             this.chars = ['0', '1', '+', '·', '*', '/', 'x', '▫'];
@@ -80,6 +88,13 @@
             this.animate();
         }
 
+        /**
+         * Update progress for scroll-linked gathering [0 = hidden, 1 = fully formed]
+         */
+        setProgress(val) {
+            this.targetProgress = Math.max(0, Math.min(1, val));
+        }
+
         resize() {
             const rect = this.canvas.parentElement ? this.canvas.parentElement.getBoundingClientRect() : { width: window.innerWidth, height: window.innerHeight };
             this.width = rect.width || window.innerWidth;
@@ -114,6 +129,8 @@
                 this.drawGraduationCap(octx, this.cols, this.rows);
             } else if (this.shapeType === 'arrow-down') {
                 this.drawArrowDown(octx, this.cols, this.rows);
+            } else if (this.shapeType === 'question-mark') {
+                this.drawQuestionMark(octx, this.cols, this.rows);
             }
 
             const imgData = octx.getImageData(0, 0, this.cols, this.rows).data;
@@ -214,12 +231,62 @@
         }
 
         /**
+         * Draws high-tech stylized Question Mark matching Epic Games FAQ aesthetic
+         */
+        drawQuestionMark(ctx, w, h) {
+            const isMobile = w < 55;
+            const cx = isMobile ? w * 0.5 : (this.position === 'center' ? w * 0.5 : w * 0.76);
+            const cy = h * 0.46;
+            // Calibrate scale so question mark spans ~18-20 rows for rich glyph detail
+            const scale = Math.min(w * (isMobile ? 0.38 : 0.22), h * 0.52);
+
+            ctx.save();
+            ctx.strokeStyle = '#ffffff';
+            ctx.fillStyle = '#ffffff';
+            ctx.lineWidth = Math.max(2.2, scale * 0.32);
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+            // 1. Question Mark Hook & Descender
+            ctx.beginPath();
+            ctx.moveTo(cx - scale * 0.44, cy - scale * 0.32);
+            // Top arched curve
+            ctx.bezierCurveTo(
+                cx - scale * 0.44, cy - scale * 0.88,
+                cx + scale * 0.48, cy - scale * 0.88,
+                cx + scale * 0.48, cy - scale * 0.32
+            );
+            // Inward curl to center stem
+            ctx.bezierCurveTo(
+                cx + scale * 0.48, cy - scale * 0.02,
+                cx, cy - scale * 0.02,
+                cx, cy + scale * 0.18
+            );
+            ctx.lineTo(cx, cy + scale * 0.24);
+            ctx.stroke();
+
+            // 2. Question Mark Bottom Dot
+            ctx.beginPath();
+            ctx.arc(cx, cy + scale * 0.65, scale * 0.18, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        /**
          * Main render loop
          */
         animate() {
             if (!this.isVisible) {
                 this.animFrameId = null;
                 return;
+            }
+
+            // Smooth interpolation towards targetProgress
+            if (Math.abs(this.targetProgress - this.currentProgress) > 0.001) {
+                this.currentProgress += (this.targetProgress - this.currentProgress) * 0.22;
+            } else {
+                this.currentProgress = this.targetProgress;
             }
 
             this.ctx.clearRect(0, 0, this.width, this.height);
@@ -229,13 +296,35 @@
 
             const mask = this.mask;
             const now = performance.now() * 0.001;
+            const p = this.currentProgress;
 
             for (let r = 0; r < this.rows; r++) {
-                const y = r * this.cellSize + this.cellSize / 2;
+                const normR = r / Math.max(1, this.rows - 1); // 0 at top, 1 at bottom
+                const baseY = r * this.cellSize + this.cellSize / 2;
+
+                // Cascade calculations: wavefront sweeping top-to-bottom
+                const cellStart = normR * 0.70;
+                const cellEnd = cellStart + 0.30;
+                let cellFactor = 0;
+                let isFalling = false;
+                let dropOffset = 0;
+
+                if (p <= 0.001) {
+                    cellFactor = 0;
+                } else if (p >= cellEnd) {
+                    cellFactor = 1;
+                } else if (p > cellStart) {
+                    cellFactor = (p - cellStart) / 0.30;
+                    isFalling = true;
+                    // Drops down from above by up to 36px and locks into grid position
+                    dropOffset = - (1.0 - cellFactor) * 36;
+                }
+
                 for (let c = 0; c < this.cols; c++) {
                     const idx = r * this.cols + c;
-                    const shapeAlpha = mask ? mask[idx] : 0;
+                    const rawShapeAlpha = mask ? mask[idx] : 0;
                     const x = c * this.cellSize + this.cellSize / 2;
+                    const y = baseY + (rawShapeAlpha > 0.1 ? dropOffset : 0);
 
                     // Mouse proximity calculations
                     let mouseInfluence = 0;
@@ -248,51 +337,72 @@
                         }
                     }
 
-                    const isIlluminated = shapeAlpha > 0.18 || mouseInfluence > 0.05;
+                    // Combined shape alpha linked to top-to-bottom gathering
+                    const effectiveShapeAlpha = rawShapeAlpha * cellFactor;
+                    const isIlluminated = effectiveShapeAlpha > 0.15 || mouseInfluence > 0.05 || (isFalling && rawShapeAlpha > 0.15);
 
-                    // Character selection: living matrix flicker
-                    // Subtle organic noise without rapid eye strain
-                    const noise = Math.sin(c * 0.35 + r * 0.28 + now * 1.8);
-                    const charIndex = Math.abs(Math.floor((c * 7 + r * 13 + (noise > 0.85 ? now * 4 : 0)) % this.chars.length));
-                    const char = this.chars[charIndex];
+                    // Character selection: living matrix flicker + rapid waterfall stream while falling
+                    let char;
+                    if (isFalling && rawShapeAlpha > 0.15) {
+                        // High-speed code rain stream at the falling wavefront
+                        const streamIdx = Math.abs(Math.floor((c * 5 + r * 9 + now * 35)) % this.chars.length);
+                        char = this.chars[streamIdx];
+                    } else {
+                        // Organic breathing loop
+                        const noise = Math.sin(c * 0.35 + r * 0.28 + now * 1.8);
+                        const charIndex = Math.abs(Math.floor((c * 7 + r * 13 + (noise > 0.85 ? now * 4 : 0)) % this.chars.length));
+                        char = this.chars[charIndex];
+                    }
 
                     if (isIlluminated) {
-                        // Blend Lexicon brand colors across coordinates
+                        // Lexicon brand colors
                         // Purple (#4314E5) -> Violet (#6950F3) -> Hot Pink (#F8529E) -> Amber Yellow (#FCD332)
                         const normX = x / this.width;
-                        const normY = y / this.height;
-                        const t = Math.min(Math.max((normX * 0.6 + normY * 0.4), 0), 1);
+                        const normYPos = y / this.height;
+                        const t = Math.min(Math.max((normX * 0.6 + normYPos * 0.4), 0), 1);
 
                         let red, green, blue;
                         if (t < 0.4) {
-                            // Deep Purple (67, 20, 229) to Violet (105, 80, 243)
                             const lt = t / 0.4;
                             red = Math.round(67 + (105 - 67) * lt);
                             green = Math.round(20 + (80 - 20) * lt);
                             blue = Math.round(229 + (243 - 229) * lt);
                         } else if (t < 0.75) {
-                            // Violet (105, 80, 243) to Pink (248, 82, 158)
                             const lt = (t - 0.4) / 0.35;
                             red = Math.round(105 + (248 - 105) * lt);
                             green = Math.round(80 + (82 - 80) * lt);
                             blue = Math.round(243 + (158 - 243) * lt);
                         } else {
-                            // Pink (248, 82, 158) to Amber Yellow (252, 211, 50)
                             const lt = (t - 0.75) / 0.25;
                             red = Math.round(248 + (252 - 248) * lt);
                             green = Math.round(82 + (211 - 82) * lt);
                             blue = Math.round(158 + (50 - 158) * lt);
                         }
 
-                        // Alpha calculation (combines shape strength and mouse spotlight)
-                        const finalAlpha = Math.min(1.0, (shapeAlpha * 0.88 + mouseInfluence * 0.95) * this.opacity);
+                        // Leading edge spark: characters in motion glow with white-gold intensity
+                        if (isFalling && rawShapeAlpha > 0.15) {
+                            const spark = (1.0 - cellFactor) * 0.85;
+                            red = Math.min(255, Math.round(red + (255 - red) * spark));
+                            green = Math.min(255, Math.round(green + (255 - green) * spark));
+                            blue = Math.min(255, Math.round(blue + (255 - blue) * spark));
+                        }
 
-                        this.ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${finalAlpha})`;
+                        // Final opacity
+                        let alpha = Math.min(1.0, (effectiveShapeAlpha * 0.90 + mouseInfluence * 0.95) * this.opacity);
+                        if (isFalling && rawShapeAlpha > 0.15) {
+                            alpha = Math.max(alpha, (1.0 - cellFactor) * 0.95);
+                        }
+
+                        this.ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
                         this.ctx.fillText(char, x, y);
                     } else {
-                        // Ambient inactive background glyphs (soft, subtle lavender/slate)
-                        this.ctx.fillStyle = 'rgba(67, 20, 229, 0.045)';
-                        this.ctx.fillText(char, x, y);
+                        // Ambient inactive background glyphs
+                        if (this.darkTheme) {
+                            this.ctx.fillStyle = 'rgba(255, 255, 255, 0.06)';
+                        } else {
+                            this.ctx.fillStyle = 'rgba(67, 20, 229, 0.045)';
+                        }
+                        this.ctx.fillText(char, x, baseY);
                     }
                 }
             }
@@ -309,22 +419,39 @@
         // 1. Hero Canvas: Graduation Cap (Education & Skills Development)
         const heroCanvas = document.getElementById('hero-matrix-canvas');
         if (heroCanvas) {
-            new AsciiMatrix({
+            window.heroMatrix = new AsciiMatrix({
                 canvasId: 'hero-matrix-canvas',
                 shape: 'graduation-cap',
                 cellSize: 15,
-                opacity: 0.90
+                opacity: 0.90,
+                fillProgress: 1.0
             });
         }
 
         // 2. Section 3 Canvas: Downward Arrow (Explore Lexicon's Solutions)
+        // Starts at fillProgress: 0.0, driven by pinned scroll scrub
         const solutionsCanvas = document.getElementById('solutions-matrix-canvas');
         if (solutionsCanvas) {
-            new AsciiMatrix({
+            window.solutionsMatrix = new AsciiMatrix({
                 canvasId: 'solutions-matrix-canvas',
                 shape: 'arrow-down',
                 cellSize: 15,
-                opacity: 0.85
+                opacity: 0.88,
+                fillProgress: 0.0
+            });
+        }
+
+        // 3. Bottom Canvas: Question Mark (FAQ & Solutions Consultation)
+        // Starts at fillProgress: 0.0, driven by scroll entry scrub
+        const bottomCanvas = document.getElementById('bottom-matrix-canvas');
+        if (bottomCanvas) {
+            window.bottomMatrix = new AsciiMatrix({
+                canvasId: 'bottom-matrix-canvas',
+                shape: 'question-mark',
+                cellSize: 14,
+                opacity: 0.95,
+                fillProgress: 0.0,
+                darkTheme: true
             });
         }
     }
