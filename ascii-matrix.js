@@ -2,9 +2,10 @@
  * Lexicon Interactive ASCII Matrix Background Engine
  * Generates an interactive binary/ASCII glyph field that renders custom illuminated vector shapes.
  * Features a dynamic Beehive Swarm Convergence System:
- * - Particles fly in as a buzzing, dispersed swarm from the top or bottom depending on scroll direction.
- * - Coalesces and fills the entire shape all at once as scroll progresses from half to full.
- * - Reverses seamlessly when scrolling backwards.
+ * - Particles fly as a wide, buzzing swarm from the top or bottom depending on scroll direction.
+ * - Fills the entire shape all at once once the section is in view (>= 35-50% scrolled).
+ * - Stable hysteresis: does not break or disperse on small scroll adjustments.
+ * - Animate-in on load / refresh / scroll back for Hero.
  * - Interactive mouse spotlight and Lexicon brand gradient coloring.
  */
 
@@ -22,8 +23,8 @@
             this.darkTheme = !!options.darkTheme;
             this.position = options.position || 'default';
 
-            // Scroll-linked convergence progress [0..1]
-            this.fillProgress = options.fillProgress !== undefined ? options.fillProgress : 1.0;
+            // Convergence progress [0..1]
+            this.fillProgress = options.fillProgress !== undefined ? options.fillProgress : 0.0;
             this.currentProgress = this.fillProgress;
             this.targetProgress = this.fillProgress;
 
@@ -61,7 +62,7 @@
                 this.buildMask();
             });
 
-            // Track scroll direction automatically: scrolling down -> enter from top; scrolling up -> enter from bottom
+            // Automatically track scroll direction
             window.addEventListener('scroll', () => {
                 const curY = window.scrollY;
                 const diff = curY - this.lastScrollY;
@@ -71,7 +72,7 @@
                 }
             }, { passive: true });
 
-            // Global mouse tracking so pointer-events-none canvas receives coords
+            // Global mouse tracking
             window.addEventListener('mousemove', (e) => {
                 const rect = this.canvas.getBoundingClientRect();
                 this.mouse.x = e.clientX - rect.left;
@@ -107,12 +108,44 @@
         }
 
         /**
-         * Update progress for scroll-linked beehive swarm convergence [0 = outside, 1 = fully formed]
+         * Directly trigger shape fill (swarm converges and locks into shape)
          */
-        setProgress(val, direction) {
-            this.targetProgress = Math.max(0, Math.min(1, val));
+        triggerFill(direction = -1) {
+            this.flyDirection = direction;
+            this.targetProgress = 1.0;
+        }
+
+        /**
+         * Directly trigger shape dispersal (swarm scatters and flies away)
+         */
+        triggerDisperse(direction = -1) {
+            this.flyDirection = direction;
+            this.targetProgress = 0.0;
+        }
+
+        /**
+         * Update by scroll progress with hysteresis:
+         * - Once section reaches >= 35% into view, fills the shape at once and locks!
+         * - Small scroll changes won't break the shape.
+         * - Disperses only when leaving section (< 10%).
+         */
+        updateByScroll(progress, direction) {
             if (direction !== undefined) {
                 this.flyDirection = direction;
+            }
+
+            if (progress >= 0.35) {
+                // Fills the shape at once!
+                this.targetProgress = 1.0;
+            } else if (progress <= 0.08) {
+                // Disperses when leaving section
+                this.targetProgress = 0.0;
+            } else {
+                // Incoming flight zone (0.08 to 0.35)
+                // If not already locked at 1.0, show swarm flying in
+                if (this.targetProgress < 1.0) {
+                    this.targetProgress = (progress - 0.08) / 0.27;
+                }
             }
         }
 
@@ -168,20 +201,20 @@
                         const homeX = c * this.cellSize + this.cellSize / 2;
                         const homeY = r * this.cellSize + this.cellSize / 2;
 
-                        // Beehive radial scatter angle & radius
+                        // Wide beehive dispersion spread
                         const angle = Math.random() * Math.PI * 2;
-                        const dist = 30 + Math.random() * 95;
+                        const dist = 40 + Math.random() * 150;
 
-                        // Buzzing frequency and jitter amplitude (fluttering like bees)
                         this.particles.push({
                             c, r,
                             homeX, homeY,
                             targetAlpha: alpha,
                             scatterX: Math.cos(angle) * dist,
-                            scatterY: Math.sin(angle) * dist * 0.75,
-                            buzzFreqX: 2.5 + Math.random() * 4.5,
-                            buzzFreqY: 2.2 + Math.random() * 4.5,
-                            buzzAmp: 6 + Math.random() * 14,
+                            scatterY: Math.sin(angle) * dist * 0.8,
+                            buzzFreqX: 2.2 + Math.random() * 4.0,
+                            buzzFreqY: 2.0 + Math.random() * 4.0,
+                            buzzAmp: 8 + Math.random() * 18,
+                            driftAngle: (Math.random() - 0.5) * 60,
                             phase: Math.random() * Math.PI * 2,
                             charSeed: Math.random() * 1000
                         });
@@ -314,9 +347,9 @@
                 return;
             }
 
-            // Smooth interpolation towards targetProgress
+            // Smooth interpolation towards targetProgress (snappy, responsive convergence)
             if (Math.abs(this.targetProgress - this.currentProgress) > 0.001) {
-                this.currentProgress += (this.targetProgress - this.currentProgress) * 0.20;
+                this.currentProgress += (this.targetProgress - this.currentProgress) * 0.16;
             } else {
                 this.currentProgress = this.targetProgress;
             }
@@ -335,7 +368,6 @@
                 for (let c = 0; c < this.cols; c++) {
                     const x = c * this.cellSize + this.cellSize / 2;
 
-                    // Mouse proximity on ambient background
                     let mouseInfluence = 0;
                     if (this.mouse.active) {
                         const dist = Math.hypot(x - this.mouse.x, y - this.mouse.y);
@@ -349,13 +381,11 @@
                     const char = this.chars[charIdx];
 
                     if (mouseInfluence > 0.05) {
-                        // Mouse spotlight on ambient glyphs
                         const alpha = Math.min(0.85, mouseInfluence * 0.75);
                         this.ctx.fillStyle = this.darkTheme
                             ? `rgba(139, 127, 245, ${alpha})`
                             : `rgba(67, 20, 229, ${alpha})`;
                     } else {
-                        // Idle faint matrix dust
                         this.ctx.fillStyle = this.darkTheme
                             ? 'rgba(255, 255, 255, 0.045)'
                             : 'rgba(67, 20, 229, 0.045)';
@@ -365,32 +395,33 @@
             }
 
             // 2. RENDER BEEHIVE SWARM PARTICLES
-            if (p > 0.02 && this.particles.length > 0) {
-                // Swarm incoming flight progress [0..1] as scroll approaches 0.50
-                const flyRatio = Math.min(1.0, Math.max(0.0, (p - 0.02) / 0.48));
-                // Shape convergence progress [0..1] as scroll goes from 0.50 to 1.0
-                const settleRatio = Math.min(1.0, Math.max(0.0, (p - 0.45) / 0.55));
-                // Smooth ease for the final snap/convergence into shape
+            if (p > 0.01 && this.particles.length > 0) {
+                // Incoming flight ratio [0..1]
+                const flyRatio = Math.min(1.0, Math.max(0.0, p / 0.50));
+                // Shape convergence ratio [0..1] as progress reaches >= 0.40
+                const settleRatio = Math.min(1.0, Math.max(0.0, (p - 0.35) / 0.65));
+                // Smoothstep ease for all-at-once shape convergence
                 const easeSettle = settleRatio * settleRatio * (3.0 - 2.0 * settleRatio);
 
                 // Cluster flight offset (traveling together from top or bottom)
-                const travelDist = this.height * 0.75;
+                const travelDist = this.height * 0.80;
                 const clusterOffsetY = this.flyDirection * travelDist * (1.0 - flyRatio);
 
-                // Dispersion & buzzing jitter (beehive scatter shrinks to 0 when easeSettle -> 1)
+                // Dispersion & buzzing jitter
                 const dispersion = 1.0 - easeSettle;
-                const overallAlpha = Math.min(1.0, p * 2.5);
+                const overallAlpha = Math.min(1.0, p * 2.8);
 
                 const len = this.particles.length;
                 for (let i = 0; i < len; i++) {
                     const pt = this.particles[i];
 
-                    // Beehive buzzing jitter
+                    // Beehive buzzing jitter & lateral flight drift
                     const buzzX = Math.sin(now * pt.buzzFreqX + pt.phase) * pt.buzzAmp * dispersion;
                     const buzzY = Math.cos(now * pt.buzzFreqY + pt.phase) * pt.buzzAmp * dispersion;
+                    const driftX = pt.driftAngle * (1.0 - flyRatio);
 
                     // Current particle position in space
-                    const curX = pt.homeX + pt.scatterX * dispersion + buzzX;
+                    const curX = pt.homeX + (pt.scatterX + driftX) * dispersion + buzzX;
                     const curY = pt.homeY + clusterOffsetY * dispersion + pt.scatterY * dispersion + buzzY;
 
                     // Mouse proximity on swarm particles
@@ -403,12 +434,13 @@
                     }
 
                     // Dynamic character selection:
-                    // Rapid buzzing code rain while in flight, smooth organic breathing once settled
                     let char;
-                    if (dispersion > 0.12) {
+                    if (dispersion > 0.08) {
+                        // High-speed code rain flicker while in flight
                         const idx = Math.abs(Math.floor(pt.charSeed + now * 32)) % this.chars.length;
                         char = this.chars[idx];
                     } else {
+                        // Organic breathing loop when settled
                         const noise = Math.sin(pt.c * 0.35 + pt.r * 0.28 + now * 1.8);
                         const idx = Math.abs(Math.floor((pt.c * 7 + pt.r * 13 + (noise > 0.85 ? now * 4 : 0)) % this.chars.length));
                         char = this.chars[idx];
@@ -438,9 +470,9 @@
                         blue = Math.round(158 + (50 - 158) * lt);
                     }
 
-                    // While buzzing in flight, particles glow with vibrant energetic sparks
-                    if (dispersion > 0.15) {
-                        const spark = dispersion * 0.65;
+                    // Flying swarm energy spark
+                    if (dispersion > 0.10) {
+                        const spark = dispersion * 0.60;
                         red = Math.min(255, Math.round(red + (255 - red) * spark));
                         green = Math.min(255, Math.round(green + (255 - green) * spark));
                         blue = Math.min(255, Math.round(blue + (255 - blue) * spark));
@@ -463,7 +495,7 @@
 
     // Auto-instantiate once DOM is ready
     function setupAsciiMatrices() {
-        // 1. Hero Canvas: Graduation Cap (Education & Skills Development)
+        // 1. Hero Canvas: Graduation Cap
         const heroCanvas = document.getElementById('hero-matrix-canvas');
         if (heroCanvas) {
             window.heroMatrix = new AsciiMatrix({
@@ -471,12 +503,18 @@
                 shape: 'graduation-cap',
                 cellSize: 15,
                 opacity: 0.90,
-                fillProgress: 1.0
+                fillProgress: 0.0 // starts 0, triggers in on load
             });
+
+            // Smooth entrance flight on load / refresh
+            setTimeout(() => {
+                if (window.heroMatrix) {
+                    window.heroMatrix.triggerFill(-1);
+                }
+            }, 180);
         }
 
         // 2. Section 3 Canvas: Downward Arrow (Explore Lexicon's Solutions)
-        // Starts at fillProgress: 0.0, driven by pinned scroll scrub
         const solutionsCanvas = document.getElementById('solutions-matrix-canvas');
         if (solutionsCanvas) {
             window.solutionsMatrix = new AsciiMatrix({
@@ -488,8 +526,7 @@
             });
         }
 
-        // 3. Bottom Canvas: Question Mark (FAQ & Solutions Consultation)
-        // Starts at fillProgress: 0.0, driven by scroll entry scrub
+        // 3. Bottom Canvas: Question Mark
         const bottomCanvas = document.getElementById('bottom-matrix-canvas');
         if (bottomCanvas) {
             window.bottomMatrix = new AsciiMatrix({
