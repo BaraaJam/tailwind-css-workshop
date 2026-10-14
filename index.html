@@ -32,10 +32,10 @@
     <!-- 2. HERO SCROLL TRACK (STAGE 2 SCROLL-LINKED) -->
     <div id="hero-scroll-track" class="relative w-full">
         <section id="hero-section" class="relative w-full h-screen flex flex-col justify-between overflow-hidden px-6 pt-28 pb-0">
-            <!-- Hero Center Text & Actions (Curtain Masked Container) -->
-            <div id="hero-text-mask" class="relative overflow-hidden max-w-3xl mx-auto z-10 w-full py-1">
-                <div id="hero-text-content" class="text-center will-change-transform">
-                    <h1 id="hero-headline" class="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight leading-[1.15] text-zinc-900">
+            <!-- Hero Center Text & Actions -->
+            <div id="hero-text-mask" class="relative max-w-3xl mx-auto z-10 w-full will-change-transform">
+                <div class="text-center">
+                    <h1 id="hero-headline" class="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight leading-[1.15] text-zinc-900 select-none will-change-transform" style="clip-path: inset(0% 0% 0% 0%);">
                         Maximize Your Social<br>Media Presence
                     </h1>
                     <div id="hero-buttons-group" class="mt-8 flex flex-wrap justify-center items-center gap-4 text-sm font-medium will-change-transform">
@@ -247,15 +247,18 @@
         document.addEventListener("DOMContentLoaded", () => {
             gsap.registerPlugin(ScrollTrigger);
 
-            // Configure initial origins
+            // Configure initial origins & clipPath
             gsap.set(["#card-yellow", "#card-pink", "#card-purple"], {
                 transformOrigin: "bottom center"
             });
             gsap.set("#hero-buttons-group", {
                 transformOrigin: "center center"
             });
+            gsap.set("#hero-headline", {
+                clipPath: "inset(0% 0% 0% 0%)"
+            });
 
-            // STAGE 2: Text Curtain Exit, Buttons Shrink & Card Straightening
+            // STAGE 2: Micro-move under navbar, Curtain Roll, Button Shrink & Card Straightening
             const stage2Timeline = gsap.timeline({
                 scrollTrigger: {
                     trigger: "#hero-scroll-track",
@@ -268,23 +271,32 @@
             });
 
             stage2Timeline
-                // 1. Headline slides upward out of the curtain mask (NO fade out)
-                .to("#hero-text-content", {
-                    y: -300,
-                    ease: "power1.inOut"
+                // 1. Text moves up a tiny bit just under the nav bar (does not go behind it)
+                .to("#hero-text-mask", {
+                    y: -32,
+                    duration: 0.3,
+                    ease: "power1.out"
                 }, 0)
-                // 2. Buttons shrink in size as they move up
+                // 2. Once settled right under nav bar, the curtain rolls down over the headline
+                .to("#hero-headline", {
+                    clipPath: "inset(100% 0% 0% 0%)",
+                    duration: 0.7,
+                    ease: "power1.inOut"
+                }, 0.22)
+                // 3. The buttons shrink in size
                 .to("#hero-buttons-group", {
                     scale: 0,
                     opacity: 0,
+                    duration: 0.65,
                     ease: "power1.inOut"
-                }, 0)
-                // 3. Yellow & Pink back cards rotate flat and tuck away behind purple card
+                }, 0.25)
+                // 4. Yellow & Pink back cards rotate flat and tuck away behind purple card
                 .to("#card-yellow", {
                     rotation: 0,
                     y: 80,
                     scale: 0.94,
                     opacity: 0,
+                    duration: 0.9,
                     ease: "power1.inOut"
                 }, 0)
                 .to("#card-pink", {
@@ -292,12 +304,14 @@
                     y: 60,
                     scale: 0.96,
                     opacity: 0,
+                    duration: 0.9,
                     ease: "power1.inOut"
                 }, 0)
-                // 4. Purple card straightens clockwise to 0deg and centers
+                // 5. Purple card straightens clockwise to 0deg and centers
                 .to("#card-purple", {
                     rotation: 0,
                     y: -24,
+                    duration: 0.9,
                     ease: "power1.inOut"
                 }, 0);
         });
