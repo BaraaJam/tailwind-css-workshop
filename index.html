@@ -33,10 +33,14 @@
     <div id="hero-scroll-track" class="relative w-full">
         <section id="hero-section" class="relative w-full h-screen flex flex-col justify-between overflow-hidden px-6 pt-28 pb-0">
             <!-- Hero Center Text & Actions -->
-            <div id="hero-text-mask" class="relative max-w-3xl mx-auto z-10 w-full will-change-transform">
-                <div class="text-center">
-                    <h1 id="hero-headline" class="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight leading-[1.15] text-zinc-900 select-none will-change-transform" style="clip-path: inset(0% 0% 0% 0%);">
-                        Maximize Your Social<br>Media Presence
+            <div id="hero-text-mask" class="relative max-w-3xl mx-auto z-10 w-full text-center will-change-transform">
+                    <h1 id="hero-headline" class="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight leading-[1.2] text-zinc-900 select-none">
+                        <span class="block overflow-hidden py-1">
+                            <span id="hero-line-1" class="block will-change-transform">Maximize Your Social</span>
+                        </span>
+                        <span class="block overflow-hidden py-1">
+                            <span id="hero-line-2" class="block will-change-transform">Media Presence</span>
+                        </span>
                     </h1>
                     <div id="hero-buttons-group" class="mt-8 flex flex-wrap justify-center items-center gap-4 text-sm font-medium will-change-transform">
                         <a href="#" class="bg-[#4314E5] text-white px-7 py-3.5 rounded-full hover:opacity-90 transition shadow-sm">
@@ -248,17 +252,12 @@
             gsap.registerPlugin(ScrollTrigger);
 
             // Configure initial origins & clipPath
-            gsap.set(["#card-yellow", "#card-pink", "#card-purple"], {
-                transformOrigin: "bottom center"
-            });
-            gsap.set("#hero-buttons-group", {
-                transformOrigin: "center center"
-            });
-            gsap.set("#hero-headline", {
-                clipPath: "inset(0% 0% 0% 0%)"
-            });
+            // Configure initial origins & positions
+            gsap.set(["#hero-line-1", "#hero-line-2"], { yPercent: 0 });
+            gsap.set("#hero-buttons-group", { transformOrigin: "center center" });
+            gsap.set(["#card-yellow", "#card-pink", "#card-purple"], { transformOrigin: "bottom center" });
 
-            // STAGE 2: Micro-move under navbar, Curtain Roll, Button Shrink & Card Straightening
+            // STAGE 2: Micro-move under navbar, Line-by-line Curtain Roll UP, Button Shrink & Card Straightening
             const stage2Timeline = gsap.timeline({
                 scrollTrigger: {
                     trigger: "#hero-scroll-track",
@@ -273,24 +272,30 @@
             stage2Timeline
                 // 1. Text moves up a tiny bit just under the nav bar (does not go behind it)
                 .to("#hero-text-mask", {
-                    y: -32,
-                    duration: 0.3,
+                    y: -30,
+                    duration: 0.25,
                     ease: "power1.out"
                 }, 0)
-                // 2. Once settled right under nav bar, the curtain rolls down over the headline
-                .to("#hero-headline", {
-                    clipPath: "inset(100% 0% 0% 0%)",
-                    duration: 0.7,
+                // 2. Line 1 rolls UP out of its line curtain mask first
+                .to("#hero-line-1", {
+                    yPercent: -120,
+                    duration: 0.45,
                     ease: "power1.inOut"
-                }, 0.22)
-                // 3. The buttons shrink in size
+                }, 0.15)
+                // 3. Line 2 rolls UP out of its own line curtain mask after Line 1 (not together!)
+                .to("#hero-line-2", {
+                    yPercent: -120,
+                    duration: 0.45,
+                    ease: "power1.inOut"
+                }, 0.32)
+                // 4. Buttons shrink in size
                 .to("#hero-buttons-group", {
                     scale: 0,
                     opacity: 0,
-                    duration: 0.65,
+                    duration: 0.55,
                     ease: "power1.inOut"
-                }, 0.25)
-                // 4. Yellow & Pink back cards rotate flat and tuck away behind purple card
+                }, 0.28)
+                // 5. Yellow & Pink back cards rotate flat and tuck away behind purple card
                 .to("#card-yellow", {
                     rotation: 0,
                     y: 80,
@@ -307,7 +312,7 @@
                     duration: 0.9,
                     ease: "power1.inOut"
                 }, 0)
-                // 5. Purple card straightens clockwise to 0deg and centers
+                // 6. Purple card straightens clockwise to 0deg and centers
                 .to("#card-purple", {
                     rotation: 0,
                     y: -24,
