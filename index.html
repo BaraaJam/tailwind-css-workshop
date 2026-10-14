@@ -96,9 +96,9 @@
 
             <!-- 3. ANALYTICS BENTO GRID (SECTION 2 - FULL SCREEN SHEET) -->
             <section id="features"
-                class="absolute inset-x-0 bottom-0 w-full h-screen bg-white rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-2xl flex flex-col justify-between px-6 pt-16 md:pt-18 pb-8 md:pb-10 z-30 will-change-transform">
-                <div class="max-w-7xl mx-auto w-full flex flex-col justify-between h-full">
-                    <!-- Section 2 Headline (Settled in Same Position as Hero Headline) -->
+                class="absolute inset-x-0 bottom-0 w-full h-screen bg-white rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-2xl flex flex-col justify-start px-6 pt-28 md:pt-[118px] pb-8 md:pb-10 z-30 will-change-transform">
+                <div class="max-w-7xl mx-auto w-full flex flex-col justify-start h-full">
+                    <!-- Section 2 Headline (Settled in EXACT Same Position as Hero Headline: top 127px) -->
                     <div class="w-full text-center pt-0 md:pt-1">
                         <h2 id="features-headline"
                             class="text-4xl sm:text-5xl md:text-6xl font-normal text-center tracking-tight leading-[1.2] text-zinc-900 select-none mb-1 md:mb-2">
@@ -111,8 +111,8 @@
                         </h2>
                     </div>
 
-                    <!-- Bigger Bento Grid (Expanded Width, Height & Padding, Shifted Upward) -->
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch flex-1 max-h-[540px] -mt-4 md:-mt-8">
+                    <!-- Bigger Bento Grid (Moved higher up, properly spaced under headline) -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch w-full mt-4 md:mt-5 max-h-[540px]">
                         <!-- Left Card: Interactive Bento (5 Cols) -->
                         <div
                             class="lg:col-span-5 bg-zinc-100/50 backdrop-blur-md rounded-3xl p-6 md:p-8 flex flex-col justify-between min-h-[460px] md:min-h-[500px] select-none">
@@ -265,15 +265,15 @@
 
                                 <!-- Right Column: Date Filter Pill with Outline + Interactive Graph matching Image 2 -->
                                 <div class="md:col-span-8 flex flex-col justify-between pl-0 md:pl-2">
-                                    <!-- Dates Filter Pill with Outlines preserved (matching user request & images) -->
+                                    <!-- Dates Filter Pill with clean single-line capsule & outline matching design -->
                                     <div class="flex justify-start md:justify-end mb-2">
-                                        <div class="flex items-center gap-1 sm:gap-2 bg-white/95 border-[1.5px] border-zinc-800 p-1 sm:p-1.5 rounded-full text-xs font-medium text-zinc-600 shadow-sm">
-                                            <span class="px-2.5 sm:px-3 py-1 rounded-full hover:text-zinc-900 transition cursor-pointer">3 days</span>
-                                            <span class="px-2.5 sm:px-3 py-1 rounded-full bg-zinc-900 text-white font-medium shadow-sm cursor-pointer">1 week</span>
-                                            <span class="px-2.5 sm:px-3 py-1 rounded-full hover:text-zinc-900 transition cursor-pointer">1 month</span>
-                                            <span class="px-2.5 sm:px-3 py-1 rounded-full hover:text-zinc-900 transition cursor-pointer">3 months</span>
-                                            <span class="hidden sm:inline-block px-2.5 sm:px-3 py-1 rounded-full hover:text-zinc-900 transition cursor-pointer">6 months</span>
-                                            <span class="hidden sm:inline-block px-2.5 sm:px-3 py-1 rounded-full hover:text-zinc-900 transition cursor-pointer">1 year</span>
+                                        <div class="inline-flex items-center gap-0.5 sm:gap-1 bg-white border border-zinc-300 p-1 rounded-full text-[11px] sm:text-xs font-medium text-zinc-600 shadow-sm">
+                                            <span class="px-2 sm:px-2.5 py-1 rounded-full hover:text-zinc-900 transition cursor-pointer whitespace-nowrap">3 days</span>
+                                            <span class="px-2.5 sm:px-3 py-1 rounded-full bg-zinc-900 text-white font-medium shadow-sm cursor-pointer whitespace-nowrap">1 week</span>
+                                            <span class="px-2 sm:px-2.5 py-1 rounded-full hover:text-zinc-900 transition cursor-pointer whitespace-nowrap">1 month</span>
+                                            <span class="px-2 sm:px-2.5 py-1 rounded-full hover:text-zinc-900 transition cursor-pointer whitespace-nowrap">3 months</span>
+                                            <span class="hidden sm:inline-block px-2 sm:px-2.5 py-1 rounded-full hover:text-zinc-900 transition cursor-pointer whitespace-nowrap">6 months</span>
+                                            <span class="hidden sm:inline-block px-2 sm:px-2.5 py-1 rounded-full hover:text-zinc-900 transition cursor-pointer whitespace-nowrap">1 year</span>
                                         </div>
                                     </div>
 
