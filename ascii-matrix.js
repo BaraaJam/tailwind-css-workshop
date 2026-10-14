@@ -27,13 +27,14 @@
             this.fillProgress = options.fillProgress !== undefined ? options.fillProgress : 0.0;
             this.currentProgress = this.fillProgress;
             this.targetProgress = this.fillProgress;
+            this.isLocked = this.fillProgress >= 0.99;
 
             // Swarm fly direction: -1 = from top (scrolling down), 1 = from bottom (scrolling up)
             this.flyDirection = options.flyDirection !== undefined ? options.flyDirection : -1;
             this.lastScrollY = window.scrollY;
 
-            // Character pool matching Epic Games code aesthetic
-            this.chars = ['0', '1', '+', '·', '*', '/', 'x', '▫'];
+            // Character pool matching Epic Games binary/code aesthetic
+            this.chars = ['0', '1', '0', '1', '1', '0', '+', '·', '*', '/', 'x'];
             
             // Mouse tracker
             this.mouse = {
@@ -110,41 +111,58 @@
         /**
          * Directly trigger shape fill (swarm converges and locks into shape)
          */
-        triggerFill(direction = -1) {
-            this.flyDirection = direction;
+        triggerFill(dir = -1) {
+            this.flyDirection = (dir === 1 || dir === 'bottom' || dir === 'from-bottom') ? 1 : -1;
             this.targetProgress = 1.0;
+            this.isLocked = true;
         }
 
         /**
          * Directly trigger shape dispersal (swarm scatters and flies away)
          */
-        triggerDisperse(direction = -1) {
-            this.flyDirection = direction;
+        triggerDisperse(dir = -1) {
+            this.flyDirection = (dir === 1 || dir === 'bottom' || dir === 'from-bottom') ? 1 : -1;
             this.targetProgress = 0.0;
+            this.isLocked = false;
         }
 
         /**
          * Update by scroll progress with hysteresis:
          * - Once section reaches >= 35% into view, fills the shape at once and locks!
-         * - Small scroll changes won't break the shape.
-         * - Disperses only when leaving section (< 10%).
+         * - Does not break on small scroll adjustments.
+         * - Disperses only when scrolling completely out of the section.
          */
-        updateByScroll(progress, direction) {
-            if (direction !== undefined) {
-                this.flyDirection = direction;
+        updateByScroll(progress, scrollDir) {
+            if (scrollDir !== undefined) {
+                // GSAP self.direction: 1 = scrolling down -> swarm from top (-1)
+                // -1 = scrolling up -> swarm from bottom (+1)
+                this.flyDirection = scrollDir > 0 ? -1 : 1;
             }
 
             if (progress >= 0.35) {
-                // Fills the shape at once!
                 this.targetProgress = 1.0;
-            } else if (progress <= 0.08) {
-                // Disperses when leaving section
+                this.isLocked = true;
+            } else if (progress <= 0.06) {
                 this.targetProgress = 0.0;
+                this.isLocked = false;
             } else {
-                // Incoming flight zone (0.08 to 0.35)
-                // If not already locked at 1.0, show swarm flying in
-                if (this.targetProgress < 1.0) {
-                    this.targetProgress = (progress - 0.08) / 0.27;
+                if (!this.isLocked) {
+                    this.targetProgress = Math.min(1.0, Math.max(0.0, (progress - 0.06) / 0.29));
+                }
+            }
+        }
+
+        /**
+         * Backward compatibility wrapper with latching hysteresis
+         */
+        setProgress(val) {
+            if (val >= 0.35) {
+                this.triggerFill();
+            } else if (val <= 0.06) {
+                this.triggerDisperse();
+            } else {
+                if (!this.isLocked) {
+                    this.targetProgress = Math.min(1.0, Math.max(0.0, (val - 0.06) / 0.29));
                 }
             }
         }
@@ -303,14 +321,14 @@
          */
         drawQuestionMark(ctx, w, h) {
             const isMobile = w < 55;
-            const cx = isMobile ? w * 0.5 : (this.position === 'center' ? w * 0.5 : w * 0.76);
-            const cy = h * 0.46;
-            const scale = Math.min(w * (isMobile ? 0.38 : 0.22), h * 0.52);
+            const cx = isMobile ? w * 0.5 : (this.position === 'center' ? w * 0.5 : w * 0.78);
+            const cy = h * 0.48;
+            const scale = Math.min(w * (isMobile ? 0.40 : 0.30), h * 0.62);
 
             ctx.save();
             ctx.strokeStyle = '#ffffff';
             ctx.fillStyle = '#ffffff';
-            ctx.lineWidth = Math.max(2.2, scale * 0.32);
+            ctx.lineWidth = Math.max(2.5, scale * 0.30);
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
 
@@ -332,7 +350,7 @@
 
             // 2. Bottom dot
             ctx.beginPath();
-            ctx.arc(cx, cy + scale * 0.65, scale * 0.18, 0, Math.PI * 2);
+            ctx.arc(cx, cy + scale * 0.65, scale * 0.16, 0, Math.PI * 2);
             ctx.fill();
 
             ctx.restore();
@@ -349,7 +367,7 @@
 
             // Smooth interpolation towards targetProgress (snappy, responsive convergence)
             if (Math.abs(this.targetProgress - this.currentProgress) > 0.001) {
-                this.currentProgress += (this.targetProgress - this.currentProgress) * 0.16;
+                this.currentProgress += (this.targetProgress - this.currentProgress) * 0.18;
             } else {
                 this.currentProgress = this.targetProgress;
             }
@@ -396,15 +414,15 @@
 
             // 2. RENDER BEEHIVE SWARM PARTICLES
             if (p > 0.01 && this.particles.length > 0) {
-                // Incoming flight ratio [0..1]
-                const flyRatio = Math.min(1.0, Math.max(0.0, p / 0.50));
-                // Shape convergence ratio [0..1] as progress reaches >= 0.40
-                const settleRatio = Math.min(1.0, Math.max(0.0, (p - 0.35) / 0.65));
+                // Snappy incoming flight ratio [0..1]
+                const flyRatio = Math.min(1.0, Math.max(0.0, p / 0.38));
+                // Rapid shape convergence ratio [0..1]
+                const settleRatio = Math.min(1.0, Math.max(0.0, (p - 0.18) / 0.70));
                 // Smoothstep ease for all-at-once shape convergence
                 const easeSettle = settleRatio * settleRatio * (3.0 - 2.0 * settleRatio);
 
                 // Cluster flight offset (traveling together from top or bottom)
-                const travelDist = this.height * 0.80;
+                const travelDist = this.height * 0.85;
                 const clusterOffsetY = this.flyDirection * travelDist * (1.0 - flyRatio);
 
                 // Dispersion & buzzing jitter
