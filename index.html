@@ -111,129 +111,196 @@
                         </h2>
                     </div>
 
-                    <!-- Bigger Bento Grid (Moved higher up, properly spaced under headline) -->
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch w-full mt-4 md:mt-5 max-h-[540px]">
+                    <!-- Bigger Bento Grid (Balanced vertical spacing under headline) -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch w-full mt-8 md:mt-14 max-h-[540px]">
                         <!-- Left Card: Interactive Bento (5 Cols) -->
                         <div
                             class="lg:col-span-5 bg-zinc-100/50 backdrop-blur-md rounded-3xl p-6 md:p-8 flex flex-col justify-between min-h-[460px] md:min-h-[500px] select-none">
                             <!-- Dynamic Slide Header -->
-                            <h3 id="bento-slide-title" class="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-900 mb-4 transition-all duration-300">
+                            <h3 id="bento-slide-title"
+                                class="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-900 mb-4 transition-all duration-300">
                                 Hashtag Performance
                             </h3>
 
                             <!-- Inside White Container -->
-                            <div class="relative bg-white/80 backdrop-blur-md rounded-2xl w-full flex-1 min-h-[310px] md:min-h-[350px] overflow-hidden flex flex-col justify-end">
+                            <div
+                                class="relative bg-white/80 backdrop-blur-md rounded-2xl w-full flex-1 min-h-[310px] md:min-h-[350px] overflow-hidden flex flex-col justify-end">
                                 <!-- Slide 0: Stacked Hashtags Pile with falling animation (Matching Image 5) -->
-                                <div id="bento-slide-0" class="bento-slide absolute inset-0 p-3 overflow-hidden flex flex-col justify-end transition-opacity duration-500 opacity-100 z-10">
+                                <div id="bento-slide-0"
+                                    class="bento-slide absolute inset-0 p-3 overflow-hidden flex flex-col justify-end transition-opacity duration-500 opacity-100 z-10">
                                     <div id="hashtag-pile" class="relative w-full h-[280px] md:h-[310px]">
                                         <!-- 15 Hashtags stacked across 3 layers with physical pile rotations matching user sketches -->
                                         <!-- Bottom Foundation Layer -->
-                                        <span class="hashtag-pill absolute bottom-[12px] left-[2%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none rotate-[36deg] will-change-transform z-10">#Travel</span>
-                                        <span class="hashtag-pill absolute bottom-[6px] left-[22%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[4deg] will-change-transform z-10">#Foodie</span>
-                                        <span class="hashtag-pill absolute bottom-[8px] left-[44%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none rotate-[6deg] will-change-transform z-10">#Explore</span>
-                                        <span class="hashtag-pill absolute bottom-[10px] right-[3%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[8deg] will-change-transform z-10">#Movie</span>
+                                        <span
+                                            class="hashtag-pill absolute bottom-[12px] left-[2%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none rotate-[36deg] will-change-transform z-10">#Travel</span>
+                                        <span
+                                            class="hashtag-pill absolute bottom-[6px] left-[22%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[4deg] will-change-transform z-10">#Foodie</span>
+                                        <span
+                                            class="hashtag-pill absolute bottom-[8px] left-[44%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none rotate-[6deg] will-change-transform z-10">#Explore</span>
+                                        <span
+                                            class="hashtag-pill absolute bottom-[10px] right-[3%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[8deg] will-change-transform z-10">#Movie</span>
 
                                         <!-- Middle Interlocking Layer -->
-                                        <span class="hashtag-pill absolute bottom-[54px] left-[10%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none rotate-[28deg] will-change-transform z-20">#Selfie</span>
-                                        <span class="hashtag-pill absolute bottom-[50px] left-[32%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[8deg] will-change-transform z-20">#Fun</span>
-                                        <span class="hashtag-pill absolute bottom-[52px] left-[52%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none rotate-[10deg] will-change-transform z-20">#AI</span>
-                                        <span class="hashtag-pill absolute bottom-[58px] right-[2%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[18deg] will-change-transform z-20">#Fitness</span>
-                                        <span class="hashtag-pill absolute bottom-[96px] left-[2%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[12deg] will-change-transform z-20">#Trending</span>
+                                        <span
+                                            class="hashtag-pill absolute bottom-[54px] left-[10%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none rotate-[28deg] will-change-transform z-20">#Selfie</span>
+                                        <span
+                                            class="hashtag-pill absolute bottom-[50px] left-[32%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[8deg] will-change-transform z-20">#Fun</span>
+                                        <span
+                                            class="hashtag-pill absolute bottom-[52px] left-[52%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none rotate-[10deg] will-change-transform z-20">#AI</span>
+                                        <span
+                                            class="hashtag-pill absolute bottom-[58px] right-[2%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[18deg] will-change-transform z-20">#Fitness</span>
+                                        <span
+                                            class="hashtag-pill absolute bottom-[96px] left-[2%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[12deg] will-change-transform z-20">#Trending</span>
 
                                         <!-- Top Tumbling Layer -->
-                                        <span class="hashtag-pill absolute bottom-[142px] left-[6%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[10deg] will-change-transform z-30">#Cooking</span>
-                                        <span class="hashtag-pill absolute bottom-[114px] left-[24%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none rotate-[4deg] will-change-transform z-30">#Nature</span>
-                                        <span class="hashtag-pill absolute bottom-[108px] left-[46%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[35deg] will-change-transform z-30">#Art</span>
-                                        <span class="hashtag-pill absolute bottom-[120px] right-[2%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[26deg] will-change-transform z-30">#Photography</span>
-                                        <span class="hashtag-pill absolute bottom-[168px] left-[27%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none rotate-[8deg] will-change-transform z-40">#Viral</span>
-                                        <span class="hashtag-pill absolute bottom-[164px] left-[50%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[15deg] will-change-transform z-40">#Design</span>
+                                        <span
+                                            class="hashtag-pill absolute bottom-[142px] left-[6%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[10deg] will-change-transform z-30">#Cooking</span>
+                                        <span
+                                            class="hashtag-pill absolute bottom-[114px] left-[24%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none rotate-[4deg] will-change-transform z-30">#Nature</span>
+                                        <span
+                                            class="hashtag-pill absolute bottom-[108px] left-[46%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[35deg] will-change-transform z-30">#Art</span>
+                                        <span
+                                            class="hashtag-pill absolute bottom-[120px] right-[2%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[26deg] will-change-transform z-30">#Photography</span>
+                                        <span
+                                            class="hashtag-pill absolute bottom-[168px] left-[27%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none rotate-[8deg] will-change-transform z-40">#Viral</span>
+                                        <span
+                                            class="hashtag-pill absolute bottom-[164px] left-[50%] px-5 py-2.5 bg-white border-[1.5px] border-zinc-700 text-zinc-900 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-sm select-none -rotate-[15deg] will-change-transform z-40">#Design</span>
                                     </div>
                                 </div>
 
                                 <!-- Slide 1: Audience Demographics (Matching Image 4) -->
-                                <div id="bento-slide-1" class="bento-slide absolute inset-0 p-4 sm:p-5 overflow-hidden flex flex-col justify-center gap-3 transition-opacity duration-500 opacity-0 pointer-events-none z-10">
+                                <div id="bento-slide-1"
+                                    class="bento-slide absolute inset-0 p-4 sm:p-5 overflow-hidden flex flex-col justify-center gap-3 transition-opacity duration-500 opacity-0 pointer-events-none z-10">
                                     <div class="flex items-center gap-3">
-                                        <div class="flex-1 bg-[#ffb3d1] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
-                                            <div class="absolute inset-y-0 left-0 bg-[#F8529E] rounded-2xl w-[75%] flex items-center justify-end px-2.5 text-white text-xs font-bold">75%</div>
+                                        <div
+                                            class="flex-1 bg-[#ffb3d1] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            <div
+                                                class="absolute inset-y-0 left-0 bg-[#F8529E] rounded-2xl w-[75%] flex items-center justify-end px-2.5 text-white text-xs font-bold">
+                                                75%</div>
                                         </div>
-                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Pet Owners</span>
+                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Pet
+                                            Owners</span>
                                     </div>
                                     <div class="flex items-center gap-3">
-                                        <div class="flex-1 bg-[#ffb3d1] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
-                                            <div class="absolute inset-y-0 left-0 bg-[#F8529E] rounded-2xl w-[49%] flex items-center justify-end px-2.5 text-white text-xs font-bold">49%</div>
+                                        <div
+                                            class="flex-1 bg-[#ffb3d1] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            <div
+                                                class="absolute inset-y-0 left-0 bg-[#F8529E] rounded-2xl w-[49%] flex items-center justify-end px-2.5 text-white text-xs font-bold">
+                                                49%</div>
                                         </div>
-                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Travelers</span>
+                                        <span
+                                            class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Travelers</span>
                                     </div>
                                     <div class="flex items-center gap-3">
-                                        <div class="flex-1 bg-[#ffb3d1] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
-                                            <div class="absolute inset-y-0 left-0 bg-[#F8529E] rounded-2xl w-[48%] flex items-center justify-end px-2.5 text-white text-xs font-bold">48%</div>
+                                        <div
+                                            class="flex-1 bg-[#ffb3d1] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            <div
+                                                class="absolute inset-y-0 left-0 bg-[#F8529E] rounded-2xl w-[48%] flex items-center justify-end px-2.5 text-white text-xs font-bold">
+                                                48%</div>
                                         </div>
-                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Parents</span>
+                                        <span
+                                            class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Parents</span>
                                     </div>
                                     <div class="flex items-center gap-3">
-                                        <div class="flex-1 bg-[#ffb3d1] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
-                                            <div class="absolute inset-y-0 left-0 bg-[#F8529E] rounded-2xl w-[43%] flex items-center justify-end px-2.5 text-white text-xs font-bold">43%</div>
+                                        <div
+                                            class="flex-1 bg-[#ffb3d1] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            <div
+                                                class="absolute inset-y-0 left-0 bg-[#F8529E] rounded-2xl w-[43%] flex items-center justify-end px-2.5 text-white text-xs font-bold">
+                                                43%</div>
                                         </div>
-                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Foodies</span>
+                                        <span
+                                            class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Foodies</span>
                                     </div>
                                     <div class="flex items-center gap-3">
-                                        <div class="flex-1 bg-[#ffb3d1] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
-                                            <div class="absolute inset-y-0 left-0 bg-[#F8529E] rounded-2xl w-[39%] flex items-center justify-end px-2.5 text-white text-xs font-bold">39%</div>
+                                        <div
+                                            class="flex-1 bg-[#ffb3d1] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            <div
+                                                class="absolute inset-y-0 left-0 bg-[#F8529E] rounded-2xl w-[39%] flex items-center justify-end px-2.5 text-white text-xs font-bold">
+                                                39%</div>
                                         </div>
-                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Fitness Enthusiasts</span>
+                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Fitness
+                                            Enthusiasts</span>
                                     </div>
                                     <div class="flex items-center gap-3">
-                                        <div class="flex-1 bg-[#ffb3d1] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
-                                            <div class="absolute inset-y-0 left-0 bg-[#F8529E] rounded-2xl w-[28%] flex items-center justify-end px-2.5 text-white text-xs font-bold">28%</div>
+                                        <div
+                                            class="flex-1 bg-[#ffb3d1] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            <div
+                                                class="absolute inset-y-0 left-0 bg-[#F8529E] rounded-2xl w-[28%] flex items-center justify-end px-2.5 text-white text-xs font-bold">
+                                                28%</div>
                                         </div>
-                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Fashionistas</span>
+                                        <span
+                                            class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Fashionistas</span>
                                     </div>
                                 </div>
 
                                 <!-- Slide 2: Platform Reach -->
-                                <div id="bento-slide-2" class="bento-slide absolute inset-0 p-4 sm:p-5 overflow-hidden flex flex-col justify-center gap-3 transition-opacity duration-500 opacity-0 pointer-events-none z-10">
+                                <div id="bento-slide-2"
+                                    class="bento-slide absolute inset-0 p-4 sm:p-5 overflow-hidden flex flex-col justify-center gap-3 transition-opacity duration-500 opacity-0 pointer-events-none z-10">
                                     <div class="flex items-center gap-3">
-                                        <div class="flex-1 bg-[#fef08a] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
-                                            <div class="absolute inset-y-0 left-0 bg-[#FCD332] rounded-2xl w-[82%] flex items-center justify-end px-2.5 text-zinc-900 text-xs font-bold">82%</div>
+                                        <div
+                                            class="flex-1 bg-[#fef08a] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            <div
+                                                class="absolute inset-y-0 left-0 bg-[#FCD332] rounded-2xl w-[82%] flex items-center justify-end px-2.5 text-zinc-900 text-xs font-bold">
+                                                82%</div>
                                         </div>
-                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Reels & Video</span>
+                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Reels &
+                                            Video</span>
                                     </div>
                                     <div class="flex items-center gap-3">
-                                        <div class="flex-1 bg-[#fef08a] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
-                                            <div class="absolute inset-y-0 left-0 bg-[#FCD332] rounded-2xl w-[64%] flex items-center justify-end px-2.5 text-zinc-900 text-xs font-bold">64%</div>
+                                        <div
+                                            class="flex-1 bg-[#fef08a] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            <div
+                                                class="absolute inset-y-0 left-0 bg-[#FCD332] rounded-2xl w-[64%] flex items-center justify-end px-2.5 text-zinc-900 text-xs font-bold">
+                                                64%</div>
                                         </div>
-                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Stories</span>
+                                        <span
+                                            class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Stories</span>
                                     </div>
                                     <div class="flex items-center gap-3">
-                                        <div class="flex-1 bg-[#fef08a] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
-                                            <div class="absolute inset-y-0 left-0 bg-[#FCD332] rounded-2xl w-[58%] flex items-center justify-end px-2.5 text-zinc-900 text-xs font-bold">58%</div>
+                                        <div
+                                            class="flex-1 bg-[#fef08a] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            <div
+                                                class="absolute inset-y-0 left-0 bg-[#FCD332] rounded-2xl w-[58%] flex items-center justify-end px-2.5 text-zinc-900 text-xs font-bold">
+                                                58%</div>
                                         </div>
-                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Carousels</span>
+                                        <span
+                                            class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Carousels</span>
                                     </div>
                                     <div class="flex items-center gap-3">
-                                        <div class="flex-1 bg-[#fef08a] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
-                                            <div class="absolute inset-y-0 left-0 bg-[#FCD332] rounded-2xl w-[45%] flex items-center justify-end px-2.5 text-zinc-900 text-xs font-bold">45%</div>
+                                        <div
+                                            class="flex-1 bg-[#fef08a] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            <div
+                                                class="absolute inset-y-0 left-0 bg-[#FCD332] rounded-2xl w-[45%] flex items-center justify-end px-2.5 text-zinc-900 text-xs font-bold">
+                                                45%</div>
                                         </div>
-                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Direct Messages</span>
+                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Direct
+                                            Messages</span>
                                     </div>
                                     <div class="flex items-center gap-3">
-                                        <div class="flex-1 bg-[#fef08a] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
-                                            <div class="absolute inset-y-0 left-0 bg-[#FCD332] rounded-2xl w-[33%] flex items-center justify-end px-2.5 text-zinc-900 text-xs font-bold">33%</div>
+                                        <div
+                                            class="flex-1 bg-[#fef08a] rounded-2xl h-8 overflow-hidden relative flex items-center justify-end px-3">
+                                            <div
+                                                class="absolute inset-y-0 left-0 bg-[#FCD332] rounded-2xl w-[33%] flex items-center justify-end px-2.5 text-zinc-900 text-xs font-bold">
+                                                33%</div>
                                         </div>
-                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Link In Bio</span>
+                                        <span class="text-xs sm:text-sm font-medium text-zinc-800 w-32 shrink-0">Link In
+                                            Bio</span>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- 3 Bottom Timer Lines (Full Width of Card Container) -->
                             <div id="bento-timer-bars" class="grid grid-cols-3 gap-3 w-full pt-4">
-                                <div class="h-2.5 bg-[#4314E5]/15 rounded-full overflow-hidden cursor-pointer" onclick="switchBentoSlide(0)" title="Hashtag Performance">
+                                <div class="h-2.5 bg-[#4314E5]/15 rounded-full overflow-hidden cursor-pointer"
+                                    onclick="switchBentoSlide(0)" title="Hashtag Performance">
                                     <div id="bento-fill-0" class="h-full bg-[#4314E5] rounded-full w-0"></div>
                                 </div>
-                                <div class="h-2.5 bg-[#F8529E]/20 rounded-full overflow-hidden cursor-pointer" onclick="switchBentoSlide(1)" title="Audience Demographics">
+                                <div class="h-2.5 bg-[#F8529E]/20 rounded-full overflow-hidden cursor-pointer"
+                                    onclick="switchBentoSlide(1)" title="Audience Demographics">
                                     <div id="bento-fill-1" class="h-full bg-[#F8529E] rounded-full w-0"></div>
                                 </div>
-                                <div class="h-2.5 bg-[#FCD332]/30 rounded-full overflow-hidden cursor-pointer" onclick="switchBentoSlide(2)" title="Platform Reach">
+                                <div class="h-2.5 bg-[#FCD332]/30 rounded-full overflow-hidden cursor-pointer"
+                                    onclick="switchBentoSlide(2)" title="Platform Reach">
                                     <div id="bento-fill-2" class="h-full bg-[#FCD332] rounded-full w-0"></div>
                                 </div>
                             </div>
@@ -252,14 +319,20 @@
                                 <!-- Left Column: Yellow (+30%) and Pink (+48%) Cards Stacked Vertically -->
                                 <div class="md:col-span-4 flex flex-col gap-4 justify-between">
                                     <!-- Yellow Card: Engagement Rate (+30%) -->
-                                    <div class="bg-[#FCD332] rounded-3xl p-5 md:p-6 flex-1 flex flex-col justify-between min-h-[140px]">
+                                    <div
+                                        class="bg-[#FCD332] rounded-3xl p-5 md:p-6 flex-1 flex flex-col justify-between min-h-[140px]">
                                         <p class="text-xs sm:text-sm font-medium text-zinc-900">Engagement Rate</p>
-                                        <p class="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-zinc-900">+30%</p>
+                                        <p
+                                            class="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-zinc-900">
+                                            +30%</p>
                                     </div>
                                     <!-- Pink Card: Followers (+48%) -->
-                                    <div class="bg-[#F8529E] text-white rounded-3xl p-5 md:p-6 flex-1 flex flex-col justify-between min-h-[140px]">
+                                    <div
+                                        class="bg-[#F8529E] text-white rounded-3xl p-5 md:p-6 flex-1 flex flex-col justify-between min-h-[140px]">
                                         <p class="text-xs sm:text-sm font-medium text-white/95">Followers</p>
-                                        <p class="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-white">+48%</p>
+                                        <p
+                                            class="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-white">
+                                            +48%</p>
                                     </div>
                                 </div>
 
@@ -267,31 +340,53 @@
                                 <div class="md:col-span-8 flex flex-col justify-between pl-0 md:pl-2">
                                     <!-- Dates Filter Pill with clean single-line capsule & outline matching design -->
                                     <div class="flex justify-start md:justify-end mb-2">
-                                        <div class="inline-flex items-center gap-0.5 sm:gap-1 bg-white border border-zinc-300 p-1 rounded-full text-[11px] sm:text-xs font-medium text-zinc-600 shadow-sm">
-                                            <span class="px-2 sm:px-2.5 py-1 rounded-full hover:text-zinc-900 transition cursor-pointer whitespace-nowrap">3 days</span>
-                                            <span class="px-2.5 sm:px-3 py-1 rounded-full bg-zinc-900 text-white font-medium shadow-sm cursor-pointer whitespace-nowrap">1 week</span>
-                                            <span class="px-2 sm:px-2.5 py-1 rounded-full hover:text-zinc-900 transition cursor-pointer whitespace-nowrap">1 month</span>
-                                            <span class="px-2 sm:px-2.5 py-1 rounded-full hover:text-zinc-900 transition cursor-pointer whitespace-nowrap">3 months</span>
-                                            <span class="hidden sm:inline-block px-2 sm:px-2.5 py-1 rounded-full hover:text-zinc-900 transition cursor-pointer whitespace-nowrap">6 months</span>
-                                            <span class="hidden sm:inline-block px-2 sm:px-2.5 py-1 rounded-full hover:text-zinc-900 transition cursor-pointer whitespace-nowrap">1 year</span>
+                                        <div
+                                            class="inline-flex items-center gap-0.5 sm:gap-1 bg-white border border-zinc-300 p-1 rounded-full text-[11px] sm:text-xs font-medium text-zinc-600 shadow-sm">
+                                            <span
+                                                class="px-2 sm:px-2.5 py-1 rounded-full hover:text-zinc-900 transition cursor-pointer whitespace-nowrap">3
+                                                days</span>
+                                            <span
+                                                class="px-2.5 sm:px-3 py-1 rounded-full bg-zinc-900 text-white font-medium shadow-sm cursor-pointer whitespace-nowrap">1
+                                                week</span>
+                                            <span
+                                                class="px-2 sm:px-2.5 py-1 rounded-full hover:text-zinc-900 transition cursor-pointer whitespace-nowrap">1
+                                                month</span>
+                                            <span
+                                                class="px-2 sm:px-2.5 py-1 rounded-full hover:text-zinc-900 transition cursor-pointer whitespace-nowrap">3
+                                                months</span>
+                                            <span
+                                                class="hidden sm:inline-block px-2 sm:px-2.5 py-1 rounded-full hover:text-zinc-900 transition cursor-pointer whitespace-nowrap">6
+                                                months</span>
+                                            <span
+                                                class="hidden sm:inline-block px-2 sm:px-2.5 py-1 rounded-full hover:text-zinc-900 transition cursor-pointer whitespace-nowrap">1
+                                                year</span>
                                         </div>
                                     </div>
 
                                     <!-- Chart Area: 3 Dashed Grid Lines, Pink Polyline, Vertical Drop-lines, and +24% / +43% Badges matching Image 2 -->
-                                    <div class="relative w-full flex-1 min-h-[220px] md:min-h-[260px] flex items-center justify-center pt-2">
-                                        <svg class="w-full h-full overflow-visible" viewBox="0 0 360 200" fill="none" preserveAspectRatio="none">
+                                    <div
+                                        class="relative w-full flex-1 min-h-[220px] md:min-h-[260px] flex items-center justify-center pt-2">
+                                        <svg class="w-full h-full overflow-visible" viewBox="0 0 360 200" fill="none"
+                                            preserveAspectRatio="none">
                                             <!-- 3 Horizontal Dashed Grid Lines -->
-                                            <line x1="10" y1="52" x2="350" y2="52" stroke="#e4e4e7" stroke-width="1.5" stroke-dasharray="4,4" />
-                                            <line x1="10" y1="106" x2="350" y2="106" stroke="#e4e4e7" stroke-width="1.5" stroke-dasharray="4,4" />
-                                            <line x1="10" y1="160" x2="350" y2="160" stroke="#e4e4e7" stroke-width="1.5" stroke-dasharray="4,4" />
+                                            <line x1="10" y1="52" x2="350" y2="52" stroke="#e4e4e7" stroke-width="1.5"
+                                                stroke-dasharray="4,4" />
+                                            <line x1="10" y1="106" x2="350" y2="106" stroke="#e4e4e7" stroke-width="1.5"
+                                                stroke-dasharray="4,4" />
+                                            <line x1="10" y1="160" x2="350" y2="160" stroke="#e4e4e7" stroke-width="1.5"
+                                                stroke-dasharray="4,4" />
 
                                             <!-- Vertical Dashed Drop Lines from peak dots down to baseline -->
-                                            <line x1="90" y1="52" x2="90" y2="180" stroke="#F8529E" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.8" />
-                                            <line x1="250" y1="106" x2="250" y2="180" stroke="#F8529E" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.8" />
+                                            <line x1="90" y1="52" x2="90" y2="180" stroke="#F8529E" stroke-width="1.5"
+                                                stroke-dasharray="3,3" opacity="0.8" />
+                                            <line x1="250" y1="106" x2="250" y2="180" stroke="#F8529E"
+                                                stroke-width="1.5" stroke-dasharray="3,3" opacity="0.8" />
 
                                             <!-- Main Pink Curve Line matching Image 2 -->
-                                            <path d="M 25 175 C 50 140, 70 52, 90 52 C 120 52, 145 145, 175 145 C 205 145, 230 106, 250 106 L 335 35" 
-                                                  stroke="#F8529E" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
+                                            <path
+                                                d="M 25 175 C 50 140, 70 52, 90 52 C 120 52, 145 145, 175 145 C 205 145, 230 106, 250 106 L 335 35"
+                                                stroke="#F8529E" stroke-width="4.5" stroke-linecap="round"
+                                                stroke-linejoin="round" />
 
                                             <!-- Pink Circle Dots at Data Points -->
                                             <circle cx="90" cy="52" r="5.5" fill="#F8529E" />
@@ -300,11 +395,15 @@
                                             <!-- Badges situated directly to the left of peak dots on the dashed line -->
                                             <g>
                                                 <rect x="36" y="41" width="46" height="22" rx="11" fill="#18181b" />
-                                                <text x="59" y="56" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle" font-family="Inter, system-ui, sans-serif">+24%</text>
+                                                <text x="59" y="56" fill="#ffffff" font-size="11" font-weight="700"
+                                                    text-anchor="middle"
+                                                    font-family="Inter, system-ui, sans-serif">+24%</text>
                                             </g>
                                             <g>
                                                 <rect x="196" y="95" width="46" height="22" rx="11" fill="#18181b" />
-                                                <text x="219" y="110" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle" font-family="Inter, system-ui, sans-serif">+43%</text>
+                                                <text x="219" y="110" fill="#ffffff" font-size="11" font-weight="700"
+                                                    text-anchor="middle"
+                                                    font-family="Inter, system-ui, sans-serif">+43%</text>
                                             </g>
                                         </svg>
                                     </div>
