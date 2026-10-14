@@ -94,63 +94,84 @@
 
             <!-- 3. ANALYTICS BENTO GRID (SECTION 2 - FULL SCREEN SHEET) -->
             <section id="features"
-                class="absolute inset-x-0 bottom-0 w-[95%] sm:w-[96%] md:w-[97%] mx-auto h-screen bg-white rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-2xl flex flex-col justify-center px-6 pt-20 pb-8 z-30 will-change-transform">
-                <div class="max-w-6xl mx-auto w-full">
-                    <h2 id="features-headline"
-                        class="text-3xl sm:text-4xl md:text-5xl font-normal text-center tracking-tight select-none mb-10">
-                        <span class="block overflow-hidden py-1">
-                            <span id="features-line-1" class="block will-change-transform">Advanced Analytics</span>
-                        </span>
-                        <span class="block overflow-hidden py-1">
-                            <span id="features-line-2" class="block will-change-transform">and Reporting</span>
-                        </span>
-                    </h2>
+                class="absolute inset-x-0 bottom-0 w-full h-screen bg-white rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-2xl flex flex-col justify-between px-6 pt-28 pb-8 md:pb-10 z-30 will-change-transform">
+                <div class="max-w-7xl mx-auto w-full flex flex-col justify-between h-full">
+                    <!-- Section 2 Headline (Settled in Same Position as Hero Headline) -->
+                    <div class="w-full text-center pt-2 md:pt-4">
+                        <h2 id="features-headline"
+                            class="text-4xl sm:text-5xl md:text-6xl font-normal text-center tracking-tight leading-[1.2] text-zinc-900 select-none mb-6 md:mb-8">
+                            <span class="block overflow-hidden py-2">
+                                <span id="features-line-1" class="block will-change-transform">Advanced Analytics</span>
+                            </span>
+                            <span class="block overflow-hidden py-2 pb-3">
+                                <span id="features-line-2" class="block will-change-transform">and Reporting</span>
+                            </span>
+                        </h2>
+                    </div>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                        <!-- Left Card: Hashtag Pile (5 Cols) -->
+                    <!-- Bigger Bento Grid (Expanded Width, Height & Padding) -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch flex-1 max-h-[520px]">
+                        <!-- Left Card: Hashtag Performance (5 Cols) -->
                         <div
-                            class="lg:col-span-5 bg-zinc-50 border border-zinc-200/80 rounded-3xl p-8 flex flex-col justify-between min-h-[340px]">
-                            <h3 class="text-xl font-medium">Hashtag Performance</h3>
-                            <div class="flex flex-wrap gap-2.5 pt-10">
+                            class="lg:col-span-5 bg-zinc-50 border border-zinc-200/80 rounded-3xl p-8 md:p-10 flex flex-col justify-between min-h-[380px] md:min-h-[440px]">
+                            <h3 class="text-xl md:text-2xl font-medium tracking-tight">Hashtag Performance</h3>
+                            <div class="flex flex-wrap gap-2.5 md:gap-3 py-6">
                                 <span
-                                    class="px-4 py-1.5 bg-white border border-zinc-300 rounded-full text-sm -rotate-6">#Nature</span>
+                                    class="px-4 py-2 bg-white border border-zinc-300 rounded-full text-sm md:text-base -rotate-6 shadow-sm">#Nature</span>
                                 <span
-                                    class="px-4 py-1.5 bg-white border border-zinc-300 rounded-full text-sm rotate-3">#Art</span>
+                                    class="px-4 py-2 bg-white border border-zinc-300 rounded-full text-sm md:text-base rotate-3 shadow-sm">#Art</span>
                                 <span
-                                    class="px-4 py-1.5 bg-white border border-zinc-300 rounded-full text-sm -rotate-2">#Photography</span>
+                                    class="px-4 py-2 bg-white border border-zinc-300 rounded-full text-sm md:text-base -rotate-2 shadow-sm">#Photography</span>
                                 <span
-                                    class="px-4 py-1.5 bg-white border border-zinc-300 rounded-full text-sm rotate-6">#Cooking</span>
+                                    class="px-4 py-2 bg-white border border-zinc-300 rounded-full text-sm md:text-base rotate-6 shadow-sm">#Cooking</span>
                                 <span
-                                    class="px-4 py-1.5 bg-white border border-zinc-300 rounded-full text-sm -rotate-3">#AI</span>
+                                    class="px-4 py-2 bg-white border border-zinc-300 rounded-full text-sm md:text-base -rotate-3 shadow-sm">#AI</span>
                                 <span
-                                    class="px-4 py-1.5 bg-white border border-zinc-300 rounded-full text-sm rotate-2">#Selfie</span>
+                                    class="px-4 py-2 bg-white border border-zinc-300 rounded-full text-sm md:text-base rotate-2 shadow-sm">#Selfie</span>
                                 <span
-                                    class="px-4 py-1.5 bg-white border border-zinc-300 rounded-full text-sm">#Foodie</span>
+                                    class="px-4 py-2 bg-white border border-zinc-300 rounded-full text-sm md:text-base shadow-sm">#Foodie</span>
                                 <span
-                                    class="px-4 py-1.5 bg-white border border-zinc-300 rounded-full text-sm -rotate-6">#Fitness</span>
+                                    class="px-4 py-2 bg-white border border-zinc-300 rounded-full text-sm md:text-base -rotate-6 shadow-sm">#Fitness</span>
+                            </div>
+                            <!-- Indicator bars at bottom -->
+                            <div class="flex gap-2 pt-2">
+                                <div class="h-1.5 w-16 bg-[#4314E5] rounded-full"></div>
+                                <div class="h-1.5 w-16 bg-[#F8529E]/30 rounded-full"></div>
+                                <div class="h-1.5 w-16 bg-[#FCD332]/30 rounded-full"></div>
                             </div>
                         </div>
 
                         <!-- Right Card: Optimizing Performance (7 Cols) -->
-                        <div class="lg:col-span-7 bg-zinc-50 border border-zinc-200/80 rounded-3xl p-8">
-                            <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
-                                <h3 class="text-xl font-medium">Optimizing Performance</h3>
-                                <div class="flex gap-1 bg-white p-1 rounded-full border border-zinc-200 text-xs">
-                                    <span class="px-3 py-1 rounded-full text-zinc-500">3 days</span>
-                                    <span class="px-3 py-1 rounded-full bg-zinc-900 text-white">1 week</span>
-                                    <span class="px-3 py-1 rounded-full text-zinc-500">1 month</span>
+                        <div
+                            class="lg:col-span-7 bg-zinc-50 border border-zinc-200/80 rounded-3xl p-8 md:p-10 flex flex-col justify-between min-h-[380px] md:min-h-[440px]">
+                            <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+                                <h3 class="text-xl md:text-2xl font-medium tracking-tight">Optimizing Performance</h3>
+                                <div class="flex gap-1 bg-white p-1 rounded-full border border-zinc-200 text-xs md:text-sm">
+                                    <span class="px-3.5 py-1 rounded-full text-zinc-500">3 days</span>
+                                    <span class="px-3.5 py-1 rounded-full bg-zinc-900 text-white font-medium">1 week</span>
+                                    <span class="px-3.5 py-1 rounded-full text-zinc-500">1 month</span>
+                                    <span class="hidden sm:inline-block px-3.5 py-1 rounded-full text-zinc-500">3 months</span>
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div class="bg-[#FCD332] rounded-2xl p-6">
-                                    <p class="text-xs text-zinc-800 mb-6">Engagement Rate</p>
-                                    <p class="text-4xl font-semibold">+62%</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-4">
+                                <div class="bg-[#FCD332] rounded-2xl p-6 md:p-7 shadow-sm">
+                                    <p class="text-xs md:text-sm font-medium text-zinc-800 mb-4">Engagement Rate</p>
+                                    <p class="text-4xl md:text-5xl font-semibold tracking-tight">+62%</p>
                                 </div>
-                                <div class="bg-[#F8529E] text-white rounded-2xl p-6">
-                                    <p class="text-xs text-white/90 mb-6">Followers</p>
-                                    <p class="text-4xl font-semibold">+69%</p>
+                                <div class="bg-[#F8529E] text-white rounded-2xl p-6 md:p-7 shadow-sm">
+                                    <p class="text-xs md:text-sm font-medium text-white/90 mb-4">Followers</p>
+                                    <p class="text-4xl md:text-5xl font-semibold tracking-tight">+69%</p>
                                 </div>
+                            </div>
+
+                            <!-- Subtle chart line at bottom matching reference -->
+                            <div class="relative w-full h-14 flex items-end">
+                                <svg class="w-full h-12 overflow-visible" viewBox="0 0 400 45" fill="none" preserveAspectRatio="none">
+                                    <path d="M0,32 Q100,5 200,38 T400,10" stroke="#F8529E" stroke-width="2.5" stroke-linecap="round" />
+                                    <circle cx="100" cy="18" r="4" fill="#F8529E" />
+                                    <circle cx="280" cy="28" r="4" fill="#F8529E" />
+                                </svg>
                             </div>
                         </div>
                     </div>
@@ -299,8 +320,7 @@
             gsap.set(["#features-line-1", "#features-line-2"], { yPercent: 120 });
             gsap.set(featuresSection, {
                 yPercent: 105,
-                width: "96%",
-                borderRadius: "3.5rem 3.5rem 0 0"
+                borderRadius: "2.5rem 2.5rem 0 0"
             });
             gsap.set("#hero-buttons-group", { transformOrigin: "center center" });
             gsap.set(["#card-yellow", "#card-pink", "#card-purple"], { transformOrigin: "bottom center" });
@@ -418,13 +438,12 @@
                     duration: 0.18,
                     ease: "power1.out"
                 }, 0.65)
-                // 14. White card edges expand smoothly near the edges to full bleed (100% width, 0px radius)
+                // 14. White card top angles straighten up when close to the top edge until covered
                 .to(featuresSection, {
-                    width: "100%",
                     borderRadius: "0px",
-                    duration: 0.12,
+                    duration: 0.10,
                     ease: "power1.out"
-                }, 0.72)
+                }, 0.74)
                 // 15. Navbar adapts for white background
                 .to(navbarLogo, {
                     color: "#18181b",
