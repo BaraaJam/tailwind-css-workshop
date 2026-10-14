@@ -11,10 +11,11 @@
 <body class="bg-white text-zinc-900 antialiased selection:bg-[#4314E5] selection:text-white">
 
     <!-- 1. NAVBAR -->
-    <header id="main-header" class="fixed top-0 inset-x-0 z-50 bg-white/80 backdrop-blur-md transition-colors duration-300">
+    <header id="main-header" class="fixed top-3 inset-x-0 z-50 ">
         <nav class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
             <a href="#" class="text-2xl font-extrabold tracking-tighter">LEXICON</a>
-            <div class="hidden md:flex items-center gap-8 text-sm text-zinc-600">
+            <div
+                class="hidden md:flex items-center gap-8 text-sm text-zinc-600 backdrop-blur-md transition-colors duration-300 bg-white/60 rounded-lg p-3 px-8">
                 <a href="#features" class="hover:text-black">Features</a>
                 <a href="#integrations" class="hover:text-black">Integrations</a>
                 <a href="#metrics" class="hover:text-black">Pricing</a>
@@ -22,7 +23,7 @@
             </div>
             <div class="flex items-center gap-4 text-sm font-medium">
                 <a href="#" class="hidden sm:inline-block hover:text-zinc-600">Log In</a>
-                <a href="#" class="bg-zinc-900 text-white px-5 py-2.5 rounded-full hover:bg-zinc-700 transition">
+                <a href="#" class="bg-zinc-900 text-white px-5 py-2.5 rounded-lg hover:bg-zinc-700 transition">
                     Start Free Trial
                 </a>
             </div>
@@ -31,10 +32,13 @@
 
     <!-- 2. HERO SCROLL TRACK (STAGE 2 SCROLL-LINKED) -->
     <div id="hero-scroll-track" class="relative w-full">
-        <section id="hero-section" class="relative w-full h-screen flex flex-col justify-between overflow-hidden px-6 pt-28 pb-0">
+        <section id="hero-section"
+            class="relative w-full h-screen flex flex-col justify-between overflow-hidden px-6 pt-28 pb-0">
             <!-- Hero Center Text & Actions -->
-            <div id="hero-text-mask" class="relative max-w-3xl mx-auto z-10 w-full text-center will-change-transform">
-                <h1 id="hero-headline" class="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight leading-[1.2] text-zinc-900 select-none">
+            <div id="hero-text-mask"
+                class="relative max-w-3xl mx-auto z-10 p-10 w-full text-center will-change-transform">
+                <h1 id="hero-headline"
+                    class="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight leading-[1.2] text-zinc-900 select-none">
                     <span class="block overflow-hidden py-1">
                         <span id="hero-line-1" class="block will-change-transform">Maximize Your Social</span>
                     </span>
@@ -42,31 +46,34 @@
                         <span id="hero-line-2" class="block will-change-transform">Media Presence</span>
                     </span>
                 </h1>
-                <div id="hero-buttons-group" class="mt-8 flex flex-wrap justify-center items-center gap-4 text-sm font-medium will-change-transform">
-                    <a href="#" class="bg-[#4314E5] text-white px-7 py-3.5 rounded-full hover:opacity-90 transition shadow-sm">
+                <div id="hero-buttons-group"
+                    class="mt-8 flex flex-wrap justify-center items-center gap-4 text-sm font-medium will-change-transform">
+                    <a href="#"
+                        class="bg-[#4314E5] text-white px-7 py-3.5 rounded-lg hover:opacity-90 transition shadow-sm">
                         Start Free Trial
                     </a>
-                    <a href="#" class="bg-zinc-100 text-zinc-800 px-7 py-3.5 rounded-full hover:bg-zinc-200 transition">
+                    <a href="#" class="bg-zinc-100 text-zinc-800 px-7 py-3.5 rounded-lg hover:bg-zinc-200 transition">
                         Create Free Account
                     </a>
                 </div>
             </div>
 
             <!-- 3 Layered Tilted Cards Teaser at Bottom Fold (Inside Hero Section) -->
-            <div id="cards-stack-container" class="relative w-full max-w-5xl mx-auto h-64 sm:h-72 md:h-80 lg:h-96 select-none will-change-transform">
+            <div id="cards-stack-container"
+                class="relative w-full max-w-6xl mx-auto h-72 sm:h-80 md:h-96 lg:h-[420px] select-none will-change-transform">
                 <!-- Back Card: Yellow (#FCD332) -->
                 <div id="card-yellow"
-                    class="absolute inset-x-2 sm:inset-x-4 top-0 h-full bg-[#FCD332] rounded-t-[2.5rem] md:rounded-t-[3rem] rotate-1 origin-bottom shadow-md will-change-transform">
+                    class="absolute inset-x-2 sm:inset-x-4 top-0 h-full bg-[#FCD332] rounded-t-[2.5rem] md:rounded-t-[3.5rem] rotate-1 origin-bottom shadow-md will-change-transform">
                 </div>
 
                 <!-- Middle Card: Hot Pink (#F8529E) -->
                 <div id="card-pink"
-                    class="absolute inset-x-4 sm:inset-x-8 top-4 md:top-6 h-full bg-[#F8529E] rounded-t-[2.5rem] md:rounded-t-[3rem] -rotate-1 origin-bottom shadow-md will-change-transform">
+                    class="absolute inset-x-4 sm:inset-x-8 top-4 md:top-6 h-full bg-[#F8529E] rounded-t-[2.5rem] md:rounded-t-[3.5rem] -rotate-1 origin-bottom shadow-md will-change-transform">
                 </div>
 
                 <!-- Front Card: Deep Purple (#4314E5) Blueprint -->
                 <div id="card-purple"
-                    class="absolute inset-x-6 sm:inset-x-12 top-8 md:top-12 h-full bg-[#4314E5] rounded-t-[2.5rem] md:rounded-t-[3rem] -rotate-3 md:-rotate-[3.5deg] origin-bottom shadow-xl flex items-center justify-center overflow-hidden will-change-transform">
+                    class="absolute inset-x-6 sm:inset-x-12 top-8 md:top-12 h-full bg-[#4314E5] rounded-t-[2.5rem] md:rounded-t-[3.5rem] -rotate-3 md:-rotate-[3.5deg] origin-bottom shadow-xl flex items-center justify-center overflow-hidden will-change-transform">
                     <!-- Blueprint placeholder for 2.5D Illustration Stage -->
                 </div>
             </div>
@@ -271,7 +278,7 @@
             stage2Timeline
                 // 1. Text moves up a tiny bit just under the nav bar (does not go behind it)
                 .to("#hero-text-mask", {
-                    y: -30,
+                    y: -25,
                     duration: 0.25,
                     ease: "power1.out"
                 }, 0)
@@ -280,20 +287,20 @@
                     yPercent: -120,
                     duration: 0.45,
                     ease: "power1.inOut"
-                }, 0.15)
+                }, 0.20)
                 // 3. Line 2 rolls UP out of its own line curtain mask after Line 1 (not together!)
                 .to("#hero-line-2", {
                     yPercent: -120,
                     duration: 0.45,
                     ease: "power1.inOut"
-                }, 0.32)
+                }, 0.20)
                 // 4. Buttons shrink in size
                 .to("#hero-buttons-group", {
                     scale: 0,
                     opacity: 0,
                     duration: 0.55,
                     ease: "power1.inOut"
-                }, 0.28)
+                }, 0.16)
                 // 5. Yellow & Pink back cards rotate flat and tuck away behind purple card
                 .to("#card-yellow", {
                     rotation: 0,
