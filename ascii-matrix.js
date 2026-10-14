@@ -1,8 +1,11 @@
 /**
  * Lexicon Interactive ASCII Matrix Background Engine
- * Generates an interactive binary/ASCII glyph field that renders custom illuminated vector shapes
- * with mouse proximity spotlight, living character flicker, scroll-linked cascade gathering,
- * and Lexicon brand gradient colors.
+ * Generates an interactive binary/ASCII glyph field that renders custom illuminated vector shapes.
+ * Features a dynamic Beehive Swarm Convergence System:
+ * - Particles fly in as a buzzing, dispersed swarm from the top or bottom depending on scroll direction.
+ * - Coalesces and fills the entire shape all at once as scroll progresses from half to full.
+ * - Reverses seamlessly when scrolling backwards.
+ * - Interactive mouse spotlight and Lexicon brand gradient coloring.
  */
 
 (function () {
@@ -19,12 +22,16 @@
             this.darkTheme = !!options.darkTheme;
             this.position = options.position || 'default';
 
-            // Scroll-linked top-to-bottom cascade gathering progress [0..1]
+            // Scroll-linked convergence progress [0..1]
             this.fillProgress = options.fillProgress !== undefined ? options.fillProgress : 1.0;
             this.currentProgress = this.fillProgress;
             this.targetProgress = this.fillProgress;
 
-            // Character pool matching Epic Games high-tech code aesthetic
+            // Swarm fly direction: -1 = from top (scrolling down), 1 = from bottom (scrolling up)
+            this.flyDirection = options.flyDirection !== undefined ? options.flyDirection : -1;
+            this.lastScrollY = window.scrollY;
+
+            // Character pool matching Epic Games code aesthetic
             this.chars = ['0', '1', '+', '·', '*', '/', 'x', '▫'];
             
             // Mouse tracker
@@ -38,6 +45,7 @@
             this.isVisible = true;
             this.animFrameId = null;
             this.mask = null;
+            this.particles = [];
             this.cols = 0;
             this.rows = 0;
 
@@ -53,7 +61,17 @@
                 this.buildMask();
             });
 
-            // Track mouse globally so pointer-events-none canvas still receives coordinates
+            // Track scroll direction automatically: scrolling down -> enter from top; scrolling up -> enter from bottom
+            window.addEventListener('scroll', () => {
+                const curY = window.scrollY;
+                const diff = curY - this.lastScrollY;
+                if (Math.abs(diff) > 2) {
+                    this.flyDirection = diff > 0 ? -1 : 1;
+                    this.lastScrollY = curY;
+                }
+            }, { passive: true });
+
+            // Global mouse tracking so pointer-events-none canvas receives coords
             window.addEventListener('mousemove', (e) => {
                 const rect = this.canvas.getBoundingClientRect();
                 this.mouse.x = e.clientX - rect.left;
@@ -72,7 +90,7 @@
                 this.mouse.y = -2000;
             });
 
-            // Pause rendering when canvas is scrolled out of viewport
+            // Pause rendering when canvas is scrolled off-screen
             if ('IntersectionObserver' in window) {
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach((entry) => {
@@ -89,10 +107,13 @@
         }
 
         /**
-         * Update progress for scroll-linked gathering [0 = hidden, 1 = fully formed]
+         * Update progress for scroll-linked beehive swarm convergence [0 = outside, 1 = fully formed]
          */
-        setProgress(val) {
+        setProgress(val, direction) {
             this.targetProgress = Math.max(0, Math.min(1, val));
+            if (direction !== undefined) {
+                this.flyDirection = direction;
+            }
         }
 
         resize() {
@@ -114,7 +135,7 @@
         }
 
         /**
-         * Rasterizes custom vector paths into a low-resolution binary density mask
+         * Rasterizes custom vector paths into density mask and generates shape swarm particles
          */
         buildMask() {
             const off = document.createElement('canvas');
@@ -135,35 +156,58 @@
 
             const imgData = octx.getImageData(0, 0, this.cols, this.rows).data;
             this.mask = new Float32Array(this.cols * this.rows);
+            this.particles = [];
 
-            for (let i = 0; i < this.mask.length; i++) {
-                // Read alpha channel
-                this.mask[i] = imgData[i * 4 + 3] / 255;
+            for (let r = 0; r < this.rows; r++) {
+                for (let c = 0; c < this.cols; c++) {
+                    const idx = r * this.cols + c;
+                    const alpha = imgData[idx * 4 + 3] / 255;
+                    this.mask[idx] = alpha;
+
+                    if (alpha > 0.15) {
+                        const homeX = c * this.cellSize + this.cellSize / 2;
+                        const homeY = r * this.cellSize + this.cellSize / 2;
+
+                        // Beehive radial scatter angle & radius
+                        const angle = Math.random() * Math.PI * 2;
+                        const dist = 30 + Math.random() * 95;
+
+                        // Buzzing frequency and jitter amplitude (fluttering like bees)
+                        this.particles.push({
+                            c, r,
+                            homeX, homeY,
+                            targetAlpha: alpha,
+                            scatterX: Math.cos(angle) * dist,
+                            scatterY: Math.sin(angle) * dist * 0.75,
+                            buzzFreqX: 2.5 + Math.random() * 4.5,
+                            buzzFreqY: 2.2 + Math.random() * 4.5,
+                            buzzAmp: 6 + Math.random() * 14,
+                            phase: Math.random() * Math.PI * 2,
+                            charSeed: Math.random() * 1000
+                        });
+                    }
+                }
             }
         }
 
         /**
-         * Draws iconic Graduation Cap (Mortarboard + Tassel) for Lexicon Hero
+         * Graduation Cap (Mortarboard + Tassel) for Hero
          */
         drawGraduationCap(ctx, w, h) {
-            // Position on right-hand side on desktop, center on mobile
             const isMobile = w < 55;
             const cx = isMobile ? w * 0.5 : w * 0.72;
             const cy = isMobile ? h * 0.36 : h * 0.38;
             const scale = Math.min(w, h) * (isMobile ? 0.36 : 0.38);
 
             ctx.save();
-
-            // 1. Diamond Mortarboard Top (Tilted 3D perspective)
             ctx.beginPath();
-            ctx.moveTo(cx, cy - scale * 0.55); // Top corner
-            ctx.lineTo(cx + scale * 0.95, cy - scale * 0.12); // Right corner
-            ctx.lineTo(cx, cy + scale * 0.32); // Bottom front corner
-            ctx.lineTo(cx - scale * 0.95, cy - scale * 0.12); // Left corner
+            ctx.moveTo(cx, cy - scale * 0.55);
+            ctx.lineTo(cx + scale * 0.95, cy - scale * 0.12);
+            ctx.lineTo(cx, cy + scale * 0.32);
+            ctx.lineTo(cx - scale * 0.95, cy - scale * 0.12);
             ctx.closePath();
             ctx.fill();
 
-            // 2. Skull Cap Base (Sits underneath front corner)
             ctx.beginPath();
             ctx.moveTo(cx - scale * 0.55, cy + scale * 0.08);
             ctx.quadraticCurveTo(cx, cy + scale * 0.65, cx + scale * 0.55, cy + scale * 0.08);
@@ -172,20 +216,17 @@
             ctx.closePath();
             ctx.fill();
 
-            // 3. Hanging Ribbon & Tassel (Drapes over right/front corner)
             ctx.lineWidth = Math.max(1.8, scale * 0.07);
             ctx.strokeStyle = '#ffffff';
             ctx.beginPath();
-            ctx.moveTo(cx, cy - scale * 0.12); // Center button
+            ctx.moveTo(cx, cy - scale * 0.12);
             ctx.quadraticCurveTo(cx + scale * 0.65, cy - scale * 0.05, cx + scale * 0.78, cy + scale * 0.55);
             ctx.stroke();
 
-            // Tassel Bobble
             ctx.beginPath();
             ctx.arc(cx + scale * 0.78, cy + scale * 0.65, scale * 0.10, 0, Math.PI * 2);
             ctx.fill();
 
-            // Center Button on Mortarboard
             ctx.beginPath();
             ctx.arc(cx, cy - scale * 0.12, scale * 0.06, 0, Math.PI * 2);
             ctx.fill();
@@ -194,11 +235,10 @@
         }
 
         /**
-         * Draws sleek Downward Arrow for Explore Solutions Section
+         * Downward Arrow for Explore Solutions Section
          */
         drawArrowDown(ctx, w, h) {
             const isMobile = w < 55;
-            // Center positioned arrow framing the showcase
             const cx = w * 0.5;
             const cy = h * 0.50;
             const scale = Math.min(w, h) * (isMobile ? 0.44 : 0.48);
@@ -212,16 +252,11 @@
             const headWidth = scale * 0.86;
             const headTip = cy + scale * 0.95;
 
-            // Shaft
             ctx.moveTo(cx - shaftWidth / 2, shaftTop);
             ctx.lineTo(cx + shaftWidth / 2, shaftTop);
             ctx.lineTo(cx + shaftWidth / 2, shaftBottom);
-
-            // Arrow Head Outset
             ctx.lineTo(cx + headWidth / 2, shaftBottom);
-            // Arrow Head Tip
             ctx.lineTo(cx, headTip);
-            // Arrow Head Left Outset
             ctx.lineTo(cx - headWidth / 2, shaftBottom);
             ctx.lineTo(cx - shaftWidth / 2, shaftBottom);
 
@@ -231,13 +266,12 @@
         }
 
         /**
-         * Draws high-tech stylized Question Mark matching Epic Games FAQ aesthetic
+         * Stylized Question Mark matching Epic Games FAQ reference
          */
         drawQuestionMark(ctx, w, h) {
             const isMobile = w < 55;
             const cx = isMobile ? w * 0.5 : (this.position === 'center' ? w * 0.5 : w * 0.76);
             const cy = h * 0.46;
-            // Calibrate scale so question mark spans ~18-20 rows for rich glyph detail
             const scale = Math.min(w * (isMobile ? 0.38 : 0.22), h * 0.52);
 
             ctx.save();
@@ -247,16 +281,14 @@
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
 
-            // 1. Question Mark Hook & Descender
+            // 1. Hook & stem
             ctx.beginPath();
             ctx.moveTo(cx - scale * 0.44, cy - scale * 0.32);
-            // Top arched curve
             ctx.bezierCurveTo(
                 cx - scale * 0.44, cy - scale * 0.88,
                 cx + scale * 0.48, cy - scale * 0.88,
                 cx + scale * 0.48, cy - scale * 0.32
             );
-            // Inward curl to center stem
             ctx.bezierCurveTo(
                 cx + scale * 0.48, cy - scale * 0.02,
                 cx, cy - scale * 0.02,
@@ -265,7 +297,7 @@
             ctx.lineTo(cx, cy + scale * 0.24);
             ctx.stroke();
 
-            // 2. Question Mark Bottom Dot
+            // 2. Bottom dot
             ctx.beginPath();
             ctx.arc(cx, cy + scale * 0.65, scale * 0.18, 0, Math.PI * 2);
             ctx.fill();
@@ -274,7 +306,7 @@
         }
 
         /**
-         * Main render loop
+         * Main render loop with Beehive Swarm Convergence Engine
          */
         animate() {
             if (!this.isVisible) {
@@ -284,7 +316,7 @@
 
             // Smooth interpolation towards targetProgress
             if (Math.abs(this.targetProgress - this.currentProgress) > 0.001) {
-                this.currentProgress += (this.targetProgress - this.currentProgress) * 0.22;
+                this.currentProgress += (this.targetProgress - this.currentProgress) * 0.20;
             } else {
                 this.currentProgress = this.targetProgress;
             }
@@ -294,116 +326,131 @@
             this.ctx.textAlign = 'center';
             this.ctx.textBaseline = 'middle';
 
-            const mask = this.mask;
             const now = performance.now() * 0.001;
             const p = this.currentProgress;
 
+            // 1. RENDER AMBIENT BACKGROUND MATRIX GRID
             for (let r = 0; r < this.rows; r++) {
-                const normR = r / Math.max(1, this.rows - 1); // 0 at top, 1 at bottom
-                const baseY = r * this.cellSize + this.cellSize / 2;
-
-                // Cascade calculations: wavefront sweeping top-to-bottom
-                const cellStart = normR * 0.70;
-                const cellEnd = cellStart + 0.30;
-                let cellFactor = 0;
-                let isFalling = false;
-                let dropOffset = 0;
-
-                if (p <= 0.001) {
-                    cellFactor = 0;
-                } else if (p >= cellEnd) {
-                    cellFactor = 1;
-                } else if (p > cellStart) {
-                    cellFactor = (p - cellStart) / 0.30;
-                    isFalling = true;
-                    // Drops down from above by up to 36px and locks into grid position
-                    dropOffset = - (1.0 - cellFactor) * 36;
-                }
-
+                const y = r * this.cellSize + this.cellSize / 2;
                 for (let c = 0; c < this.cols; c++) {
-                    const idx = r * this.cols + c;
-                    const rawShapeAlpha = mask ? mask[idx] : 0;
                     const x = c * this.cellSize + this.cellSize / 2;
-                    const y = baseY + (rawShapeAlpha > 0.1 ? dropOffset : 0);
 
-                    // Mouse proximity calculations
+                    // Mouse proximity on ambient background
                     let mouseInfluence = 0;
                     if (this.mouse.active) {
-                        const dx = x - this.mouse.x;
-                        const dy = y - this.mouse.y;
-                        const dist = Math.hypot(dx, dy);
+                        const dist = Math.hypot(x - this.mouse.x, y - this.mouse.y);
                         if (dist < this.mouse.radius) {
                             mouseInfluence = Math.pow(1 - dist / this.mouse.radius, 1.8);
                         }
                     }
 
-                    // Combined shape alpha linked to top-to-bottom gathering
-                    const effectiveShapeAlpha = rawShapeAlpha * cellFactor;
-                    const isIlluminated = effectiveShapeAlpha > 0.15 || mouseInfluence > 0.05 || (isFalling && rawShapeAlpha > 0.15);
+                    const noise = Math.sin(c * 0.35 + r * 0.28 + now * 1.8);
+                    const charIdx = Math.abs(Math.floor((c * 7 + r * 13 + (noise > 0.85 ? now * 4 : 0)) % this.chars.length));
+                    const char = this.chars[charIdx];
 
-                    // Character selection: living matrix flicker + rapid waterfall stream while falling
+                    if (mouseInfluence > 0.05) {
+                        // Mouse spotlight on ambient glyphs
+                        const alpha = Math.min(0.85, mouseInfluence * 0.75);
+                        this.ctx.fillStyle = this.darkTheme
+                            ? `rgba(139, 127, 245, ${alpha})`
+                            : `rgba(67, 20, 229, ${alpha})`;
+                    } else {
+                        // Idle faint matrix dust
+                        this.ctx.fillStyle = this.darkTheme
+                            ? 'rgba(255, 255, 255, 0.045)'
+                            : 'rgba(67, 20, 229, 0.045)';
+                    }
+                    this.ctx.fillText(char, x, y);
+                }
+            }
+
+            // 2. RENDER BEEHIVE SWARM PARTICLES
+            if (p > 0.02 && this.particles.length > 0) {
+                // Swarm incoming flight progress [0..1] as scroll approaches 0.50
+                const flyRatio = Math.min(1.0, Math.max(0.0, (p - 0.02) / 0.48));
+                // Shape convergence progress [0..1] as scroll goes from 0.50 to 1.0
+                const settleRatio = Math.min(1.0, Math.max(0.0, (p - 0.45) / 0.55));
+                // Smooth ease for the final snap/convergence into shape
+                const easeSettle = settleRatio * settleRatio * (3.0 - 2.0 * settleRatio);
+
+                // Cluster flight offset (traveling together from top or bottom)
+                const travelDist = this.height * 0.75;
+                const clusterOffsetY = this.flyDirection * travelDist * (1.0 - flyRatio);
+
+                // Dispersion & buzzing jitter (beehive scatter shrinks to 0 when easeSettle -> 1)
+                const dispersion = 1.0 - easeSettle;
+                const overallAlpha = Math.min(1.0, p * 2.5);
+
+                const len = this.particles.length;
+                for (let i = 0; i < len; i++) {
+                    const pt = this.particles[i];
+
+                    // Beehive buzzing jitter
+                    const buzzX = Math.sin(now * pt.buzzFreqX + pt.phase) * pt.buzzAmp * dispersion;
+                    const buzzY = Math.cos(now * pt.buzzFreqY + pt.phase) * pt.buzzAmp * dispersion;
+
+                    // Current particle position in space
+                    const curX = pt.homeX + pt.scatterX * dispersion + buzzX;
+                    const curY = pt.homeY + clusterOffsetY * dispersion + pt.scatterY * dispersion + buzzY;
+
+                    // Mouse proximity on swarm particles
+                    let mouseInfluence = 0;
+                    if (this.mouse.active) {
+                        const dist = Math.hypot(curX - this.mouse.x, curY - this.mouse.y);
+                        if (dist < this.mouse.radius) {
+                            mouseInfluence = Math.pow(1 - dist / this.mouse.radius, 1.8);
+                        }
+                    }
+
+                    // Dynamic character selection:
+                    // Rapid buzzing code rain while in flight, smooth organic breathing once settled
                     let char;
-                    if (isFalling && rawShapeAlpha > 0.15) {
-                        // High-speed code rain stream at the falling wavefront
-                        const streamIdx = Math.abs(Math.floor((c * 5 + r * 9 + now * 35)) % this.chars.length);
-                        char = this.chars[streamIdx];
+                    if (dispersion > 0.12) {
+                        const idx = Math.abs(Math.floor(pt.charSeed + now * 32)) % this.chars.length;
+                        char = this.chars[idx];
                     } else {
-                        // Organic breathing loop
-                        const noise = Math.sin(c * 0.35 + r * 0.28 + now * 1.8);
-                        const charIndex = Math.abs(Math.floor((c * 7 + r * 13 + (noise > 0.85 ? now * 4 : 0)) % this.chars.length));
-                        char = this.chars[charIndex];
+                        const noise = Math.sin(pt.c * 0.35 + pt.r * 0.28 + now * 1.8);
+                        const idx = Math.abs(Math.floor((pt.c * 7 + pt.r * 13 + (noise > 0.85 ? now * 4 : 0)) % this.chars.length));
+                        char = this.chars[idx];
                     }
 
-                    if (isIlluminated) {
-                        // Lexicon brand colors
-                        // Purple (#4314E5) -> Violet (#6950F3) -> Hot Pink (#F8529E) -> Amber Yellow (#FCD332)
-                        const normX = x / this.width;
-                        const normYPos = y / this.height;
-                        const t = Math.min(Math.max((normX * 0.6 + normYPos * 0.4), 0), 1);
+                    // Lexicon brand colors
+                    // Deep Purple (#4314E5) -> Violet (#6950F3) -> Hot Pink (#F8529E) -> Amber Yellow (#FCD332)
+                    const normX = curX / this.width;
+                    const normY = curY / this.height;
+                    const t = Math.min(Math.max((normX * 0.6 + normY * 0.4), 0), 1);
 
-                        let red, green, blue;
-                        if (t < 0.4) {
-                            const lt = t / 0.4;
-                            red = Math.round(67 + (105 - 67) * lt);
-                            green = Math.round(20 + (80 - 20) * lt);
-                            blue = Math.round(229 + (243 - 229) * lt);
-                        } else if (t < 0.75) {
-                            const lt = (t - 0.4) / 0.35;
-                            red = Math.round(105 + (248 - 105) * lt);
-                            green = Math.round(80 + (82 - 80) * lt);
-                            blue = Math.round(243 + (158 - 243) * lt);
-                        } else {
-                            const lt = (t - 0.75) / 0.25;
-                            red = Math.round(248 + (252 - 248) * lt);
-                            green = Math.round(82 + (211 - 82) * lt);
-                            blue = Math.round(158 + (50 - 158) * lt);
-                        }
-
-                        // Leading edge spark: characters in motion glow with white-gold intensity
-                        if (isFalling && rawShapeAlpha > 0.15) {
-                            const spark = (1.0 - cellFactor) * 0.85;
-                            red = Math.min(255, Math.round(red + (255 - red) * spark));
-                            green = Math.min(255, Math.round(green + (255 - green) * spark));
-                            blue = Math.min(255, Math.round(blue + (255 - blue) * spark));
-                        }
-
-                        // Final opacity
-                        let alpha = Math.min(1.0, (effectiveShapeAlpha * 0.90 + mouseInfluence * 0.95) * this.opacity);
-                        if (isFalling && rawShapeAlpha > 0.15) {
-                            alpha = Math.max(alpha, (1.0 - cellFactor) * 0.95);
-                        }
-
-                        this.ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
-                        this.ctx.fillText(char, x, y);
+                    let red, green, blue;
+                    if (t < 0.4) {
+                        const lt = t / 0.4;
+                        red = Math.round(67 + (105 - 67) * lt);
+                        green = Math.round(20 + (80 - 20) * lt);
+                        blue = Math.round(229 + (243 - 229) * lt);
+                    } else if (t < 0.75) {
+                        const lt = (t - 0.4) / 0.35;
+                        red = Math.round(105 + (248 - 105) * lt);
+                        green = Math.round(80 + (82 - 80) * lt);
+                        blue = Math.round(243 + (158 - 243) * lt);
                     } else {
-                        // Ambient inactive background glyphs
-                        if (this.darkTheme) {
-                            this.ctx.fillStyle = 'rgba(255, 255, 255, 0.06)';
-                        } else {
-                            this.ctx.fillStyle = 'rgba(67, 20, 229, 0.045)';
-                        }
-                        this.ctx.fillText(char, x, baseY);
+                        const lt = (t - 0.75) / 0.25;
+                        red = Math.round(248 + (252 - 248) * lt);
+                        green = Math.round(82 + (211 - 82) * lt);
+                        blue = Math.round(158 + (50 - 158) * lt);
                     }
+
+                    // While buzzing in flight, particles glow with vibrant energetic sparks
+                    if (dispersion > 0.15) {
+                        const spark = dispersion * 0.65;
+                        red = Math.min(255, Math.round(red + (255 - red) * spark));
+                        green = Math.min(255, Math.round(green + (255 - green) * spark));
+                        blue = Math.min(255, Math.round(blue + (255 - blue) * spark));
+                    }
+
+                    // Final opacity
+                    const alpha = Math.min(1.0, (pt.targetAlpha * 0.90 + mouseInfluence * 0.95) * this.opacity * overallAlpha);
+
+                    this.ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+                    this.ctx.fillText(char, curX, curY);
                 }
             }
 
