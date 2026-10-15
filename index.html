@@ -892,11 +892,11 @@
                         if (window.heroMatrix) {
                             if (p > 0.18) {
                                 if (window.heroMatrix.targetProgress > 0) {
-                                    window.heroMatrix.triggerDisperse(-1);
+                                    window.heroMatrix.triggerDisperse('down');
                                 }
                             } else {
                                 if (window.heroMatrix.targetProgress < 1) {
-                                    window.heroMatrix.triggerFill(1);
+                                    window.heroMatrix.triggerFill('up');
                                 }
                             }
                         }
@@ -1432,51 +1432,44 @@
                 }, 0.35);
 
             // Section 3: Downward Arrow Beehive Swarm Convergence
-            // As Section 3 approaches viewport (top 80%), swarm flies down from above.
-            // When reaching 35-50% scroll (as pin begins), it snaps and fills all at once!
-            // Remains locked; small scroll movements won't break the shape.
+            // Scroll-based, not scroll-interactive:
+            // When ~50% of the section enters view (top 55%), the swarm flies in from top and forms the arrow all-at-once.
+            // Stays locked and does not break on small scroll adjustments.
             ScrollTrigger.create({
                 trigger: "#solutions-scroll-track",
-                start: "top 80%",
-                end: "bottom top",
-                onUpdate: (self) => {
-                    if (window.solutionsMatrix) {
-                        window.solutionsMatrix.updateByScroll(self.progress, self.direction);
-                    }
-                },
+                start: "top 55%",
+                end: "bottom 45%",
                 onEnter: () => {
-                    if (window.solutionsMatrix) window.solutionsMatrix.triggerFill(-1);
+                    if (window.solutionsMatrix) window.solutionsMatrix.triggerFill('down');
                 },
                 onEnterBack: () => {
-                    if (window.solutionsMatrix) window.solutionsMatrix.triggerFill(1);
+                    if (window.solutionsMatrix) window.solutionsMatrix.triggerFill('up');
                 },
                 onLeave: () => {
-                    if (window.solutionsMatrix) window.solutionsMatrix.triggerDisperse(-1);
+                    if (window.solutionsMatrix) window.solutionsMatrix.triggerDisperse('down');
                 },
                 onLeaveBack: () => {
-                    if (window.solutionsMatrix) window.solutionsMatrix.triggerDisperse(1);
+                    if (window.solutionsMatrix) window.solutionsMatrix.triggerDisperse('up');
                 }
             });
 
             // 3. Pre-Footer Banner: Question Mark Beehive Swarm Convergence
-            // When approaching view (top 85%), swarm arrives from above and fills all at once.
+            // When ~50% of the banner enters view (top 60%), question mark arrives and forms all at once.
             ScrollTrigger.create({
                 trigger: "#bottom-cta-banner",
-                start: "top 85%",
-                end: "bottom top",
-                onUpdate: (self) => {
-                    if (window.bottomMatrix) {
-                        window.bottomMatrix.updateByScroll(self.progress, self.direction);
-                    }
-                },
+                start: "top 60%",
+                end: "bottom 20%",
                 onEnter: () => {
-                    if (window.bottomMatrix) window.bottomMatrix.triggerFill(-1);
+                    if (window.bottomMatrix) window.bottomMatrix.triggerFill('down');
                 },
                 onEnterBack: () => {
-                    if (window.bottomMatrix) window.bottomMatrix.triggerFill(1);
+                    if (window.bottomMatrix) window.bottomMatrix.triggerFill('up');
+                },
+                onLeave: () => {
+                    if (window.bottomMatrix) window.bottomMatrix.triggerDisperse('down');
                 },
                 onLeaveBack: () => {
-                    if (window.bottomMatrix) window.bottomMatrix.triggerDisperse(1);
+                    if (window.bottomMatrix) window.bottomMatrix.triggerDisperse('up');
                 }
             });
 

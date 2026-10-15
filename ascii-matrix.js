@@ -29,8 +29,9 @@
             this.targetProgress = this.fillProgress;
             this.isLocked = this.fillProgress >= 0.99;
 
-            // Swarm fly direction: -1 = from top (scrolling down), 1 = from bottom (scrolling up)
-            this.flyDirection = options.flyDirection !== undefined ? options.flyDirection : -1;
+            // Swarm fly direction: 'down' (from top moving down), 'up' (from bottom moving up)
+            this.motionDirection = (options.flyDirection === 1 || options.motionDirection === 'up') ? 'up' : 'down';
+            this.exitDirection = options.exitDirection || 'down';
             this.lastScrollY = window.scrollY;
 
             // Character pool matching Epic Games binary/code aesthetic
@@ -109,10 +110,11 @@
         }
 
         /**
-         * Directly trigger shape fill (swarm converges and locks into shape)
+         * Directly trigger shape fill (swarm converges and locks into shape all-at-once)
          */
-        triggerFill(dir = -1) {
-            this.flyDirection = (dir === 1 || dir === 'bottom' || dir === 'from-bottom') ? 1 : -1;
+        triggerFill(dir = 'down') {
+            const isUp = (dir === 1 || dir === 'up' || dir === 'bottom' || dir === 'from-bottom');
+            this.motionDirection = isUp ? 'up' : 'down';
             this.targetProgress = 1.0;
             this.isLocked = true;
         }
@@ -120,50 +122,40 @@
         /**
          * Directly trigger shape dispersal (swarm scatters and flies away)
          */
-        triggerDisperse(dir = -1) {
-            this.flyDirection = (dir === 1 || dir === 'bottom' || dir === 'from-bottom') ? 1 : -1;
+        triggerDisperse(dir = 'down') {
+            const isUp = (dir === 1 || dir === 'up' || dir === 'top' || dir === 'to-top');
+            this.exitDirection = isUp ? 'up' : 'down';
             this.targetProgress = 0.0;
             this.isLocked = false;
         }
 
         /**
-         * Update by scroll progress with hysteresis:
-         * - Once section reaches >= 35% into view, fills the shape at once and locks!
-         * - Does not break on small scroll adjustments.
-         * - Disperses only when scrolling completely out of the section.
+         * Threshold-based scroll update:
+         * - Autonomous: does NOT continuously scrub or clamp targetProgress with every pixel scroll.
+         * - If progress >= 0.40, immediately triggers full convergence in scroll direction.
+         * - If progress <= 0.05, disperses.
          */
         updateByScroll(progress, scrollDir) {
-            if (scrollDir !== undefined) {
-                // GSAP self.direction: 1 = scrolling down -> swarm from top (-1)
-                // -1 = scrolling up -> swarm from bottom (+1)
-                this.flyDirection = scrollDir > 0 ? -1 : 1;
-            }
-
-            if (progress >= 0.35) {
-                this.targetProgress = 1.0;
-                this.isLocked = true;
-            } else if (progress <= 0.06) {
-                this.targetProgress = 0.0;
-                this.isLocked = false;
-            } else {
-                if (!this.isLocked) {
-                    this.targetProgress = Math.min(1.0, Math.max(0.0, (progress - 0.06) / 0.29));
+            const dir = (scrollDir !== undefined && scrollDir < 0) ? 'up' : 'down';
+            if (progress >= 0.40) {
+                if (this.targetProgress < 1.0) {
+                    this.triggerFill(dir);
+                }
+            } else if (progress <= 0.05) {
+                if (this.targetProgress > 0.0) {
+                    this.triggerDisperse(dir);
                 }
             }
         }
 
         /**
-         * Backward compatibility wrapper with latching hysteresis
+         * Backward compatibility wrapper with threshold latching
          */
         setProgress(val) {
-            if (val >= 0.35) {
-                this.triggerFill();
-            } else if (val <= 0.06) {
-                this.triggerDisperse();
-            } else {
-                if (!this.isLocked) {
-                    this.targetProgress = Math.min(1.0, Math.max(0.0, (val - 0.06) / 0.29));
-                }
+            if (val >= 0.40) {
+                this.triggerFill('down');
+            } else if (val <= 0.05) {
+                this.triggerDisperse('down');
             }
         }
 
@@ -366,8 +358,9 @@
             }
 
             // Smooth interpolation towards targetProgress (snappy, responsive convergence)
+            const stepSpeed = this.targetProgress === 1.0 ? 0.09 : 0.12;
             if (Math.abs(this.targetProgress - this.currentProgress) > 0.001) {
-                this.currentProgress += (this.targetProgress - this.currentProgress) * 0.18;
+                this.currentProgress += (this.targetProgress - this.currentProgress) * stepSpeed;
             } else {
                 this.currentProgress = this.targetProgress;
             }
@@ -413,21 +406,32 @@
             }
 
             // 2. RENDER BEEHIVE SWARM PARTICLES
-            if (p > 0.01 && this.particles.length > 0) {
-                // Snappy incoming flight ratio [0..1]
-                const flyRatio = Math.min(1.0, Math.max(0.0, p / 0.38));
-                // Rapid shape convergence ratio [0..1]
-                const settleRatio = Math.min(1.0, Math.max(0.0, (p - 0.18) / 0.70));
-                // Smoothstep ease for all-at-once shape convergence
-                const easeSettle = settleRatio * settleRatio * (3.0 - 2.0 * settleRatio);
-
-                // Cluster flight offset (traveling together from top or bottom)
+            if (p > 0.005 && this.particles.length > 0) {
                 const travelDist = this.height * 0.85;
-                const clusterOffsetY = this.flyDirection * travelDist * (1.0 - flyRatio);
+                let clusterOffsetY = 0;
+                let easeSettle = 1.0;
+
+                if (this.targetProgress === 1.0 || (this.isLocked && p >= 0.95)) {
+                    // ENTERING / CONVERGING INTO SHAPE ALL-AT-ONCE
+                    const flyRatio = Math.min(1.0, Math.max(0.0, p / 0.45));
+                    const settleRatio = Math.min(1.0, Math.max(0.0, (p - 0.15) / 0.85));
+                    easeSettle = settleRatio * settleRatio * (3.0 - 2.0 * settleRatio);
+
+                    const enterSign = this.motionDirection === 'up' ? 1 : -1;
+                    clusterOffsetY = enterSign * travelDist * (1.0 - flyRatio);
+                } else {
+                    // EXITING / DISPERSING OUT OF SHAPE
+                    const exitProgress = 1.0 - p;
+                    const exitFly = Math.min(1.0, Math.max(0.0, exitProgress / 0.80));
+                    easeSettle = Math.max(0.0, 1.0 - exitFly);
+
+                    const exitSign = this.exitDirection === 'up' ? -1 : 1;
+                    clusterOffsetY = exitSign * travelDist * exitFly;
+                }
 
                 // Dispersion & buzzing jitter
                 const dispersion = 1.0 - easeSettle;
-                const overallAlpha = Math.min(1.0, p * 2.8);
+                const overallAlpha = Math.min(1.0, p * 2.5);
 
                 const len = this.particles.length;
                 for (let i = 0; i < len; i++) {
@@ -436,11 +440,11 @@
                     // Beehive buzzing jitter & lateral flight drift
                     const buzzX = Math.sin(now * pt.buzzFreqX + pt.phase) * pt.buzzAmp * dispersion;
                     const buzzY = Math.cos(now * pt.buzzFreqY + pt.phase) * pt.buzzAmp * dispersion;
-                    const driftX = pt.driftAngle * (1.0 - flyRatio);
+                    const driftX = pt.driftAngle * dispersion;
 
                     // Current particle position in space
                     const curX = pt.homeX + (pt.scatterX + driftX) * dispersion + buzzX;
-                    const curY = pt.homeY + clusterOffsetY * dispersion + pt.scatterY * dispersion + buzzY;
+                    const curY = pt.homeY + clusterOffsetY + pt.scatterY * dispersion + buzzY;
 
                     // Mouse proximity on swarm particles
                     let mouseInfluence = 0;
@@ -527,7 +531,7 @@
             // Smooth entrance flight on load / refresh
             setTimeout(() => {
                 if (window.heroMatrix) {
-                    window.heroMatrix.triggerFill(-1);
+                    window.heroMatrix.triggerFill('down');
                 }
             }, 180);
         }
