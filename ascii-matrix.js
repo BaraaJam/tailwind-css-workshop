@@ -13,8 +13,21 @@
         constructor() {
             this.surfaces = CONFIG.map(options => new window.AsciiArtwork(document.getElementById(options.id), options));
             this.hero = new window.AsciiArtwork(document.getElementById('hero-matrix-canvas'), { shape: 'cap', seed: 1, static: true });
-            this.artworks = [this.hero, ...this.surfaces];
+            const footerCanvas = document.getElementById('footer-logo-matrix-canvas');
+            this.footerLogo = footerCanvas ? new window.AsciiArtwork(footerCanvas, { shape: 'logo', seed: 5, static: true }) : null;
+            this.artworks = [this.hero, ...this.surfaces, ...(this.footerLogo ? [this.footerLogo] : [])];
             this.canvas = document.createElement('canvas');
+            if (typeof document === 'object' && document.body && typeof document.body.appendChild === 'function') {
+                this.canvas.className = 'ascii-global-flight-layer';
+                this.canvas.setAttribute('aria-hidden', 'true');
+                this.canvas.style.pointerEvents = 'none';
+                this.canvas.style.position = 'fixed';
+                this.canvas.style.inset = '0';
+                this.canvas.style.width = '100vw';
+                this.canvas.style.height = '100vh';
+                this.canvas.style.zIndex = '35';
+                document.body.appendChild(this.canvas);
+            }
             this.ctx = this.canvas.getContext('2d');
             this.stage = 0;
             this.targetStage = 0;
@@ -76,6 +89,7 @@
                 this.hasEntered = this.stage !== 0;
                 this.ready = true;
                 this.hero.paintFull();
+                if (this.footerLogo) this.footerLogo.paintFull();
                 this.settle(this.stage);
                 this.requestFrame();
             } catch (error) {
@@ -106,7 +120,7 @@
             let changed = false;
             this.artworks.forEach((surface, index) => {
                 const resized = surface.resize(rects[index]);
-                if (surface === this.hero) { if (resized) surface.paintFull(); }
+                if (surface.options?.static) { if (resized) surface.paintFull(); }
                 else changed = resized || changed;
             });
             this.width = document.documentElement.clientWidth;
@@ -325,10 +339,11 @@
             if (this.activeRelay) this.drawRelay(now);
             else if (!this.preference.matches && this.hasEntered && selected.isVisible) selected.idle(now, now - this.lastInteraction);
             if (!this.preference.matches && this.hero.isVisible) this.hero.idle(now, now - this.lastInteraction);
+            if (!this.preference.matches && this.footerLogo?.isVisible) this.footerLogo.idle(now, now - this.lastInteraction);
             const current = this.surfaces[this.stage];
-            const deforming = (current.isVisible && current.deformAmount > 0) || (this.hero.isVisible && this.hero.deformAmount > 0);
+            const deforming = (current.isVisible && current.deformAmount > 0) || (this.hero.isVisible && this.hero.deformAmount > 0) || (this.footerLogo?.isVisible && this.footerLogo.deformAmount > 0);
             if (this.activeRelay || (!this.preference.matches && deforming)) this.requestFrame();
-            else if (!this.preference.matches && (this.surfaces[this.stage].isVisible || this.hero.isVisible)) this.timer = setTimeout(this.wake, 50);
+            else if (!this.preference.matches && (this.surfaces[this.stage].isVisible || this.hero.isVisible || this.footerLogo?.isVisible)) this.timer = setTimeout(this.wake, 50);
         }
 
         destroy() {

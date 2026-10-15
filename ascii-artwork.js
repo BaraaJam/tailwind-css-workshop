@@ -50,6 +50,10 @@
                 width = Math.min(w * 0.86, h * 0.72, 600);
                 const height = Math.min(h * 0.91, 900);
                 return { x: (w - width) / 2, y: h * 0.55 - height / 2, width, height };
+            } else if (this.options.shape === 'logo') {
+                width = Math.min(w * (mobile ? 0.80 : 0.50), h * 0.80 * ratio, 480);
+                cx = w * 0.5;
+                cy = h * 0.5;
             } else {
                 width = Math.min(w * (mobile ? 0.6 : 0.33), h * 0.94 * ratio);
                 cx = w * (mobile ? 0.73 : 0.81);

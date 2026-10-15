@@ -340,9 +340,9 @@
             margin-right: auto;
             padding-left: 1.5rem;
             padding-right: 1.5rem;
-            padding-top: 0;
-            padding-bottom: 12rem;
-            margin-top: -12rem;
+            padding-top: 2rem;
+            padding-bottom: 5rem;
+            margin-top: 0;
         }
 
         #bottom-cta-banner {
@@ -351,7 +351,7 @@
             border-radius: 2.6rem;
             padding: clamp(2rem, 3.8vw, 3.5rem);
             background: #161328;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+            box-shadow: none;
             border: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
             overflow: hidden;
@@ -1161,7 +1161,7 @@
             <!-- Interactive ASCII Matrix Background Canvas (Question Mark Shape) -->
             <canvas id="bottom-matrix-canvas" aria-hidden="true" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
             
-            <div class="relative z-10 flex flex-col items-center text-center max-w-lg md:ml-8 lg:ml-16">
+            <div class="relative z-10 flex flex-col items-center text-center max-w-lg md:ml-8 lg:ml-16 pt-6 sm:pt-8">
                 <h2 id="bottom-cta-headline">
                     Strengthen Your Organization's Competence Today.
                 </h2>
@@ -1173,7 +1173,12 @@
             </div>
         </div>
 
-        <div class="mt-8 mb-4 flex flex-wrap items-center justify-between gap-6 text-sm font-medium text-zinc-900">
+        <!-- Static Company Logo ASCII Matrix Shape (Like Hero Section Static Shape) -->
+        <div id="footer-logo-wrap" class="relative w-full h-32 sm:h-40 my-6 flex items-center justify-center overflow-hidden">
+            <canvas id="footer-logo-matrix-canvas" aria-hidden="true" class="w-full h-full pointer-events-none z-0"></canvas>
+        </div>
+
+        <div class="mt-4 mb-4 flex flex-wrap items-center justify-between gap-6 text-sm font-medium text-zinc-900">
             <div class="flex flex-wrap gap-8">
                 <a href="#trainings" class="hover:text-zinc-600 transition">Trainings</a>
                 <a href="#services" class="hover:text-zinc-600 transition">Services</a>
@@ -2201,21 +2206,21 @@
                 }, 0.80)
 
                 // Hold state with Rows 2 & 3 in full view
-                .to({}, { duration: 0.05 }, 0.88)
+                .to({}, { duration: 0.04 }, 0.84)
 
-                // Exit ALL THE WAY UP into Footer
+                // Exit ALL THE WAY UP into Footer naturally matching other sections
                 .to(row2, {
                     y: () => -window.innerHeight * 1.1,
                     autoAlpha: 0,
-                    duration: 0.07,
-                    ease: "power2.in"
-                }, 0.93)
+                    duration: 0.12,
+                    ease: "power1.inOut"
+                }, 0.88)
                 .to(row3, {
                     y: () => -window.innerHeight * 0.85,
                     autoAlpha: 0,
-                    duration: 0.07,
-                    ease: "power2.in"
-                }, 0.93);
+                    duration: 0.12,
+                    ease: "power1.inOut"
+                }, 0.88);
 
             // SECTION 6: FOOTER CTA BANNER SMOOTH SCROLL EXPANSION (80% -> 100%)
             const footerCard = document.getElementById("bottom-cta-banner");
@@ -2227,8 +2232,8 @@
                         ease: "power2.out",
                         scrollTrigger: {
                             trigger: footerCard,
-                            start: "top bottom",
-                            end: "top 55%",
+                            start: "top 95%",
+                            end: "top 60%",
                             scrub: 0.8,
                             invalidateOnRefresh: true,
                         }
