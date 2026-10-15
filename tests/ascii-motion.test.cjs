@@ -42,8 +42,8 @@ test('section arrivals wait until the destination is visible in either scroll di
     assert.equal(motion.stageAt(6000, 1, bounds), 2);
     assert.equal(motion.stageAt(5500, 2, bounds), 2, 'do not reassemble the arrow above the viewport');
     assert.equal(motion.stageAt(4800, 2, bounds), 1);
-    assert.equal(motion.stageAt(2000, 1, bounds), 1);
-    assert.equal(motion.stageAt(1800, 1, bounds), 0, 'return to the diploma while its section is visible');
+    assert.equal(motion.stageAt(2600, 1, bounds), 1);
+    assert.equal(motion.stageAt(2500, 1, bounds), 0, 'return to the diploma while its section is visible');
 });
 
 test('cell mapping preserves each source and destination exactly once at rest', () => {
@@ -111,7 +111,7 @@ test('AFK deformation starts after 5.5 seconds, deforms slower, holds, and refor
     assert.equal(motion.afkPulse(10000), 1);
     assert.ok(motion.afkPulse(12000) > 0 && motion.afkPulse(12000) < 1);
     assert.equal(motion.afkPulse(14500), 0);
-    assert.equal(motion.afkPulse(20600), motion.afkPulse(9000));
+    assert.equal(motion.afkPulse(19200), motion.afkPulse(9000));
     const cell = { seed: 12 };
     assert.equal(motion.deformOffset(cell, 0, 100).x, 0);
     assert.ok(Math.abs(motion.deformOffset(cell, 1, 100).x) > 0);

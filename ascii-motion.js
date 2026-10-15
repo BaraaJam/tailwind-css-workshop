@@ -30,7 +30,7 @@
         return [
             {
                 forward: solutionsTop - viewportHeight * 0.35,
-                backward: heroStart + (heroEnd - heroStart) * 0.82,
+                backward: solutionsTop - viewportHeight * 0.55,
             },
             {
                 forward: footerTop - viewportHeight * 0.60,
@@ -94,7 +94,7 @@
     }
     function afkPulse(idleFor) {
         if (idleFor < 5500) return 0;
-        const local = (idleFor - 5500) % 11600;
+        const local = (idleFor - 5500) % 10200;
         if (local < 2800) {
             const p = local / 2800;
             return Math.sin(p * Math.PI / 2) ** 2;
@@ -102,8 +102,8 @@
         if (local < 5800) {
             return 1;
         }
-        if (local < 8600) {
-            const p = (local - 5800) / 2800;
+        if (local < 7400) {
+            const p = (local - 5800) / 1600;
             return Math.cos(p * Math.PI / 2) ** 2;
         }
         return 0;
