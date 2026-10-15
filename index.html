@@ -519,7 +519,9 @@
         <section id="solutions-pin-section"
             class="relative w-full h-screen overflow-hidden flex flex-col justify-center items-center px-6 bg-white z-20 select-none">
             <!-- Interactive ASCII Matrix Background Canvas (Downward Arrow) -->
-            <canvas id="solutions-matrix-canvas" aria-hidden="true" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
+            <div id="solutions-matrix-canvas-wrap" class="absolute inset-0 w-full h-full pointer-events-none z-0 will-change-opacity">
+                <canvas id="solutions-matrix-canvas" aria-hidden="true" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
+            </div>
             
             <div id="solutions-hero-wrap" class="relative w-full max-w-[1400px] flex flex-col items-center justify-center z-10">
                 
@@ -1478,13 +1480,13 @@
                         trigger: "#solutions-scroll-track",
                         start: "top 50%",
                         end: "top top",
-                        scrub: 0.8,
+                        scrub: true,
                         invalidateOnRefresh: true,
                     },
                     yPercent: 0,
                     opacity: 1,
                     stagger: 0.02,
-                    ease: "power2.out"
+                    ease: "none"
                 }
             );
 
@@ -1495,83 +1497,88 @@
                     start: "top top",
                     end: "+=2600",
                     pin: "#solutions-pin-section",
-                    scrub: 0.8,
+                    scrub: true,
                     anticipatePin: 1,
                     invalidateOnRefresh: true,
                 }
             });
 
-            // Initial positioning of cards below viewport
-            gsap.set("#integrations-lockup", { x: 0, y: 0, scale: 1, opacity: 1 });
-            gsap.set("#solutions-matrix-canvas", { opacity: 1 });
+            // Initial positioning: cards completely off-screen below fold, heading & arrow ready
+            gsap.set("#integrations-lockup", { x: 0, y: 0, scale: 1, autoAlpha: 1 });
+            gsap.set("#solutions-matrix-canvas-wrap", { autoAlpha: 1 });
             gsap.set("#solutions-cards-stage", { y: 0, scale: 1, opacity: 1, pointerEvents: "none" });
             gsap.set(".solutions-card", {
-                y: () => window.innerHeight * 0.95,
+                y: () => window.innerHeight * 1.05,
                 scale: 0.72,
                 opacity: 0,
                 transformOrigin: "center center"
             });
 
             solutionsTimeline
-                // Step 1: Heading pushes slightly up & yellow SOLUTIONS marquee reveals
+                // Step 1 (0.00 - 0.12): Yellow SOLUTIONS marquee reveals & settles
                 .to("#integrations-text", {
                     y: -24,
                     duration: 0.12,
-                    ease: "power2.out"
-                }, 0.04)
+                    ease: "none"
+                }, 0.00)
                 .to("#solutions-yellow-container", {
-                    opacity: 1,
+                    autoAlpha: 1,
                     y: 0,
                     duration: 0.12,
-                    ease: "power2.out"
-                }, 0.06)
+                    ease: "none"
+                }, 0.02)
 
-                // Step 2: Lockup glides to top, arrow visible, cards show from bottom in half size (Image 2)
+                // Step 2 (0.12 - 0.50): Lockup glides to top, arrow visible, cards rise steadily from bottom into half size (Image 2)
                 // Left card in left column, middle card in center column, right card in right column
                 .to("#integrations-lockup", {
                     y: () => -window.innerHeight * 0.32,
                     scale: 0.82,
-                    opacity: 1,
-                    duration: 0.28,
-                    ease: "power2.inOut"
-                }, 0.16)
+                    autoAlpha: 1,
+                    duration: 0.38,
+                    ease: "none"
+                }, 0.12)
                 .to(".solutions-card", {
                     y: () => window.innerHeight * 0.44,
                     scale: 0.72,
                     opacity: 1,
-                    duration: 0.28,
-                    ease: "power2.inOut"
-                }, 0.16)
+                    duration: 0.38,
+                    ease: "none"
+                }, 0.12)
 
-                // Step 3: Arrow and Explore Solutions go away; cards expand smoothly to full size alone
+                // Step 3 (0.50 - 0.54): Brief hold in half-size state
+                .to(".solutions-card", {
+                    duration: 0.04
+                }, 0.50)
+
+                // Step 4 (0.54 - 0.88): Arrow & Explore Solutions fade out completely; cards expand smoothly to full size alone
                 .to("#integrations-lockup", {
                     y: () => -window.innerHeight * 0.45,
                     scale: 0.70,
-                    opacity: 0,
-                    duration: 0.32,
-                    ease: "power2.out"
-                }, 0.44)
-                .to("#solutions-matrix-canvas", {
-                    opacity: 0,
-                    duration: 0.28,
-                    ease: "power2.out"
-                }, 0.44)
+                    autoAlpha: 0,
+                    duration: 0.34,
+                    ease: "none"
+                }, 0.54)
+                .to("#solutions-matrix-canvas-wrap", {
+                    autoAlpha: 0,
+                    duration: 0.30,
+                    ease: "none"
+                }, 0.54)
                 .to(".solutions-card", {
                     y: 0,
                     scale: 1.0,
                     opacity: 1,
-                    duration: 0.32,
-                    ease: "power2.out",
+                    duration: 0.34,
+                    ease: "none",
                     onUpdate: function () {
                         const stage = document.getElementById("solutions-cards-stage");
-                        if (stage) stage.style.pointerEvents = this.progress() > 0.60 ? "auto" : "none";
+                        if (stage) stage.style.pointerEvents = this.progress() > 0.65 ? "auto" : "none";
                     }
-                }, 0.44)
+                }, 0.54)
 
-                // Step 4: Hold state with the 3 cards alone
+                // Step 5 (0.88 - 1.00): Settled hold with 3 cards alone
                 .to(".solutions-card", {
-                    duration: 0.24
-                }, 0.76);
+                    duration: 0.12
+                }, 0.88);
 
             window.switchBentoSlide = switchBentoSlide;
             window.startSlideTimer = startSlideTimer;
