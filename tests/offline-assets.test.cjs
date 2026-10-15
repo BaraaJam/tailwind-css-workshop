@@ -26,10 +26,10 @@ test('font and canvas source images are embedded without file-origin reads', () 
     const font = Buffer.from(assets.font.split(',')[1], 'base64');
     assert.equal(font.subarray(0, 4).toString(), 'wOF2');
     assert.deepEqual(font, fs.readFileSync(path.join(root, 'assets/fonts/recursive-mono.woff2')));
-    for (const shape of ['cap', 'diploma', 'arrow', 'question']) {
+    for (const shape of ['cap', 'diploma', 'arrow', 'question', 'logo']) {
         assert.ok(assets.art[shape].startsWith('data:image/svg+xml;base64,'));
         const svg = Buffer.from(assets.art[shape].split(',')[1], 'base64').toString();
-        assert.equal(svg, fs.readFileSync(path.join(root, `assets/matrix/${shape}.svg`), 'utf8'));
+        assert.equal(svg, fs.readFileSync(path.join(root, `assets/matrix/${shape === 'logo' ? 'wordmark' : shape}.svg`), 'utf8'));
         assert.ok(!/(?:href|src)\s*=\s*["'](?:https?:|file:)/.test(svg));
     }
 });

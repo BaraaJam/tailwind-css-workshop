@@ -1,11 +1,10 @@
 /* Render travel once, then project it into each section's background layer. */
 (function () {
     const M = window.AsciiMotion;
-    const FONT = '"Lexicon Matrix", ui-monospace, monospace';
     const CONFIG = [
-        { id: 'features-matrix-canvas', shape: 'diploma', seed: 4 },
-        { id: 'solutions-matrix-canvas', shape: 'arrow', seed: 2 },
-        { id: 'bottom-matrix-canvas', shape: 'question', seed: 3, dark: true },
+        { id: 'features-matrix-canvas', shape: 'diploma', seed: 4, localFlight: false },
+        { id: 'solutions-matrix-canvas', shape: 'arrow', seed: 2, localFlight: false },
+        { id: 'bottom-matrix-canvas', shape: 'question', seed: 3, dark: true, localFlight: false },
     ];
     const mix = (a, b, p) => a.map((value, i) => Math.round(value + (b[i] - value) * p));
 
@@ -26,6 +25,7 @@
                 this.canvas.style.width = '100vw';
                 this.canvas.style.height = '100vh';
                 this.canvas.style.zIndex = '35';
+                this.canvas.style.visibility = 'hidden';
                 document.body.appendChild(this.canvas);
             }
             this.ctx = this.canvas.getContext('2d');
@@ -41,7 +41,11 @@
             this.lastInteraction = performance.now();
             this.events = new AbortController();
             this.wake = () => this.requestFrame();
-            this.onLayout = () => { this.layoutDirty = true; this.requestFrame(); };
+            this.onLayout = () => {
+                this.layoutDirty = true;
+                this.geometryUntil = performance.now() + 1000;
+                this.requestFrame();
+            };
             this.onInput = () => { this.lastInteraction = performance.now(); this.requestFrame(); };
             this.onScroll = () => { this.lastInteraction = performance.now(); this.onLayout(); };
             this.onVisibility = () => document.hidden ? this.cancelFrame() : this.onLayout();
@@ -66,7 +70,7 @@
                     const surface = this.artworks.find(item => item.canvas === entry.target);
                     surface.isVisible = entry.isIntersecting;
                 }
-                this.requestFrame();
+                this.onLayout();
             }, { rootMargin: '10% 0px' });
             for (const surface of this.artworks) {
                 this.resizeObserver.observe(surface.canvas.parentElement);
@@ -102,17 +106,20 @@
             // Read geometry together before rebuilding any canvas backing stores.
             const rects = this.artworks.map(surface => surface.canvas.getBoundingClientRect());
             const track = document.getElementById('solutions-scroll-track').getBoundingClientRect();
+            const showcase = window.ScrollTrigger?.getById('solutions-stage');
             const hero = window.ScrollTrigger?.getById('hero-stage');
+            const footer = document.querySelector('.site-footer').getBoundingClientRect();
             const heading = document.getElementById('features-headline').getBoundingClientRect();
+            const compact = !window.matchMedia('(min-width: 1024px) and (min-height: 600px)').matches;
             const mobile = rects[1].width < 768;
             const diplomaRatio = this.surfaces[0].image.naturalWidth / this.surfaces[0].image.naturalHeight;
-            const diplomaHeight = Math.round(Math.min(rects[1].height * (mobile ? 0.28 : 0.34), mobile ? 220 : 280, rects[1].width * 0.35));
+            const diplomaHeight = Math.round(Math.min(rects[1].height * (mobile ? 0.28 : 0.34), compact ? 140 : mobile ? 220 : 280, rects[1].width * 0.35));
             const diplomaWidth = Math.round(diplomaHeight * diplomaRatio);
             const diplomaX = Math.round(mobile ? rects[1].width * 0.05 : Math.max(30, (rects[1].width - 1280) / 2 + 20));
             const diplomaY = Math.round(mobile ? Math.max(65, rects[1].height * 0.09) : Math.max(115, rects[1].height * 0.12));
             this.surfaces[0].artBounds = {
-                x: diplomaX,
-                y: diplomaY,
+                x: compact ? (rects[1].width - diplomaWidth) / 2 : diplomaX,
+                y: compact ? heading.bottom - rects[1].top + 20 : diplomaY,
                 width: diplomaWidth,
                 height: diplomaHeight,
                 rotation: -15 * Math.PI / 180,
@@ -132,12 +139,20 @@
                 this.canvas.height = height;
             }
             this.dpr = dpr;
-            const heroStart = hero?.start ?? 0;
+            this.arrowEnd = showcase
+                ? showcase.start + (showcase.end - showcase.start) * (showcase.animation.labels['arrow-handoff'] / showcase.animation.duration())
+                : rects[2].top + window.scrollY;
+            this.surfaces[1].rect = M.showcaseRect(rects[2], window.scrollY, this.arrowEnd);
+            const rest = hero?.animation?.labels['features-rest'];
+            const diplomaReturn = compact && Number.isFinite(rest)
+                ? hero.start + (hero.end - hero.start) * rest / hero.animation.duration() + Math.max(0, this.surfaces[0].artBounds.y + diplomaHeight - this.height * 0.2)
+                : compact ? rects[1].top + window.scrollY + this.surfaces[0].artBounds.y + diplomaHeight - this.height * 0.2 : undefined;
             this.boundaries = M.sectionBoundaries({
-                heroStart, heroEnd: hero?.end ?? this.height,
                 solutionsTop: track.top + window.scrollY,
                 solutionsBottom: track.bottom + window.scrollY,
-                footerTop: rects[3].top + window.scrollY,
+                arrowEnd: this.arrowEnd,
+                diplomaReturn,
+                footerTop: footer.top + window.scrollY,
                 viewportHeight: this.height,
             });
             this.layoutDirty = false;
@@ -161,10 +176,13 @@
 
         point(surface, index) {
             const cell = surface.cells[index];
-            if (surface.anchor) return { x: surface.anchor.rect.left + cell.x, y: surface.anchor.rect.top + cell.y };
+            const artwork = surface.anchor || surface;
+            const sx = artwork.width && artwork.rect?.width ? artwork.rect.width / artwork.width : 1;
+            const sy = artwork.height && artwork.rect?.height ? artwork.rect.height / artwork.height : 1;
+            if (surface.anchor) return { x: artwork.rect.left + cell.x * sx, y: artwork.rect.top + cell.y * sy };
             return surface.virtual
                 ? { x: cell.x, y: cell.y - window.scrollY }
-                : { x: surface.rect.left + cell.x, y: surface.rect.top + cell.y };
+                : { x: surface.rect.left + cell.x * sx, y: surface.rect.top + cell.y * sy };
         }
 
         transfer(toIndex, now, source = this.surfaces[this.stage]) {
@@ -198,7 +216,9 @@
                 glyphs: couriers.map((_, i) => M.hash(i, 25) < 0.5 ? '0' : '1'),
                 nextFlip: new Float64Array(couriers.length),
             };
-            relay.tints = couriers.map(courier => Array.from({ length: 5 }, (_, i) => `rgb(${mix(source.cells[courier.from].rgb, destination.cells[courier.to].rgb, i / 4).join(',')})`));
+            // A bounded palette keeps first-flight rasterization small in Edge too.
+            relay.tints = couriers.map(courier => Array.from({ length: 5 }, (_, i) => `rgb(${mix(source.cells[courier.from].rgb, destination.cells[courier.to].rgb, i / 4).map(value => Math.min(255, Math.round(value / 32) * 32)).join(',')})`));
+            relay.atlas = window.AsciiArtwork.flightAtlas(relay.tints, this.width < 768 ? 8 : 9, this.dpr);
             this.activeRelay = relay;
         }
 
@@ -254,9 +274,6 @@
             const ctx = this.ctx;
             ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
             ctx.clearRect(0, 0, this.width, this.height);
-            ctx.font = `400 ${this.width < 768 ? 8 : 9}px ${FONT}`;
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
             relay.couriers.forEach((courier, i) => {
                 const p = M.cellProgress(courier, relay.progress);
                 const state = p <= 0 ? 0 : p >= 1 ? 2 : 1;
@@ -275,14 +292,15 @@
                     relay.nextFlip[i] = now + (45 + M.hash(i, 30) * 70) / Math.max(0.15, middle);
                 }
                 const alpha = courier.alphaFrom + (courier.alphaTo - courier.alphaFrom) * p;
-                ctx.fillStyle = relay.tints[i][Math.round(p * 4)];
+                const atlas = relay.atlas, size = atlas.size;
+                const box = atlas.tiles[i][Math.round(p * 4)][relay.glyphs[i] === '1' ? 1 : 0];
                 if (this.width >= 768 && middle > 0.3) {
                     const ghost = this.flightPoint(relay, courier, Math.max(0, p - 0.045), now);
                     ctx.globalAlpha = alpha * 0.10;
-                    ctx.fillText(relay.glyphs[i], ghost.x, ghost.y);
+                    ctx.drawImage(atlas.canvas, ...box, ghost.x - size / 2, ghost.y - size / 2, size, size);
                 }
                 ctx.globalAlpha = Math.min(0.95, alpha + middle * 0.3);
-                ctx.fillText(relay.glyphs[i], point.x, point.y);
+                ctx.drawImage(atlas.canvas, ...box, point.x - size / 2, point.y - size / 2, size, size);
             });
             ctx.globalAlpha = 1;
             for (const surface of this.surfaces) surface.paintFlight(this.canvas, this.width, this.height);
@@ -315,10 +333,15 @@
         frame(now) {
             this.raf = 0;
             if (this.destroyed || document.hidden) return;
-            if (this.layoutDirty) this.measure();
+            const measured = this.layoutDirty;
+            if (measured) this.measure();
             // ScrollTrigger can finish changing a pin after the scroll event.
             // Follow its live positions throughout flight, including retarget snapshots.
-            for (const surface of this.surfaces) surface.rect = surface.canvas.getBoundingClientRect();
+            if (!measured && (this.activeRelay || !this.hasEntered || now < this.geometryUntil)) this.surfaces.forEach((surface, i) => {
+                const rect = surface.canvas.getBoundingClientRect();
+                surface.displayRect = rect;
+                surface.rect = i === 1 && Number.isFinite(this.arrowEnd) ? M.showcaseRect(rect, window.scrollY, this.arrowEnd) : rect;
+            });
             this.chooseTarget(now);
             const selected = this.surfaces[this.stage];
             if (this.stage === 0 && !this.activeRelay && this.hasEntered && selected.rect.top > this.height * 0.98) {
@@ -336,14 +359,17 @@
                     })) });
                 }
             }
+            const renderable = surface => surface?.isVisible && surface.canvas?.parentElement?.style?.visibility !== 'hidden' && surface.canvas?.parentElement?.style?.opacity !== '0';
+            const sheet = this.surfaces[0].rect;
+            const heroVisible = renderable(this.hero) && !(sheet?.top <= 2 && sheet?.bottom >= this.height - 2);
             if (this.activeRelay) this.drawRelay(now);
-            else if (!this.preference.matches && this.hasEntered && selected.isVisible) selected.idle(now, now - this.lastInteraction);
-            if (!this.preference.matches && this.hero.isVisible) this.hero.idle(now, now - this.lastInteraction);
+            else if (!this.preference.matches && this.hasEntered && renderable(selected)) selected.idle(now, now - this.lastInteraction);
+            if (!this.preference.matches && heroVisible) this.hero.idle(now, now - this.lastInteraction);
             if (!this.preference.matches && this.footerLogo?.isVisible) this.footerLogo.idle(now, now - this.lastInteraction);
             const current = this.surfaces[this.stage];
-            const deforming = (current.isVisible && current.deformAmount > 0) || (this.hero.isVisible && this.hero.deformAmount > 0) || (this.footerLogo?.isVisible && this.footerLogo.deformAmount > 0);
+            const deforming = (renderable(current) && current.isMorphing) || (heroVisible && this.hero.isMorphing) || (this.footerLogo?.isVisible && this.footerLogo.isMorphing);
             if (this.activeRelay || (!this.preference.matches && deforming)) this.requestFrame();
-            else if (!this.preference.matches && (this.surfaces[this.stage].isVisible || this.hero.isVisible || this.footerLogo?.isVisible)) this.timer = setTimeout(this.wake, 50);
+            else if (now < this.geometryUntil || (!this.preference.matches && (renderable(this.surfaces[this.stage]) || heroVisible || this.footerLogo?.isVisible))) this.timer = setTimeout(this.wake, 50);
         }
 
         destroy() {

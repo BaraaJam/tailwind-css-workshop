@@ -26,17 +26,22 @@
         while (stage > 0 && y <= boundaries[stage - 1].backward) stage--;
         return stage;
     }
-    function sectionBoundaries({ heroStart, heroEnd, solutionsTop, solutionsBottom, footerTop, viewportHeight }) {
+    function sectionBoundaries({ solutionsTop, solutionsBottom, arrowEnd, diplomaReturn, footerTop, viewportHeight }) {
+        const footerArrival = footerTop - viewportHeight * 0.60;
         return [
             {
                 forward: solutionsTop - viewportHeight * 0.35,
-                backward: solutionsTop - viewportHeight * 0.55,
+                backward: Math.min(diplomaReturn ?? solutionsTop - viewportHeight * 0.55, solutionsTop - viewportHeight * 0.55),
             },
             {
-                forward: footerTop - viewportHeight * 0.60,
-                backward: solutionsBottom - viewportHeight * 0.55,
+                forward: footerArrival,
+                backward: Math.min(arrowEnd ?? solutionsBottom - viewportHeight * 0.55, footerArrival - viewportHeight * 0.2),
             },
         ];
+    }
+    function showcaseRect(rect, scrollY, end) {
+        const top = Math.min(rect.top, end - scrollY);
+        return { left: rect.left, top, bottom: top + rect.height, width: rect.width, height: rect.height };
     }
     function makeCouriers(from, to) {
         if (!from.length || !to.length) return [];
@@ -114,5 +119,5 @@
             y: (hash(cell.seed, 82) - 0.5) * spread * 1.4 * amount,
         };
     }
-    return { clamp, hash, createTween, valueAt, retarget, stageAt, sectionBoundaries, makeCouriers, cellProgress, curvePoint, pixelRatio, rasterSize, wave, flightEndpoint, afkPulse, deformOffset };
+    return { clamp, hash, createTween, valueAt, retarget, stageAt, sectionBoundaries, showcaseRect, makeCouriers, cellProgress, curvePoint, pixelRatio, rasterSize, wave, flightEndpoint, afkPulse, deformOffset };
 });

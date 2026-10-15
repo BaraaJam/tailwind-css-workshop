@@ -7,7 +7,7 @@ const motion = require('../ascii-motion.js');
 
 function sceneClass(globals = {}) {
     const context = {
-        window: { AsciiMotion: motion, scrollY: 1000 },
+        window: { AsciiMotion: motion, AsciiArtwork: { flightAtlas() { return {}; } }, scrollY: 1000 },
         document: { readyState: 'loading', addEventListener() {} },
         ...globals,
     };
@@ -50,7 +50,7 @@ test('a relay finishing on a visible destination keeps character swaps scheduled
 test('an offscreen deformed hero does not keep a RAF loop running', () => {
     let requested = 0;
     const Scene = sceneClass({ setTimeout() { assert.fail('offscreen artwork must sleep'); } });
-    const selected = { isVisible: false, deformAmount: 0.5, canvas: { getBoundingClientRect() { return {}; } } };
+    const selected = { rect: {}, isVisible: false, deformAmount: 0.5, canvas: { getBoundingClientRect() { return {}; } } };
     const scene = {
         stage: 0, activeRelay: null, surfaces: [selected], hasEntered: true,
         hero: { isVisible: false, deformAmount: 0.8 }, preference: { matches: false },
@@ -60,6 +60,31 @@ test('an offscreen deformed hero does not keep a RAF loop running', () => {
     assert.equal(requested, 0);
 });
 
+test('a shape inside a GSAP-hidden wrapper does not keep rendering', () => {
+    const Scene = sceneClass({ setTimeout() { assert.fail('hidden artwork must sleep'); } });
+    const selected = { rect: {}, isVisible: true, isMorphing: true,
+        canvas: { parentElement: { style: { visibility: 'hidden' } } },
+        idle() { assert.fail('a hidden wrapper must not redraw its canvas'); },
+    };
+    const scene = { stage: 1, activeRelay: null, surfaces: [{ rect: {} }, selected], hasEntered: true,
+        hero: { isVisible: false }, preference: { matches: false }, chooseTarget() {},
+        requestFrame() { assert.fail('hidden artwork must not request RAF'); },
+    };
+    Scene.prototype.frame.call(scene, 1000);
+});
+
+test('the opaque features sheet pauses the hero it covers', () => {
+    const Scene = sceneClass({ setTimeout() { return 1; } });
+    let updates = 0;
+    const selected = { rect: { top: 0, bottom: 1080 }, isVisible: true, idle() { updates++; } };
+    const scene = { stage: 0, height: 1080, activeRelay: null, surfaces: [selected], hasEntered: true,
+        hero: { isVisible: true, idle() { assert.fail('the covered hero must not redraw'); } },
+        preference: { matches: false }, lastInteraction: 0, chooseTarget() {}, wake() {},
+    };
+    Scene.prototype.frame.call(scene, 1000);
+    assert.equal(updates, 1);
+});
+
 test('a destination with no visible cells settles without an empty animated delay', () => {
     const Scene = sceneClass();
     let settled;
@@ -67,6 +92,21 @@ test('a destination with no visible cells settles without an empty animated dela
     Scene.prototype.transfer.call(scene, 0, 100);
     assert.equal(settled, 0);
     assert.equal(scene.activeRelay, undefined);
+});
+
+test('settling GSAP geometry wakes the hero after the features sheet moves away', () => {
+    const Scene = sceneClass({ setTimeout() { return 1; } });
+    let updates = 0;
+    const selected = { rect: { top: 0, bottom: 720 }, isVisible: false,
+        canvas: { getBoundingClientRect() { return { top: 500, bottom: 1220 }; } },
+    };
+    const scene = { stage: 0, height: 720, activeRelay: null, surfaces: [selected], hasEntered: true,
+        geometryUntil: 2000, hero: { isVisible: true, idle() { updates++; } },
+        preference: { matches: false }, lastInteraction: 0, chooseTarget() {}, wake() {},
+    };
+    Scene.prototype.frame.call(scene, 1000);
+    assert.equal(updates, 1);
+    assert.equal(scene.timer, 1);
 });
 
 test('transfers keep the real artwork and its section identity for reversal', () => {
@@ -109,6 +149,14 @@ test('flight endpoints follow their artwork when ScrollTrigger changes the pin p
     assert.equal(Scene.prototype.point.call({}, source, 0).y, 120);
     source.rect.top = 25;
     assert.equal(Scene.prototype.point.call({}, source, 0).y, 45);
+});
+
+test('flight endpoints follow the displayed scale of the footer card', () => {
+    const Scene = sceneClass();
+    const surface = { width: 1000, height: 500, rect: { left: 100, top: 200, width: 720, height: 360 }, cells: [{ x: 800, y: 250 }] };
+    const point = Scene.prototype.point.call({}, surface, 0);
+    assert.equal(point.x, 676);
+    assert.equal(point.y, 380);
 });
 
 test('settling a transfer restores the selected cached shape without moving its cells', () => {

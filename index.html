@@ -275,7 +275,7 @@
             font-weight: 330;
             color: #09090b;
             white-space: nowrap;
-            will-change: filter, opacity, transform;
+            will-change: opacity, transform;
         }
 
         .metrics-desc {
@@ -340,9 +340,12 @@
             margin-right: auto;
             padding-left: 1.5rem;
             padding-right: 1.5rem;
-            padding-top: 2rem;
-            padding-bottom: 3.5rem;
+            padding-top: 0;
+            padding-bottom: 2rem;
             margin-top: 0;
+            min-height: calc(100svh - 144px);
+            display: flex;
+            flex-direction: column;
         }
 
         #bottom-cta-banner {
@@ -398,8 +401,8 @@
         #footer-logo-wrap {
             position: relative;
             width: 100%;
-            height: 95px;
-            max-height: 95px;
+            height: clamp(110px, 19vw, 210px);
+            flex-shrink: 0;
             margin-top: 1.5rem;
             margin-bottom: 1.25rem;
             display: flex;
@@ -411,8 +414,131 @@
         #footer-logo-matrix-canvas {
             width: 100%;
             height: 100%;
-            max-height: 95px;
             pointer-events: none;
+        }
+
+        .site-footer > :last-child {
+            margin-top: auto;
+            padding-top: 1rem;
+        }
+
+        #bento-fill-0, #bento-fill-1, #bento-fill-2 {
+            width: 100%;
+            transform: scaleX(0);
+            transform-origin: left center;
+            will-change: transform;
+        }
+
+        #navbar-links { display: none; }
+        #navbar-links { backdrop-filter: none; background-color: rgba(244, 244, 245, 0.96); }
+        #features { box-shadow: none; isolation: isolate; }
+        #solutions-pin-section { isolation: isolate; }
+        .solutions-card svg { filter: none; }
+        #growth-chart, #growth-stats, #growth-layout { min-width: 0; }
+        #growth-filters { max-width: 100%; flex-wrap: wrap; justify-content: center; }
+        #growth-card { container-type: inline-size; }
+        @container (max-width: 520px) {
+            #growth-layout { grid-template-columns: minmax(0, 1fr); }
+            #growth-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-column: auto; gap: 12px; }
+            #growth-stats > div { padding: 16px; min-height: 120px; }
+            #growth-stats > div > p:last-child { font-size: clamp(24px, 8cqw, 36px); white-space: nowrap; }
+            #growth-chart { grid-column: auto; padding-left: 0; min-width: 0; }
+            #growth-chart > div:last-child { flex: 0 0 auto; min-height: 180px; height: 200px; }
+            #growth-filters { flex-wrap: wrap; justify-content: center; width: 100%; border-radius: 16px; }
+            #growth-filters > span { padding: 4px 6px; font-size: 11px; }
+        }
+        @media (min-width: 1100px) {
+            #navbar-links { display: flex; gap: clamp(1rem, 1.8vw, 1.75rem); }
+        }
+
+        @media not all and (min-width: 1024px) and (min-height: 600px) {
+            #main-header { top: 0; padding: 4px 0; background: rgba(255, 255, 255, 0.96); }
+            #hero-section {
+                height: 100svh;
+                min-height: 0;
+                padding-top: 100px;
+            }
+            #hero-text-mask { padding: 24px 0; }
+            #hero-headline { font-size: clamp(2rem, 6.8vw, 3.5rem); }
+            #cards-stack-container { height: clamp(110px, 28svh, 230px); flex-shrink: 0; }
+            #card-yellow { width: 88%; left: 2%; }
+            #card-pink { width: 84%; left: 8%; transform: rotate(-3deg); }
+            #card-purple { width: 80%; left: 12%; transform: rotate(-6deg); }
+            #features {
+                position: absolute;
+                inset: 0 0 auto;
+                height: auto;
+                min-height: 100svh;
+                padding: 96px 24px 48px;
+                border-radius: 0;
+                box-shadow: none;
+            }
+            #features > div { height: auto; }
+            #features-headline { font-size: clamp(1.8rem, 5.5vw, 3rem); }
+            .features-bento-stage { padding-top: 216px; }
+            .features-bento-grid {
+                max-height: none;
+                transform: none;
+                grid-template-columns: minmax(0, 1fr);
+                gap: 24px;
+            }
+            #solutions-pin-section { height: auto; overflow: visible; padding: 0; gap: 32px; }
+            #solutions-hero-wrap {
+                min-height: clamp(420px, 80svh, 720px);
+                padding: 64px 24px;
+                overflow: hidden;
+            }
+            #integrations-text { font-size: clamp(1.65rem, 6vw, 4rem); }
+            #solutions-cards-stage {
+                position: relative;
+                inset: auto;
+                padding: 0 24px;
+                max-width: 72rem;
+                pointer-events: auto;
+            }
+            #solutions-cards-stage > div {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 24px;
+            }
+            .solutions-card-col { transform: none; flex: 1 1 280px; max-width: 400px; min-width: 0; }
+            .solutions-card-title { white-space: normal; line-height: 1.2; }
+            .metrics-viewport { position: relative; inset: auto; height: auto; padding: 32px 24px; }
+            .metrics-stage { height: auto; }
+            .metrics-row { position: relative; top: auto !important; height: auto; padding: 32px 0; }
+            .metrics-row-grid { flex-direction: column; align-items: center; gap: 20px; text-align: center; }
+            .metrics-left-group { gap: 20px; justify-content: center; width: 100%; }
+            .metrics-photo-wrap { width: clamp(80px, 20vw, 140px); height: clamp(80px, 20vw, 140px); padding: 12px; border-radius: 24px; }
+            .metrics-number { font-size: clamp(3.2rem, 12vw, 6rem); }
+            .metrics-badge { font-size: clamp(0.65rem, 1.8vw, 0.8rem); padding: 5px 9px; left: 0; top: -23px; }
+            .metrics-desc { max-width: 560px; margin-inline: auto; font-size: 1rem; }
+            .site-footer { margin-top: 0; min-height: 0; }
+            .site-footer > :last-child { margin-top: 12px; }
+        }
+        @media (min-width: 700px) and (max-width: 1023px) {
+            .features-bento-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .features-bento-grid > div { padding: 24px; }
+            .features-bento-grid h3 { font-size: 1.5rem; }
+        }
+        @media (max-width: 639px) {
+            #navbar-cta-btn { padding: 12px 14px; font-size: 12px; }
+            #hero-buttons-group { gap: 12px; margin-top: 20px; }
+            #hero-buttons-group a { padding: 14px 18px; }
+            #bottom-cta-banner { min-height: 540px; padding: 32px 24px 250px; align-items: center; justify-content: flex-start; border-radius: 32px; }
+            #bottom-cta-banner > div { padding-top: 0; }
+            #bottom-cta-headline { font-size: clamp(1.8rem, 7.5vw, 2.4rem); margin-bottom: 24px; }
+            #bottom-cta-btn { padding: 14px 24px; }
+            #bottom-matrix-canvas { inset: auto 0 24px; height: 210px; }
+            .site-footer > :last-child > div:first-child { column-gap: 24px; row-gap: 20px; }
+        }
+        @media (max-height: 599px) {
+            #hero-section { padding-top: 80px; }
+            #hero-text-mask { padding: 0; }
+            #hero-headline { font-size: clamp(1.6rem, 4vw, 2.4rem); }
+            #hero-headline > span { padding: 2px 0; }
+            #hero-buttons-group { margin-top: 16px; }
+            #hero-buttons-group a { padding: 10px 18px; }
         }
     </style>
 </head>
@@ -723,7 +849,7 @@
                         </div>
 
                         <!-- Right Card: Optimizing Performance (7 Cols) matching user sketch -->
-                        <div
+                        <div id="growth-card"
                             class="lg:col-span-7 bg-zinc-100/70 rounded-3xl p-6 md:p-8 flex flex-col justify-between min-h-[460px] md:min-h-[500px]">
                             <!-- Header -->
                             <h3 class="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-900 mb-4 md:mb-5">
@@ -731,9 +857,9 @@
                             </h3>
 
                             <!-- Content: 2 Columns (Left: Yellow & Pink stacked, Right: Outlined Dates filter + Chart) -->
-                            <div class="grid grid-cols-1 md:grid-cols-12 gap-5 flex-1 items-stretch">
+                            <div id="growth-layout" class="grid grid-cols-1 md:grid-cols-12 gap-5 flex-1 items-stretch">
                                 <!-- Left Column: Yellow (Course Completion) and Pink (Certified Professionals) Cards Stacked Vertically -->
-                                <div class="md:col-span-4 flex flex-col gap-4 justify-between">
+                                <div id="growth-stats" class="md:col-span-4 flex flex-col gap-4 justify-between">
                                     <!-- Yellow Card: Competence Increase (+30%) -->
                                     <div
                                         class="bg-[#FCD332] rounded-3xl p-5 md:p-6 flex-1 flex flex-col justify-between min-h-[140px]">
@@ -753,10 +879,10 @@
                                 </div>
 
                                 <!-- Right Column: Date Filter Pill with Outline + Interactive Graph matching Image 2 -->
-                                <div class="md:col-span-8 flex flex-col justify-between pl-0 md:pl-2">
+                                <div id="growth-chart" class="md:col-span-8 flex flex-col justify-between pl-0 md:pl-2">
                                     <!-- Dates Filter Pill with clean single-line capsule & outline matching design -->
                                     <div class="flex justify-start md:justify-end mb-2">
-                                        <div
+                                        <div id="growth-filters"
                                             class="inline-flex items-center gap-0.5 sm:gap-1 bg-white border border-zinc-300 p-1 rounded-full text-[11px] sm:text-xs font-medium text-zinc-600 shadow-sm">
                                             <span
                                                 class="px-2 sm:px-2.5 py-1 rounded-full hover:text-zinc-900 transition cursor-pointer whitespace-nowrap">3
@@ -1194,7 +1320,7 @@
         </div>
 
         <!-- Static Company Logo ASCII Matrix Shape (Like Hero Section Static Shape) -->
-        <div id="footer-logo-wrap" class="relative w-full flex items-center justify-center overflow-hidden">
+        <div id="footer-logo-wrap" role="img" aria-label="Lexicon" class="relative w-full flex items-center justify-center overflow-hidden">
             <canvas id="footer-logo-matrix-canvas" aria-hidden="true" class="w-full h-full pointer-events-none z-0"></canvas>
         </div>
 
@@ -1253,18 +1379,29 @@
             const navbarLinks = document.querySelector("#navbar-links");
             const navbarCtaBtn = document.querySelector("#navbar-cta-btn");
             const navbarLogin = document.querySelector("#navbar-login");
+            const responsive = gsap.matchMedia();
+            const presentationQuery = "(min-width: 1024px) and (min-height: 600px)";
+            const compactQuery = "not all and (min-width: 1024px) and (min-height: 600px)";
+            let currentSlide = 0;
+            let slideStartTime = null;
+            const SLIDE_DURATION = 4200;
+            let timerAnimFrame = null;
+            let timerIsRunning = false;
+            let bentoInView = false;
 
             // Configure initial origins & positions
+            function prepareDesktopHero() {
             gsap.set(["#hero-line-1", "#hero-line-2"], { yPercent: 0, opacity: 1 });
             gsap.set("#hero-text-mask", { opacity: 1 });
             gsap.set(["#features-line-1", "#features-line-2"], { yPercent: 120 });
             gsap.set(featuresSection, {
-                yPercent: 105,
+                yPercent: 0,
                 borderRadius: "2.5rem 2.5rem 0 0"
             });
             gsap.set(".hashtag-pill", { y: -420, opacity: 1 });
             gsap.set("#hero-buttons-group", { transformOrigin: "center center" });
             gsap.set(["#card-yellow", "#card-pink", "#card-purple"], { transformOrigin: "bottom center" });
+            }
             // Helper functions to position dots, dashed drop-lines, and badges along the curve path
             function setChartPoint1(dist, val) {
                 const path = document.querySelector("#chart-curve-path");
@@ -1440,18 +1577,38 @@
             }
 
             // STAGE 2: Curtain Roll UP, Cards Stack UP, Purple Expansion, Purple Hold, & Section 2 Full Screen Transition
+            responsive.add({ desktop: presentationQuery, compact: compactQuery }, ({ conditions }) => {
+            const featuresOverflow = () => conditions.compact ? Math.max(0, featuresSection.scrollHeight - heroSection.clientHeight) : 0;
+            let featuresPan;
+            let refreshFrame = 0;
+            prepareDesktopHero();
             const stage2Timeline = gsap.timeline({
                 scrollTrigger: {
                     id: "hero-stage",
                     trigger: "#hero-scroll-track",
                     start: "top top",
-                    end: "+=2200",
+                    end: () => "+=" + (2200 + featuresOverflow()),
                     pin: "#hero-section",
-                    scrub: 0.8,
+                    scrub: 1,
                     anticipatePin: 1,
                     invalidateOnRefresh: true,
+                    onRefresh: self => {
+                        cancelAnimationFrame(refreshFrame);
+                        refreshFrame = requestAnimationFrame(() => {
+                            // Pin dimensions are restored after the refresh callbacks.
+                            if (!featuresPan) return;
+                            const overflow = featuresOverflow();
+                            if (Math.abs(self.animation.duration() - 1 - overflow / 2200) > 0.0001) {
+                                self.animation.remove(featuresPan);
+                                featuresPan.duration(overflow / 2200);
+                                self.animation.add(featuresPan, 1);
+                                self.animation.invalidate().totalProgress(self.progress);
+                            }
+                            if (Math.abs(self.end - self.start - 2200 - overflow) > 2) ScrollTrigger.refresh();
+                        });
+                    },
                     onUpdate: (self) => {
-                        const p = self.progress;
+                        const p = self.progress * (self.animation?.duration() || 1);
 
                         // The ASCII scene handles arrivals when their destination enters view.
 
@@ -1582,7 +1739,7 @@
                                 switchBentoSlide(0, false);
                                 for (let i = 0; i < 3; i++) {
                                     const fillEl = document.querySelector(`#bento-fill-${i}`);
-                                    if (fillEl) fillEl.style.width = "0%";
+                                    if (fillEl) fillEl.style.transform = "scaleX(0)";
                                 }
                             }
                         }
@@ -1687,8 +1844,8 @@
                     duration: 0.18
                 }, 0.40)
                 // 12. Section 2 (White card) rises UP from bottom over purple
-                .to(featuresSection, {
-                    yPercent: 0,
+                .fromTo(featuresSection, { y: () => heroSection.clientHeight + 8 }, {
+                    y: 0,
                     duration: 0.24,
                     ease: "power1.inOut"
                 }, 0.58)
@@ -1742,13 +1899,41 @@
                     opacity: 1,
                     duration: 0.16
                 }, 0.84);
+            stage2Timeline.addLabel("features-rest", 1);
+            if (conditions.compact) {
+                stage2Timeline.to(featuresSection, {
+                    y: () => -featuresOverflow(),
+                    duration: featuresOverflow() / 2200,
+                    ease: "none",
+                }, 1);
+                featuresPan = stage2Timeline.recent();
+            }
+            return () => {
+                cancelAnimationFrame(refreshFrame);
+                hashtagDropTween?.kill();
+                hashtagsDropped = false;
+            };
+            });
 
             // Bento Slide Interactive Timer
-            let currentSlide = 0;
-            let slideStartTime = null;
-            const SLIDE_DURATION = 4200;
-            let timerAnimFrame = null;
-            let timerIsRunning = false;
+            const bentoVisibility = new IntersectionObserver(entries => {
+                bentoInView = entries[0].isIntersecting;
+                if (bentoInView && !window.matchMedia(presentationQuery).matches) {
+                    animateNumbers();
+                    timerIsRunning = true;
+                }
+                if (!bentoInView) {
+                    cancelAnimationFrame(timerAnimFrame);
+                    timerAnimFrame = null;
+                } else if (timerIsRunning && !document.hidden && timerAnimFrame == null) startSlideTimer();
+            });
+            bentoVisibility.observe(featuresSection);
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    cancelAnimationFrame(timerAnimFrame);
+                    timerAnimFrame = null;
+                } else if (bentoInView && timerIsRunning) startSlideTimer();
+            });
 
             const slideTitles = [
                 "In-Demand Skills & Tools",
@@ -1875,9 +2060,9 @@
                     const fillEl = document.querySelector(`#bento-fill-${i}`);
                     if (!fillEl) continue;
                     if (i < index) {
-                        fillEl.style.width = "100%";
+                        fillEl.style.transform = "scaleX(1)";
                     } else if (i > index) {
-                        fillEl.style.width = "0%";
+                        fillEl.style.transform = "scaleX(0)";
                     }
                 }
 
@@ -1901,12 +2086,13 @@
                 slideStartTime = performance.now();
 
                 function step(now) {
+                    if (!timerIsRunning || !bentoInView || document.hidden) { timerAnimFrame = null; return; }
                     const elapsed = now - slideStartTime;
                     const progress = Math.min(elapsed / SLIDE_DURATION, 1);
 
                     const activeFill = document.querySelector(`#bento-fill-${currentSlide}`);
                     if (activeFill) {
-                        activeFill.style.width = `${progress * 100}%`;
+                        activeFill.style.transform = `scaleX(${progress})`;
                     }
 
                     if (progress < 1) {
@@ -1916,7 +2102,7 @@
                         if (nextSlide === 0) {
                             for (let i = 0; i < 3; i++) {
                                 const fillEl = document.querySelector(`#bento-fill-${i}`);
-                                if (fillEl) fillEl.style.width = "0%";
+                                if (fillEl) fillEl.style.transform = "scaleX(0)";
                             }
                         }
                         switchBentoSlide(nextSlide, true);
@@ -1927,6 +2113,7 @@
             }
 
             // SECTION 3: PINNED "EXPLORE LEXICON'S" + "SOLUTIONS" SMOOTH SCROLL SHOWCASE
+            responsive.add(presentationQuery, () => {
             gsap.set(".reveal-char", { yPercent: 120, opacity: 0 });
             gsap.set("#integrations-text", { y: 0 });
             gsap.set("#solutions-yellow-container", { opacity: 0, y: 30 });
@@ -1953,11 +2140,12 @@
             // 2. UNIFIED PINNED SHOWCASE: "EXPLORE LEXICON'S" -> 3 BUSINESS CARDS -> SEAMLESS CONVEYOR RELAY TO 3 KPI METRICS ROWS
             const solutionsTimeline = gsap.timeline({
                 scrollTrigger: {
+                    id: "solutions-stage",
                     trigger: "#solutions-scroll-track",
                     start: "top top",
-                    end: "+=2800",
+                    end: "+=3400",
                     pin: "#solutions-pin-section",
-                    scrub: 0.8,
+                    scrub: 1,
                     anticipatePin: 1,
                     invalidateOnRefresh: true,
                 }
@@ -2006,7 +2194,7 @@
             if (row1 && row2 && row3) {
                 gsap.set([row1, row2, row3], { y: () => window.innerHeight * 1.15, autoAlpha: 1 });
                 gsap.set([row1Photo, row2Photo, row3Photo], { scale: 0.2, opacity: 0 });
-                gsap.set([row1Num, row2Num, row3Num], { filter: "blur(18px)", opacity: 0, y: 16 });
+                gsap.set([row1Num, row2Num, row3Num], { opacity: 0, y: 16 });
                 gsap.set([row1Badge, row2Badge, row3Badge], { scale: 0, opacity: 0 });
                 gsap.set([row1Desc, row2Desc, row3Desc], { opacity: 0, y: 16 });
                 gsap.set([div1, div2, div3], { opacity: 0 });
@@ -2017,7 +2205,7 @@
             const val3 = { val: 0 };
 
             // PART 1: Cards Reveal & Showcase (0.00 -> 0.44)
-            solutionsTimeline
+            solutionsTimeline.addLabel("arrow-handoff", 0.22)
                 // Step 1: Heading pushes up & yellow SOLUTIONS marquee reveals
                 .to("#integrations-text", {
                     y: -24,
@@ -2101,7 +2289,6 @@
                     ease: "power2.out"
                 }, 0.47)
                 .to(row1Num, {
-                    filter: "blur(0px)",
                     opacity: 1,
                     y: 0,
                     duration: 0.11,
@@ -2142,7 +2329,6 @@
                     ease: "power2.out"
                 }, 0.55)
                 .to(row2Num, {
-                    filter: "blur(0px)",
                     opacity: 1,
                     y: 0,
                     duration: 0.12,
@@ -2197,7 +2383,6 @@
                     ease: "power2.out"
                 }, 0.77)
                 .to(row3Num, {
-                    filter: "blur(0px)",
                     opacity: 1,
                     y: 0,
                     duration: 0.12,
@@ -2241,20 +2426,55 @@
                     duration: 0.14,
                     ease: "power2.inOut"
                 }, 0.94);
+            });
 
-            // SECTION 6: FOOTER CTA BANNER SMOOTH SCROLL EXPANSION (82% -> 100%)
+            responsive.add(compactQuery, () => {
+                const arrowWrap = document.getElementById("solutions-matrix-canvas-wrap");
+                const showcase = document.getElementById("solutions-hero-wrap");
+                showcase.prepend(arrowWrap);
+                gsap.fromTo(".reveal-char", { yPercent: 110, opacity: 0 }, {
+                    yPercent: 0, opacity: 1, stagger: 0.02, ease: "none",
+                    scrollTrigger: { trigger: showcase, start: "top 85%", end: "top 30%", scrub: 1, invalidateOnRefresh: true },
+                });
+                gsap.fromTo("#solutions-yellow-container", { y: 24, scale: 0.8, autoAlpha: 0 }, {
+                    y: 0, scale: 1, autoAlpha: 1, ease: "none",
+                    scrollTrigger: { trigger: showcase, start: "top 65%", end: "top 20%", scrub: 1, invalidateOnRefresh: true },
+                });
+                document.querySelectorAll(".solutions-card").forEach(card => gsap.fromTo(card,
+                    { y: 64, scale: 0.82, autoAlpha: 0 },
+                    { y: 0, scale: 1, autoAlpha: 1, ease: "none", scrollTrigger: {
+                        trigger: card.parentElement, start: "top 95%", end: "top 42%", scrub: 1, invalidateOnRefresh: true,
+                    } }
+                ));
+                document.querySelectorAll(".metrics-row").forEach(row => gsap.fromTo(row,
+                    { y: 48, autoAlpha: 0 },
+                    { y: 0, autoAlpha: 1, ease: "none", scrollTrigger: {
+                        trigger: row, start: "top 95%", end: "top 60%", scrub: 1, invalidateOnRefresh: true,
+                    } }
+                ));
+                document.getElementById("metrics-num-1").textContent = "+1.7M";
+                document.getElementById("metrics-num-2").textContent = "+630";
+                document.getElementById("metrics-num-3").textContent = "+420";
+                return () => {
+                    document.getElementById("solutions-pin-section").prepend(arrowWrap);
+                };
+            });
+
+            // The previous section clears before the card grows into view.
             const footerCard = document.getElementById("bottom-cta-banner");
             if (footerCard) {
                 gsap.fromTo(footerCard,
-                    { scale: 0.82, transformOrigin: "center center" },
+                    { y: 80, scale: 0.72, autoAlpha: 0, transformOrigin: "50% 0%" },
                     {
-                        scale: 1.0,
-                        ease: "power2.out",
+                        y: 0,
+                        scale: 1,
+                        autoAlpha: 1,
+                        ease: "none",
                         scrollTrigger: {
-                            trigger: footerCard,
-                            start: "top 92%",
-                            end: "top 55%",
-                            scrub: 0.8,
+                            trigger: ".site-footer",
+                            start: "top 95%",
+                            end: "clamp(top 18%)",
+                            scrub: 1.2,
                             invalidateOnRefresh: true,
                         }
                     }

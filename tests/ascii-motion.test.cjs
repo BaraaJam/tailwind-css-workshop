@@ -59,6 +59,39 @@ test('cell mapping preserves each source and destination exactly once at rest', 
     assert.deepEqual(motion.makeCouriers([], cells(5)), []);
 });
 
+test('overlapping footer and pinned metrics never select the arrow again', () => {
+    const bounds = motion.sectionBoundaries({
+        solutionsTop: 3200, solutionsBottom: 7000,
+        arrowEnd: 3770, footerTop: 6660, viewportHeight: 1000,
+    });
+    assert.ok(bounds[1].backward < bounds[1].forward);
+    let stage = 1;
+    for (const y of [6000, 6100, 6200, 6300]) stage = motion.stageAt(y, stage, bounds);
+    assert.equal(stage, 2);
+    for (const y of [6200, 5900, 5200, 4500, 3900]) {
+        stage = motion.stageAt(y, stage, bounds);
+        assert.equal(stage, 2, 'metrics must not reassemble an arrow');
+    }
+    assert.equal(motion.stageAt(3750, stage, bounds), 1, 'return while Explore Solutions is visible');
+});
+
+test('the arrow anchor leaves with its own showcase instead of staying over metrics', () => {
+    const rect = { top: 0, bottom: 1000, left: 24, width: 1400, height: 1000 };
+    const anchored = motion.showcaseRect(rect, 5700, 3770);
+    assert.equal(anchored.top, -1930);
+    assert.equal(anchored.bottom, -930);
+    assert.equal(motion.showcaseRect(rect, 3300, 3770).top, 0);
+});
+
+test('a tall skills section waits for the diploma itself on the return trip', () => {
+    const bounds = motion.sectionBoundaries({
+        solutionsTop: 2500, solutionsBottom: 5200, arrowEnd: 2500,
+        diplomaReturn: 1000, footerTop: 5300, viewportHeight: 844,
+    });
+    assert.equal(motion.stageAt(1900, 1, bounds), 1, 'do not assemble the diploma over lower cards');
+    assert.equal(motion.stageAt(990, 1, bounds), 0);
+});
+
 test('every staggered cell can leave home and reach its destination', () => {
     const cells = Array.from({ length: 40 }, (_, i) => ({ x: i, y: 40 - i, alpha: 1 }));
     for (const courier of motion.makeCouriers(cells, cells)) {
