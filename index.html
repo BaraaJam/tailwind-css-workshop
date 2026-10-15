@@ -538,7 +538,8 @@
             border: 1px solid rgba(228, 228, 231, 0.5);
         }
 
-        #navbar-login {
+        #navbar-login,
+        #navbar-cta-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -548,7 +549,8 @@
             border: 1px solid rgba(228, 228, 231, 0.5);
             transition: all 0.2s ease;
         }
-        #navbar-login:hover {
+        #navbar-login:hover,
+        #navbar-cta-btn:hover {
             background-color: rgba(244, 244, 245, 0.95);
             color: #18181b;
         }
@@ -693,7 +695,7 @@
             <div class="flex items-center gap-3 sm:gap-4 text-sm font-medium">
                 <a href="#" id="navbar-login" class="text-zinc-900 px-5 py-2.5 rounded-lg transition font-medium">Log In</a>
                 <a href="#" id="navbar-cta-btn"
-                    class="bg-zinc-900 text-white font-medium px-5 py-2.5 rounded-lg hover:bg-zinc-700 transition">
+                    class="text-zinc-900 font-medium px-5 py-2.5 rounded-lg transition">
                     Start Learning Today
                 </a>
             </div>
@@ -1855,29 +1857,35 @@
                     duration: 0.12,
                     ease: "power1.out"
                 }, 0.30)
-                // 9. Navbar LEXICON logo becomes pink (#F8529E)
+                // 9. Navbar adapts for purple background:
+                // Logo becomes pink (#F8529E)
+                // All navbar items (menu links, Log In, Start Learning Today) stay reflecting and blurry
+                // until purple is full / reaches under the navbar (~0.38), then transition to solid white with dark text
                 .to(navbarLogo, {
                     color: "#F8529E",
-                    duration: 0.12,
+                    duration: 0.08,
                     ease: "power1.inOut"
-                }, 0.28)
-                // 10. Navbar button "Start Free Trial" & menu pill become white
+                }, 0.38)
                 .to(navbarCtaBtn, {
                     backgroundColor: "#ffffff",
                     color: "#18181b",
-                    duration: 0.12,
+                    borderColor: "transparent",
+                    duration: 0.08,
                     ease: "power1.inOut"
-                }, 0.28)
+                }, 0.38)
                 .to(navbarLinks, {
                     backgroundColor: "#ffffff",
-                    duration: 0.12,
+                    borderColor: "transparent",
+                    duration: 0.08,
                     ease: "power1.inOut"
-                }, 0.28)
+                }, 0.38)
                 .to(navbarLogin, {
-                    color: "#ffffff",
-                    duration: 0.12,
+                    backgroundColor: "#ffffff",
+                    color: "#18181b",
+                    borderColor: "transparent",
+                    duration: 0.08,
                     ease: "power1.inOut"
-                }, 0.28)
+                }, 0.38)
                 // 11. PURPLE HOLD: User scrolls through pure purple screen
                 .to(purpleCard, {
                     opacity: 1,
@@ -1915,23 +1923,27 @@
                 // 15. Navbar adapts for white background
                 .to(navbarLogo, {
                     color: "#18181b",
-                    duration: 0.12,
+                    duration: 0.08,
                     ease: "power1.inOut"
                 }, 0.72)
                 .to(navbarCtaBtn, {
-                    backgroundColor: "#18181b",
-                    color: "#ffffff",
-                    duration: 0.12,
+                    backgroundColor: "rgba(244, 244, 245, 0.65)",
+                    color: "#18181b",
+                    borderColor: "rgba(228, 228, 231, 0.5)",
+                    duration: 0.08,
                     ease: "power1.inOut"
                 }, 0.72)
                 .to(navbarLinks, {
-                    backgroundColor: "rgba(244, 244, 245, 0.5)",
-                    duration: 0.12,
+                    backgroundColor: "rgba(244, 244, 245, 0.65)",
+                    borderColor: "rgba(228, 228, 231, 0.5)",
+                    duration: 0.08,
                     ease: "power1.inOut"
                 }, 0.72)
                 .to(navbarLogin, {
-                    color: "#000000",
-                    duration: 0.12,
+                    backgroundColor: "rgba(244, 244, 245, 0.65)",
+                    color: "#18181b",
+                    borderColor: "rgba(228, 228, 231, 0.5)",
+                    duration: 0.08,
                     ease: "power1.inOut"
                 }, 0.72)
                 // 16. SECTION 2 HOLD: Full screen presentation before releasing pin
