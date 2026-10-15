@@ -329,6 +329,56 @@
         @media (max-width: 1023px) {
             .features-bento-stage { justify-content: flex-start; padding-top: 80px; }
         }
+
+        /* 6. Pre-Footer Wollo-Inspired CTA Banner */
+        #bottom-cta-banner {
+            width: 100%;
+            min-height: clamp(520px, 62vh, 660px);
+            border-radius: 2.8rem;
+            padding: clamp(2.5rem, 5.5vw, 5.5rem);
+            background: #161328;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            box-sizing: border-box;
+            will-change: transform;
+        }
+
+        #bottom-cta-headline {
+            font-size: clamp(2.2rem, 3.8vw, 3.5rem);
+            line-height: 1.14;
+            font-weight: 400;
+            letter-spacing: -0.03em;
+            color: #ffffff;
+            max-width: 32rem;
+            margin-bottom: 2.2rem;
+        }
+
+        #bottom-cta-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.9rem 2.2rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: #ffffff;
+            font-size: clamp(0.9rem, 1vw, 1.05rem);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        #bottom-cta-btn:hover {
+            background-color: #ffffff;
+            color: #09090b;
+            border-color: #ffffff;
+        }
     </style>
 </head>
 
@@ -1091,32 +1141,23 @@
     </div>
 
     <!-- 6. PRE-FOOTER CTA & FOOTER -->
-    <footer class="max-w-6xl mx-auto px-6 pt-12 pb-16">
-        <div id="bottom-cta-banner"
-            class="relative overflow-hidden bg-[#161328] text-white rounded-3xl p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl border border-white/10">
+    <footer class="max-w-6xl mx-auto px-6 pt-12 pb-20">
+        <div id="bottom-cta-banner">
             <!-- Interactive ASCII Matrix Background Canvas (Question Mark Shape) -->
             <canvas id="bottom-matrix-canvas" aria-hidden="true" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
             
-            <div class="relative z-10 max-w-lg">
-                <span class="inline-block bg-[#F8529E] text-white text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-wider">
-                    Questions & Solutions
+            <div class="relative z-10 flex flex-col items-start text-left max-w-lg">
+                <span class="inline-block bg-[#F8529E] text-white text-xs font-semibold px-4 py-1.5 rounded-full mb-6 uppercase tracking-wider select-none shadow-sm">
+                    Questions
                 </span>
-                <h2 class="text-3xl md:text-4xl font-normal leading-snug mb-6">
+                <h2 id="bottom-cta-headline">
                     Strengthen Your Organization's Competence Today.
                 </h2>
-                <div class="flex flex-wrap items-center gap-4">
-                    <a href="#contact"
-                        class="inline-block bg-[#FCD332] text-zinc-950 font-semibold text-sm px-7 py-3.5 rounded-full hover:bg-[#fad028] transition shadow-sm">
-                        Start Learning Today
-                    </a>
-                    <a href="#services"
-                        class="inline-block border border-white/40 text-white text-sm px-6 py-3.5 rounded-full hover:bg-white/10 transition">
-                        Explore Trainings
+                <div>
+                    <a id="bottom-cta-btn" href="#contact">
+                        Contact us directly
                     </a>
                 </div>
-            </div>
-            <div class="relative z-10 hidden md:flex items-center justify-center w-36 h-36">
-                <!-- Spacing clearance for Question Mark matrix canvas to illuminate on desktop right -->
             </div>
         </div>
 
@@ -2163,6 +2204,25 @@
                     duration: 0.05,
                     ease: "power2.in"
                 }, 0.95);
+
+            // SECTION 6: FOOTER CTA BANNER SMOOTH SCROLL EXPANSION (80% -> 100%)
+            const footerCard = document.getElementById("bottom-cta-banner");
+            if (footerCard) {
+                gsap.fromTo(footerCard,
+                    { scale: 0.80, transformOrigin: "center center" },
+                    {
+                        scale: 1.0,
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: footerCard,
+                            start: "top 95%",
+                            end: "top 55%",
+                            scrub: 0.8,
+                            invalidateOnRefresh: true,
+                        }
+                    }
+                );
+            }
 
             window.switchBentoSlide = switchBentoSlide;
             window.startSlideTimer = startSlideTimer;
