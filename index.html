@@ -117,31 +117,68 @@
             }
         }
         /* 5. KPI Metrics Pinned Showcase (Wollo-inspired 2-Row Scroll Relay) */
-        .metrics-viewport {
-            width: 100%;
-            max-width: 1240px;
-            margin: 0 auto;
-            height: clamp(540px, 78vh, 640px);
-            overflow: hidden;
+        #metrics-scroll-track {
+            margin-top: -100vh;
+            z-index: 30;
             position: relative;
         }
 
-        .metrics-rows-track {
+        .metrics-viewport {
+            width: 100%;
+            max-width: 72rem; /* max-w-6xl, aligned with navbar logo and button */
+            margin: 0 auto;
+            padding-left: 1.5rem; /* px-6 */
+            padding-right: 1.5rem; /* px-6 */
+            height: 100vh;
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            position: relative;
+            box-sizing: border-box;
+            pointer-events: none;
+        }
+
+        .metrics-stage {
+            position: relative;
             width: 100%;
-            will-change: transform;
+            height: clamp(540px, 68vh, 640px);
+            pointer-events: auto;
         }
 
         .metrics-row {
-            height: clamp(270px, 39vh, 320px);
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 50%;
             box-sizing: border-box;
             display: flex;
             align-items: center;
-            border-bottom: 1px solid rgba(228, 228, 231, 0.85);
-            position: relative;
             will-change: transform, opacity;
             padding: 0.5rem 0;
+        }
+
+        #metrics-row-1 {
+            top: 0;
+        }
+
+        #metrics-row-2 {
+            top: 50%;
+        }
+
+        #metrics-row-3 {
+            top: 50%;
+        }
+
+        /* Thicker splitting lines (2px), only visible when row is revealed */
+        .metrics-divider {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e4e4e7;
+            opacity: 0;
+            will-change: opacity;
         }
 
         .metrics-row-grid {
@@ -159,34 +196,37 @@
             flex-shrink: 0;
         }
 
+        /* Bigger squary artwork images with zero glow */
         .metrics-photo-wrap {
-            width: clamp(130px, 14vw, 185px);
-            height: clamp(130px, 14vw, 185px);
+            width: clamp(180px, 19.5vw, 235px);
+            height: clamp(180px, 19.5vw, 235px);
             border-radius: 2.2rem;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1rem;
+            padding: 1.35rem;
             flex-shrink: 0;
             position: relative;
             transform-origin: center center;
+            box-shadow: none;
+            border: none;
             will-change: transform, opacity;
         }
 
         .metrics-photo-wrap-1 {
-            background: linear-gradient(135deg, #160e33 0%, #28145e 45%, #4314e5 100%);
-            box-shadow: 0 20px 42px -12px rgba(67, 20, 229, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+            background: linear-gradient(135deg, #170d38 0%, #2a1563 50%, #4314e5 100%);
+            box-shadow: none;
         }
 
         .metrics-photo-wrap-2 {
-            background: linear-gradient(135deg, #091a38 0%, #153e7e 45%, #2563eb 100%);
-            box-shadow: 0 20px 42px -12px rgba(37, 99, 235, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+            background: linear-gradient(135deg, #091a38 0%, #153e7e 50%, #2563eb 100%);
+            box-shadow: none;
         }
 
         .metrics-photo-wrap-3 {
-            background: linear-gradient(135deg, #230838 0%, #4a126d 45%, #9333ea 100%);
-            box-shadow: 0 20px 42px -12px rgba(147, 51, 234, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+            background: linear-gradient(135deg, #240b3b 0%, #4c116d 50%, #9333ea 100%);
+            box-shadow: none;
         }
 
         .metrics-num-wrap {
@@ -196,18 +236,20 @@
             flex-shrink: 0;
         }
 
+        /* Badges: rounded-lg (same as Start Learning button), zero glow */
         .metrics-badge {
             position: absolute;
-            top: -18px;
-            left: 10px;
-            transform: rotate(-7deg);
+            top: -16px;
+            left: 8px;
+            transform: rotate(-6deg);
             transform-origin: center center;
-            padding: 0.38rem 1.15rem;
-            border-radius: 9999px;
-            font-size: clamp(0.78rem, 0.95vw, 0.92rem);
+            padding: 0.32rem 0.85rem;
+            border-radius: 0.5rem; /* rounded-lg, same as start learning today button */
+            font-size: clamp(0.75rem, 0.9vw, 0.88rem);
             font-weight: 600;
             color: #ffffff;
-            box-shadow: 0 8px 18px -4px rgba(0, 0, 0, 0.22);
+            box-shadow: none;
+            border: none;
             z-index: 10;
             white-space: nowrap;
             letter-spacing: -0.01em;
@@ -217,17 +259,17 @@
 
         .metrics-badge-1 {
             background: #ff6b18;
-            box-shadow: 0 8px 18px -4px rgba(255, 107, 24, 0.35);
+            box-shadow: none;
         }
 
         .metrics-badge-2 {
             background: #ff337f;
-            box-shadow: 0 8px 18px -4px rgba(255, 51, 127, 0.35);
+            box-shadow: none;
         }
 
         .metrics-badge-3 {
             background: #8b5cf6;
-            box-shadow: 0 8px 18px -4px rgba(139, 92, 246, 0.35);
+            box-shadow: none;
         }
 
         .metrics-number {
@@ -252,10 +294,11 @@
 
         @media (max-width: 768px) {
             .metrics-viewport {
-                height: 82vh;
+                padding-left: 1rem;
+                padding-right: 1rem;
             }
-            .metrics-row {
-                height: 41vh;
+            .metrics-stage {
+                height: 75vh;
             }
             .metrics-row-grid {
                 flex-direction: column;
@@ -264,6 +307,12 @@
             }
             .metrics-left-group {
                 gap: 1.25rem;
+            }
+            .metrics-photo-wrap {
+                width: 120px;
+                height: 120px;
+                border-radius: 1.5rem;
+                padding: 0.85rem;
             }
             .metrics-desc {
                 margin-left: 0;
@@ -868,27 +917,23 @@
 
 
     <!-- 5. KPI METRICS PINNED SHOWCASE (Wollo-inspired 2-Row Scroll Relay) -->
-    <div id="metrics-scroll-track" class="relative w-full bg-white">
+    <div id="metrics-scroll-track" class="relative w-full bg-white z-30">
         <section id="metrics"
-            class="relative w-full h-screen overflow-hidden flex flex-col justify-center px-6 sm:px-10 md:px-16 bg-white z-10 select-none">
+            class="relative w-full h-screen overflow-hidden flex flex-col justify-center bg-white z-30 select-none">
             
-            <!-- 2-Row Visible Viewport (Clips outside rows so only 2 rows are ever visible) -->
+            <!-- 2-Row Visible Viewport: exact max-w-6xl px-6 aligned with top navbar logo & button -->
             <div id="metrics-viewport" class="metrics-viewport">
-                <!-- Sliding Rows Track (Moves vertically to swap Row 1 out and Row 3 in) -->
-                <div id="metrics-rows-track" class="metrics-rows-track">
+                <!-- Sliding Rows Stage (Exactly 2 rows visible at a time) -->
+                <div id="metrics-stage" class="metrics-stage">
                     
-                    <!-- ROW 1: Millions Educated (Initially Top Slot) -->
+                    <!-- ROW 1: Millions Educated (Initially Enters from Bottom into Slot 1) -->
                     <div id="metrics-row-1" class="metrics-row">
                         <div class="metrics-row-grid">
                             <div class="metrics-left-group">
-                                <!-- Squary 3D Artwork -->
+                                <!-- Squary 3D Artwork (Bigger: 200px, No glow) -->
                                 <div class="metrics-photo-wrap metrics-photo-wrap-1">
-                                    <svg class="w-full h-full select-none pointer-events-none drop-shadow-md" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <svg class="w-full h-full select-none pointer-events-none drop-shadow-sm" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <defs>
-                                            <radialGradient id="art1-glow" cx="80" cy="80" r="75" gradientUnits="userSpaceOnUse">
-                                                <stop stop-color="#818CF8" stop-opacity="0.25" />
-                                                <stop offset="100%" stop-color="#1E1B4B" stop-opacity="0" />
-                                            </radialGradient>
                                             <linearGradient id="bird-wing1" x1="40" y1="50" x2="130" y2="110" gradientUnits="userSpaceOnUse">
                                                 <stop stop-color="#F43F5E" />
                                                 <stop offset="60%" stop-color="#A855F7" />
@@ -899,7 +944,6 @@
                                                 <stop offset="100%" stop-color="#F43F5E" />
                                             </linearGradient>
                                         </defs>
-                                        <circle cx="80" cy="80" r="70" fill="url(#art1-glow)" />
                                         <!-- 3D Origami / Bird in Flight -->
                                         <path d="M25 105C45 95 65 70 85 45C100 28 125 35 138 48C120 62 105 78 88 95C70 110 45 115 25 105Z" fill="url(#bird-wing1)" />
                                         <path d="M55 100L95 82L80 118L55 100Z" fill="url(#bird-wing2)" opacity="0.95" />
@@ -919,7 +963,7 @@
                                         <circle cx="58" cy="40" r="3" fill="#FCD332" />
                                     </svg>
                                 </div>
-                                <!-- Big Number + Tilted Pill Badge -->
+                                <!-- Big Number + Tilted Pill Badge (rounded-lg, no glow) -->
                                 <div class="metrics-num-wrap">
                                     <span class="metrics-badge metrics-badge-1">
                                         Millions Educated
@@ -936,20 +980,18 @@
                                 </p>
                             </div>
                         </div>
+                        <!-- Thicker 2px splitting line (hidden before text appears) -->
+                        <div id="metrics-divider-1" class="metrics-divider"></div>
                     </div>
 
-                    <!-- ROW 2: Trainers & Consultants (Initially Bottom Slot, Moves to Top Slot) -->
+                    <!-- ROW 2: Trainers & Consultants (Enters from Bottom into Slot 2) -->
                     <div id="metrics-row-2" class="metrics-row">
                         <div class="metrics-row-grid">
                             <div class="metrics-left-group">
-                                <!-- Squary 3D Artwork -->
+                                <!-- Squary 3D Artwork (Bigger: 200px, No glow) -->
                                 <div class="metrics-photo-wrap metrics-photo-wrap-2">
-                                    <svg class="w-full h-full select-none pointer-events-none drop-shadow-md" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <svg class="w-full h-full select-none pointer-events-none drop-shadow-sm" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <defs>
-                                            <radialGradient id="art2-glow" cx="80" cy="80" r="75" gradientUnits="userSpaceOnUse">
-                                                <stop stop-color="#38BDF8" stop-opacity="0.25" />
-                                                <stop offset="100%" stop-color="#0F172A" stop-opacity="0" />
-                                            </radialGradient>
                                             <linearGradient id="body-grad" x1="40" y1="45" x2="115" y2="125" gradientUnits="userSpaceOnUse">
                                                 <stop stop-color="#38BDF8" />
                                                 <stop offset="50%" stop-color="#2563EB" />
@@ -961,7 +1003,6 @@
                                                 <stop offset="100%" stop-color="#38BDF8" />
                                             </linearGradient>
                                         </defs>
-                                        <circle cx="80" cy="80" r="70" fill="url(#art2-glow)" />
                                         <!-- Rear Orbiting Torus Ribbon -->
                                         <ellipse cx="78" cy="82" rx="48" ry="46" stroke="url(#ring-grad)" stroke-width="13" stroke-linecap="round" stroke-dasharray="140 180" stroke-dashoffset="60" transform="rotate(-30 78 82)" opacity="0.6" />
                                         <!-- 3D Geometric Isometric Prism / Device -->
@@ -981,7 +1022,7 @@
                                         <circle cx="38" cy="118" r="3" fill="#38BDF8" />
                                     </svg>
                                 </div>
-                                <!-- Big Number + Tilted Pill Badge -->
+                                <!-- Big Number + Tilted Pill Badge (rounded-lg, no glow) -->
                                 <div class="metrics-num-wrap">
                                     <span class="metrics-badge metrics-badge-2">
                                         Trainers &amp; Consultants
@@ -998,20 +1039,18 @@
                                 </p>
                             </div>
                         </div>
+                        <!-- Thicker 2px splitting line (hidden before text appears) -->
+                        <div id="metrics-divider-2" class="metrics-divider"></div>
                     </div>
 
-                    <!-- ROW 3: Accredited Trainings (Enters Bottom Slot as Row 1 Leaves) -->
+                    <!-- ROW 3: Accredited Trainings (Enters from Bottom into Slot 2 as Row 1 Leaves) -->
                     <div id="metrics-row-3" class="metrics-row">
                         <div class="metrics-row-grid">
                             <div class="metrics-left-group">
-                                <!-- Squary 3D Artwork -->
+                                <!-- Squary 3D Artwork (Bigger: 200px, No glow) -->
                                 <div class="metrics-photo-wrap metrics-photo-wrap-3">
-                                    <svg class="w-full h-full select-none pointer-events-none drop-shadow-md" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <svg class="w-full h-full select-none pointer-events-none drop-shadow-sm" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <defs>
-                                            <radialGradient id="art3-glow" cx="80" cy="80" r="75" gradientUnits="userSpaceOnUse">
-                                                <stop stop-color="#C084FC" stop-opacity="0.3" />
-                                                <stop offset="100%" stop-color="#2E1065" stop-opacity="0" />
-                                            </radialGradient>
                                             <linearGradient id="book-grad" x1="40" y1="40" x2="120" y2="120" gradientUnits="userSpaceOnUse">
                                                 <stop stop-color="#9333EA" />
                                                 <stop offset="50%" stop-color="#C084FC" />
@@ -1022,7 +1061,6 @@
                                                 <stop offset="100%" stop-color="#EA580C" />
                                             </linearGradient>
                                         </defs>
-                                        <circle cx="80" cy="80" r="70" fill="url(#art3-glow)" />
                                         <!-- 3D Open Academic Ledger / Diploma -->
                                         <polygon points="78,42 34,60 34,115 78,98" fill="url(#book-grad)" />
                                         <polygon points="76,46 38,62 38,111 76,96" fill="#FDF4FF" fill-opacity="0.95" />
@@ -1038,7 +1076,7 @@
                                         <circle cx="48" cy="70" r="2.5" fill="#FFFFFF" />
                                     </svg>
                                 </div>
-                                <!-- Big Number + Tilted Pill Badge -->
+                                <!-- Big Number + Tilted Pill Badge (rounded-lg, no glow) -->
                                 <div class="metrics-num-wrap">
                                     <span class="metrics-badge metrics-badge-3">
                                         Accredited Trainings
@@ -1055,6 +1093,8 @@
                                 </p>
                             </div>
                         </div>
+                        <!-- Thicker 2px splitting line (hidden before text appears) -->
+                        <div id="metrics-divider-3" class="metrics-divider"></div>
                     </div>
 
                 </div>
@@ -1850,7 +1890,7 @@
                 scrollTrigger: {
                     trigger: "#solutions-scroll-track",
                     start: "top top",
-                    end: "+=2600",
+                    end: "+=2200",
                     pin: "#solutions-pin-section",
                     scrub: 0.8,
                     anticipatePin: 1,
@@ -1890,13 +1930,13 @@
                 .to("#integrations-lockup", {
                     y: () => -window.innerHeight * 0.32,
                     scale: 0.82,
-                    duration: 0.32,
+                    duration: 0.30,
                     ease: "power2.inOut"
                 }, 0.18)
                 .to("#solutions-cards-stage", {
                     y: () => window.innerHeight * 0.38,
                     opacity: 0.95,
-                    duration: 0.32,
+                    duration: 0.30,
                     ease: "power2.inOut"
                 }, 0.18)
 
@@ -1905,38 +1945,47 @@
                     y: () => -window.innerHeight * 0.45,
                     scale: 0.70,
                     autoAlpha: 0,
-                    duration: 0.24,
-                    ease: "power2.out"
-                }, 0.46)
-                .to("#solutions-matrix-canvas-wrap", {
-                    autoAlpha: 0,
                     duration: 0.22,
                     ease: "power2.out"
-                }, 0.46)
+                }, 0.44)
+                .to("#solutions-matrix-canvas-wrap", {
+                    autoAlpha: 0,
+                    duration: 0.20,
+                    ease: "power2.out"
+                }, 0.44)
                 .to("#solutions-cards-stage", {
                     y: () => window.innerHeight * 0.08,
                     opacity: 1,
-                    duration: 0.34,
+                    duration: 0.30,
                     ease: "power2.out",
                     onUpdate: function () {
                         const stage = document.getElementById("solutions-cards-stage");
                         if (stage) stage.style.pointerEvents = this.progress() > 0.65 ? "auto" : "none";
                     }
-                }, 0.50)
+                }, 0.48)
                 .to(".solutions-card", {
                     scale: 1.0,
-                    duration: 0.34,
+                    duration: 0.30,
                     ease: "power2.out"
-                }, 0.50)
+                }, 0.48)
 
                 // Step 4: Hold state with 3 cards alone
                 .to("#solutions-cards-stage", {
-                    duration: 0.16
-                }, 0.84);
+                    duration: 0.14
+                }, 0.76)
+
+                // Step 5: Smoothly glide cards UPWARDS and exit to top
+                .to("#solutions-cards-stage", {
+                    y: () => -window.innerHeight * 0.75,
+                    autoAlpha: 0,
+                    duration: 0.16,
+                    ease: "power2.in"
+                }, 0.88);
 
             // SECTION 5: METRICS 2-ROW PINNED SCROLL RELAY (Wollo-inspired)
             const metricsTrack = document.getElementById("metrics-scroll-track");
             if (metricsTrack) {
+                const stage = document.getElementById("metrics-stage");
                 const row1 = document.getElementById("metrics-row-1");
                 const row2 = document.getElementById("metrics-row-2");
                 const row3 = document.getElementById("metrics-row-3");
@@ -1957,18 +2006,21 @@
                 const row2Desc = document.querySelector("#metrics-row-2 .metrics-desc");
                 const row3Desc = document.querySelector("#metrics-row-3 .metrics-desc");
 
-                const rowsTrack = document.getElementById("metrics-rows-track");
+                const div1 = document.getElementById("metrics-divider-1");
+                const div2 = document.getElementById("metrics-divider-2");
+                const div3 = document.getElementById("metrics-divider-3");
 
-                // Initial states: photos start as small square, numbers blurred, badges hidden
-                gsap.set([row1Photo, row2Photo], { scale: 0.18, opacity: 0 });
-                gsap.set([row1Num, row2Num], { filter: "blur(18px)", opacity: 0, y: 16 });
-                gsap.set([row1Badge, row2Badge], { scale: 0, opacity: 0 });
-                gsap.set([row1Desc, row2Desc], { opacity: 0, y: 16 });
+                // Initial positions: ALL 3 ROWS start ALL THE WAY DOWN (below the browser viewport)
+                gsap.set(row1, { y: () => window.innerHeight, autoAlpha: 1 });
+                gsap.set(row2, { y: () => window.innerHeight * 1.25, autoAlpha: 1 });
+                gsap.set(row3, { y: () => window.innerHeight * 1.35, autoAlpha: 1 });
 
-                gsap.set(row3Photo, { scale: 0.18, opacity: 0 });
-                gsap.set(row3Num, { filter: "blur(18px)", opacity: 0, y: 16 });
-                gsap.set(row3Badge, { scale: 0, opacity: 0 });
-                gsap.set(row3Desc, { opacity: 0, y: 16 });
+                // Photos start as small square, numbers blurred, badges hidden, dividers hidden
+                gsap.set([row1Photo, row2Photo, row3Photo], { scale: 0.2, opacity: 0 });
+                gsap.set([row1Num, row2Num, row3Num], { filter: "blur(18px)", opacity: 0, y: 16 });
+                gsap.set([row1Badge, row2Badge, row3Badge], { scale: 0, opacity: 0 });
+                gsap.set([row1Desc, row2Desc, row3Desc], { opacity: 0, y: 16 });
+                gsap.set([div1, div2, div3], { opacity: 0 });
 
                 const val1 = { val: 0 };
                 const val2 = { val: 0 };
@@ -1978,7 +2030,7 @@
                     scrollTrigger: {
                         trigger: "#metrics-scroll-track",
                         start: "top top",
-                        end: "+=2200",
+                        end: "+=2600",
                         pin: "#metrics",
                         scrub: 0.8,
                         anticipatePin: 1,
@@ -1986,120 +2038,190 @@
                     }
                 });
 
-                // Phase 1 (0.02 - 0.32): Row 1 & Row 2 entrance
-                // Photos expand from small square to full size
-                metricsTL.to([row1Photo, row2Photo], {
+                // Phase 1 (0.00 - 0.22): Row 1 enters from all the way down into Slot 1 (y: 0)
+                metricsTL.to(row1, {
+                    y: 0,
+                    duration: 0.22,
+                    ease: "power2.out"
+                }, 0.00);
+
+                // Row 1 photo expands from small square to full size
+                metricsTL.to(row1Photo, {
                     scale: 1,
                     opacity: 1,
-                    duration: 0.22,
-                    stagger: 0.05,
+                    duration: 0.20,
                     ease: "power2.out"
                 }, 0.02);
 
-                // Numbers deblur and count up
-                metricsTL.to([row1Num, row2Num], {
+                // Row 1 number deblurs and counts up
+                metricsTL.to(row1Num, {
                     filter: "blur(0px)",
                     opacity: 1,
                     y: 0,
-                    duration: 0.24,
-                    stagger: 0.05,
+                    duration: 0.20,
                     ease: "power2.out"
                 }, 0.04);
 
                 metricsTL.to(val1, {
                     val: 1.7,
-                    duration: 0.28,
+                    duration: 0.22,
                     ease: "power2.out",
                     onUpdate: () => {
                         if (row1Num) row1Num.textContent = "+" + val1.val.toFixed(1) + "M";
                     }
                 }, 0.04);
 
+                // Row 1 badge & desc & divider reveal (splitting line does not show before text)
+                metricsTL.to(row1Badge, {
+                    scale: 1,
+                    opacity: 1,
+                    duration: 0.16,
+                    ease: "back.out(1.7)"
+                }, 0.10);
+
+                metricsTL.to([row1Desc, div1], {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.18,
+                    stagger: 0.02,
+                    ease: "power2.out"
+                }, 0.08);
+
+                // Phase 2 (0.10 - 0.32): Row 2 enters from all the way down into Slot 2 (y: 0)
+                metricsTL.to(row2, {
+                    y: 0,
+                    duration: 0.22,
+                    ease: "power2.out"
+                }, 0.10);
+
+                // Row 2 photo expands
+                metricsTL.to(row2Photo, {
+                    scale: 1,
+                    opacity: 1,
+                    duration: 0.20,
+                    ease: "power2.out"
+                }, 0.12);
+
+                // Row 2 number deblurs and counts up
+                metricsTL.to(row2Num, {
+                    filter: "blur(0px)",
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.20,
+                    ease: "power2.out"
+                }, 0.14);
+
                 metricsTL.to(val2, {
                     val: 630,
-                    duration: 0.28,
+                    duration: 0.22,
                     ease: "power2.out",
                     onUpdate: () => {
                         if (row2Num) row2Num.textContent = "+" + Math.round(val2.val);
                     }
-                }, 0.06);
-
-                // Badges pop in above
-                metricsTL.to([row1Badge, row2Badge], {
-                    scale: 1,
-                    opacity: 1,
-                    duration: 0.20,
-                    stagger: 0.05,
-                    ease: "back.out(1.7)"
-                }, 0.16);
-
-                metricsTL.to([row1Desc, row2Desc], {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.20,
-                    stagger: 0.05,
-                    ease: "power2.out"
                 }, 0.14);
 
-                // Step 2: Brief pause showing Row 1 & Row 2
-                metricsTL.to({}, { duration: 0.12 }, 0.32);
-
-                // Step 3 (0.44 - 0.82): Row 1 moves UP and exits, Row 2 moves to top slot, Row 3 enters bottom slot!
-                metricsTL.to("#metrics-row-1", {
-                    autoAlpha: 0,
-                    duration: 0.22,
-                    ease: "power2.in"
-                }, 0.44);
-
-                metricsTL.to(rowsTrack, {
-                    y: () => -(row1 ? row1.offsetHeight : 290),
-                    duration: 0.40,
-                    ease: "power1.inOut"
-                }, 0.44);
-
-                // At the same time, Row 3's photo expands from small square to full size!
-                metricsTL.to(row3Photo, {
+                // Row 2 badge & desc & divider reveal
+                metricsTL.to(row2Badge, {
                     scale: 1,
                     opacity: 1,
-                    duration: 0.30,
+                    duration: 0.16,
+                    ease: "back.out(1.7)"
+                }, 0.18);
+
+                metricsTL.to([row2Desc, div2], {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.18,
+                    stagger: 0.02,
+                    ease: "power2.out"
+                }, 0.16);
+
+                // Phase 3 (0.32 - 0.46): Hold state with Rows 1 & 2 in full view
+                metricsTL.to({}, { duration: 0.14 }, 0.32);
+
+                // Phase 4 (0.46 - 0.70): Relay to Row 3
+                // Row 1 moves ALL THE WAY UP and exits
+                metricsTL.to(row1, {
+                    y: () => -window.innerHeight * 0.65,
+                    autoAlpha: 0,
+                    duration: 0.24,
+                    ease: "power2.inOut"
+                }, 0.46);
+
+                // Row 2 glides up into Slot 1
+                const getHalfH = () => (stage ? stage.offsetHeight * 0.5 : 300);
+                metricsTL.to(row2, {
+                    y: () => -getHalfH(),
+                    duration: 0.24,
+                    ease: "power2.inOut"
+                }, 0.46);
+
+                // Row 3 enters from all the way down into Slot 2
+                metricsTL.to(row3, {
+                    y: 0,
+                    duration: 0.24,
                     ease: "power2.out"
                 }, 0.48);
 
-                // Row 3's number deblurs and counts up!
+                // Row 3 photo expands
+                metricsTL.to(row3Photo, {
+                    scale: 1,
+                    opacity: 1,
+                    duration: 0.20,
+                    ease: "power2.out"
+                }, 0.50);
+
+                // Row 3 number deblurs and counts up
                 metricsTL.to(row3Num, {
                     filter: "blur(0px)",
                     opacity: 1,
                     y: 0,
-                    duration: 0.32,
+                    duration: 0.20,
                     ease: "power2.out"
-                }, 0.50);
+                }, 0.52);
 
                 metricsTL.to(val3, {
                     val: 420,
-                    duration: 0.34,
+                    duration: 0.22,
                     ease: "power2.out",
                     onUpdate: () => {
                         if (row3Num) row3Num.textContent = "+" + Math.round(val3.val);
                     }
-                }, 0.50);
+                }, 0.52);
 
-                // Row 3 badge pops in!
+                // Row 3 badge & desc & divider reveal
                 metricsTL.to(row3Badge, {
                     scale: 1,
                     opacity: 1,
-                    duration: 0.24,
+                    duration: 0.16,
                     ease: "back.out(1.7)"
-                }, 0.62);
-
-                metricsTL.to(row3Desc, {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.24,
-                    ease: "power2.out"
                 }, 0.58);
 
-                // Step 4: Hold state with Row 2 & Row 3 in full view
-                metricsTL.to({}, { duration: 0.18 }, 0.82);
+                metricsTL.to([row3Desc, div3], {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.18,
+                    stagger: 0.02,
+                    ease: "power2.out"
+                }, 0.54);
+
+                // Phase 5 (0.70 - 0.84): Hold state with Rows 2 & 3 in full view
+                metricsTL.to({}, { duration: 0.14 }, 0.70);
+
+                // Phase 6 (0.84 - 1.00): Exit ALL THE WAY UP
+                metricsTL.to(row2, {
+                    y: () => -window.innerHeight * 0.85,
+                    autoAlpha: 0,
+                    duration: 0.16,
+                    ease: "power2.in"
+                }, 0.84);
+
+                metricsTL.to(row3, {
+                    y: () => -window.innerHeight * 0.70,
+                    autoAlpha: 0,
+                    duration: 0.16,
+                    ease: "power2.in"
+                }, 0.84);
             }
 
             window.switchBentoSlide = switchBentoSlide;
