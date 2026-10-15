@@ -7,6 +7,92 @@
     <title>Lexicon - Tailwind CSS Workshop</title>
     <link rel="stylesheet" href="assets/vendor/tailwind.css">
     <style>
+        @font-face {
+            font-family: 'LexiconHead';
+            src: url('assets/fonts/head.woff2') format('woff2');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'LexiconDisc';
+            src: url('assets/fonts/disc.woff2') format('woff2');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        :root {
+            --font-head: 'LexiconHead', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-disc: 'LexiconDisc', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        /* Default website typography: smaller & descriptions text and body use Disc */
+        html,
+        body {
+            font-family: var(--font-disc);
+        }
+
+        p,
+        span,
+        a,
+        button,
+        input,
+        select,
+        textarea,
+        small,
+        label,
+        li {
+            font-family: var(--font-disc);
+        }
+
+        /* Headers and big texts use Head */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        #hero-headline,
+        .reveal-char,
+        #features-headline,
+        #bento-slide-title,
+        #integrations-text,
+        #solutions-yellow-container,
+        .solutions-card-title,
+        #bottom-cta-headline,
+        #navbar-logo {
+            font-family: var(--font-head);
+        }
+
+        /* Numbers explicitly use Disc font as requested ("same for the numbers") */
+        .metrics-number,
+        .solutions-card-number,
+        #metrics-num-1,
+        #metrics-num-2,
+        #metrics-num-3,
+        [id*="num"],
+        [id*="stat"],
+        [id*="val"],
+        .metric-value,
+        .font-mono {
+            font-family: var(--font-disc) !important;
+        }
+
+        /* Descriptions & smaller texts explicitly use Disc */
+        .metrics-desc,
+        .metrics-badge,
+        #navbar-links a,
+        #navbar-login,
+        #navbar-cta-btn,
+        #bottom-cta-btn,
+        .text-xs,
+        .text-sm,
+        .text-base {
+            font-family: var(--font-disc);
+        }
+
         .ascii-background-layer {
             position: absolute;
             inset: 0;
@@ -201,27 +287,36 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.35rem;
+            padding: 0;
             flex-shrink: 0;
             position: relative;
             transform-origin: center center;
             box-shadow: none;
             border: none;
+            background: #121026;
             will-change: transform, opacity;
         }
 
+        .metrics-photo-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
         .metrics-photo-wrap-1 {
-            background: linear-gradient(135deg, #170d38 0%, #2a1563 50%, #4314e5 100%);
+            background: #170d38;
             box-shadow: none;
         }
 
         .metrics-photo-wrap-2 {
-            background: linear-gradient(135deg, #091a38 0%, #153e7e 50%, #2563eb 100%);
+            background: #091a38;
             box-shadow: none;
         }
 
         .metrics-photo-wrap-3 {
-            background: linear-gradient(135deg, #240b3b 0%, #4c116d 50%, #9333ea 100%);
+            background: #240b3b;
             box-shadow: none;
         }
 
@@ -308,7 +403,7 @@
                 width: 120px;
                 height: 120px;
                 border-radius: 1.5rem;
-                padding: 0.85rem;
+                padding: 0;
             }
             .metrics-desc {
                 margin-left: 0;
@@ -509,7 +604,7 @@
             .metrics-row { position: relative; top: auto !important; height: auto; padding: 32px 0; }
             .metrics-row-grid { flex-direction: column; align-items: center; gap: 20px; text-align: center; }
             .metrics-left-group { gap: 20px; justify-content: center; width: 100%; }
-            .metrics-photo-wrap { width: clamp(80px, 20vw, 140px); height: clamp(80px, 20vw, 140px); padding: 12px; border-radius: 24px; }
+            .metrics-photo-wrap { width: clamp(80px, 20vw, 140px); height: clamp(80px, 20vw, 140px); padding: 0; border-radius: 24px; }
             .metrics-number { font-size: clamp(3.2rem, 12vw, 6rem); }
             .metrics-badge { font-size: clamp(0.65rem, 1.8vw, 0.8rem); padding: 5px 9px; left: 0; top: -23px; }
             .metrics-desc { max-width: 560px; margin-inline: auto; font-size: 1rem; }
@@ -939,13 +1034,13 @@
                                                 <rect x="18.7" y="156.9" width="38" height="22" rx="11" fill="#18181b" />
                                                 <text id="chart-text-1" x="37.7" y="167.9" dominant-baseline="central" fill="#ffffff" font-size="9.5" font-weight="700"
                                                     text-anchor="middle"
-                                                    font-family="Inter, system-ui, sans-serif">+15%</text>
+                                                    font-family="LexiconDisc, system-ui, sans-serif">+15%</text>
                                             </g>
                                             <g id="chart-badge-2">
                                                 <rect x="168.5" y="140.7" width="38" height="22" rx="11" fill="#18181b" />
                                                 <text id="chart-text-2" x="187.5" y="151.7" dominant-baseline="central" fill="#ffffff" font-size="9.5" font-weight="700"
                                                     text-anchor="middle"
-                                                    font-family="Inter, system-ui, sans-serif">+36%</text>
+                                                    font-family="LexiconDisc, system-ui, sans-serif">+36%</text>
                                             </g>
                                         </svg>
                                     </div>
@@ -1130,36 +1225,7 @@
                             <div class="metrics-left-group">
                                 <!-- Squary 3D Artwork (Bigger: 200px, No glow) -->
                                 <div class="metrics-photo-wrap metrics-photo-wrap-1">
-                                    <svg class="w-full h-full select-none pointer-events-none drop-shadow-sm" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <defs>
-                                            <linearGradient id="bird-wing1" x1="40" y1="50" x2="130" y2="110" gradientUnits="userSpaceOnUse">
-                                                <stop stop-color="#F43F5E" />
-                                                <stop offset="60%" stop-color="#A855F7" />
-                                                <stop offset="100%" stop-color="#6366F1" />
-                                            </linearGradient>
-                                            <linearGradient id="bird-wing2" x1="60" y1="70" x2="110" y2="120" gradientUnits="userSpaceOnUse">
-                                                <stop stop-color="#FB923C" />
-                                                <stop offset="100%" stop-color="#F43F5E" />
-                                            </linearGradient>
-                                        </defs>
-                                        <!-- 3D Origami / Bird in Flight -->
-                                        <path d="M25 105C45 95 65 70 85 45C100 28 125 35 138 48C120 62 105 78 88 95C70 110 45 115 25 105Z" fill="url(#bird-wing1)" />
-                                        <path d="M55 100L95 82L80 118L55 100Z" fill="url(#bird-wing2)" opacity="0.95" />
-                                        <path d="M85 45L138 48L115 72L85 45Z" fill="#FEE2E2" opacity="0.85" />
-                                        <polygon points="25,105 32,102 29,109" fill="#FCD332" />
-                                        <!-- 3D Floating Parcel with Heart -->
-                                        <path d="M72 88L65 118L82 122L89 92" fill="#F97316" />
-                                        <path d="M68 95L86 98" stroke="#FFE4E6" stroke-width="2" stroke-linecap="round" />
-                                        <path d="M77 106C77 106 72 103 72 99C72 97 73.5 95.5 75.5 95.5C76.8 95.5 77 97 77 97C77 97 77.2 95.5 78.5 95.5C80.5 95.5 82 97 82 99C82 103 77 106 77 106Z" fill="#FFFFFF" />
-                                        <!-- 3D Smiling Sphere -->
-                                        <circle cx="126" cy="72" r="14" fill="#818CF8" fill-opacity="0.9" />
-                                        <ellipse cx="123" cy="70" rx="3.5" ry="1.5" fill="#FFFFFF" fill-opacity="0.8" />
-                                        <path d="M121 75C123 78 127 78 129 75" stroke="#1E1B4B" stroke-width="1.8" stroke-linecap="round" />
-                                        <!-- Floating Musical Notes and Stars -->
-                                        <circle cx="48" cy="48" r="2.5" fill="#F43F5E" />
-                                        <path d="M48 48L54 44" stroke="#F43F5E" stroke-width="1.5" stroke-linecap="round" />
-                                        <circle cx="58" cy="40" r="3" fill="#FCD332" />
-                                    </svg>
+                                    <img src="assets/images/millions-educated.png" alt="Millions Educated" class="w-full h-full object-cover select-none pointer-events-none">
                                 </div>
                                 <!-- Big Number + Tilted Pill Badge (rounded-lg, no glow) -->
                                 <div class="metrics-num-wrap">
@@ -1188,37 +1254,7 @@
                             <div class="metrics-left-group">
                                 <!-- Squary 3D Artwork (Bigger: 200px, No glow) -->
                                 <div class="metrics-photo-wrap metrics-photo-wrap-2">
-                                    <svg class="w-full h-full select-none pointer-events-none drop-shadow-sm" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <defs>
-                                            <linearGradient id="body-grad" x1="40" y1="45" x2="115" y2="125" gradientUnits="userSpaceOnUse">
-                                                <stop stop-color="#38BDF8" />
-                                                <stop offset="50%" stop-color="#2563EB" />
-                                                <stop offset="100%" stop-color="#1E1B4B" />
-                                            </linearGradient>
-                                            <linearGradient id="ring-grad" x1="30" y1="30" x2="135" y2="130" gradientUnits="userSpaceOnUse">
-                                                <stop stop-color="#E879F9" />
-                                                <stop offset="45%" stop-color="#818CF8" />
-                                                <stop offset="100%" stop-color="#38BDF8" />
-                                            </linearGradient>
-                                        </defs>
-                                        <!-- Rear Orbiting Torus Ribbon -->
-                                        <ellipse cx="78" cy="82" rx="48" ry="46" stroke="url(#ring-grad)" stroke-width="13" stroke-linecap="round" stroke-dasharray="140 180" stroke-dashoffset="60" transform="rotate(-30 78 82)" opacity="0.6" />
-                                        <!-- 3D Geometric Isometric Prism / Device -->
-                                        <g transform="rotate(-15 80 80)">
-                                            <polygon points="52,65 80,48 80,105 52,118" fill="url(#body-grad)" />
-                                            <polygon points="80,48 108,65 108,118 80,105" fill="#1D4ED8" />
-                                            <polygon points="52,65 80,48 108,65 80,80" fill="#BAE6FD" fill-opacity="0.9" />
-                                            <polygon points="58,72 76,60 76,98 58,108" fill="#FFFFFF" fill-opacity="0.95" />
-                                            <circle cx="67" cy="82" r="5" fill="#FB923C" />
-                                            <polygon points="65,92 72,88 72,96" fill="#F43F5E" />
-                                        </g>
-                                        <!-- Front Orbiting Torus Ribbon -->
-                                        <ellipse cx="78" cy="82" rx="48" ry="46" stroke="url(#ring-grad)" stroke-width="13" stroke-linecap="round" stroke-dasharray="130 190" stroke-dashoffset="-70" transform="rotate(-30 78 82)" />
-                                        <path d="M42 55C50 42 65 38 82 40" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-opacity="0.8" />
-                                        <path d="M88 122C105 120 118 112 124 98" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-opacity="0.65" />
-                                        <circle cx="120" cy="42" r="4" fill="#FCD332" />
-                                        <circle cx="38" cy="118" r="3" fill="#38BDF8" />
-                                    </svg>
+                                    <img src="assets/images/trainers-consultants.png" alt="Trainers and Consultants" class="w-full h-full object-cover select-none pointer-events-none">
                                 </div>
                                 <!-- Big Number + Tilted Pill Badge (rounded-lg, no glow) -->
                                 <div class="metrics-num-wrap">
@@ -1247,32 +1283,7 @@
                             <div class="metrics-left-group">
                                 <!-- Squary 3D Artwork (Bigger: 200px, No glow) -->
                                 <div class="metrics-photo-wrap metrics-photo-wrap-3">
-                                    <svg class="w-full h-full select-none pointer-events-none drop-shadow-sm" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <defs>
-                                            <linearGradient id="book-grad" x1="40" y1="40" x2="120" y2="120" gradientUnits="userSpaceOnUse">
-                                                <stop stop-color="#9333EA" />
-                                                <stop offset="50%" stop-color="#C084FC" />
-                                                <stop offset="100%" stop-color="#F43F5E" />
-                                            </linearGradient>
-                                            <linearGradient id="gold-core" x1="70" y1="65" x2="90" y2="105" gradientUnits="userSpaceOnUse">
-                                                <stop stop-color="#FDE047" />
-                                                <stop offset="100%" stop-color="#EA580C" />
-                                            </linearGradient>
-                                        </defs>
-                                        <!-- 3D Open Academic Ledger / Diploma -->
-                                        <polygon points="78,42 34,60 34,115 78,98" fill="url(#book-grad)" />
-                                        <polygon points="76,46 38,62 38,111 76,96" fill="#FDF4FF" fill-opacity="0.95" />
-                                        <path d="M44 74H68M44 84H64M44 94H58" stroke="#8B5CF6" stroke-width="2.5" stroke-linecap="round" stroke-opacity="0.75" />
-                                        <polygon points="82,42 126,60 126,115 82,98" fill="#6B21A8" />
-                                        <polygon points="84,46 122,62 122,111 84,96" fill="#FAF5FF" fill-opacity="0.9" />
-                                        <path d="M92 74H116M92 84H112M92 94H106" stroke="#C084FC" stroke-width="2.5" stroke-linecap="round" stroke-opacity="0.75" />
-                                        <!-- 3D Floating Diamond Star Seal -->
-                                        <polygon points="80,52 92,68 80,84 68,68" fill="url(#gold-core)" />
-                                        <polygon points="80,52 86,68 80,84 74,68" fill="#FEF08A" fill-opacity="0.85" />
-                                        <ellipse cx="80" cy="74" rx="36" ry="14" stroke="#F472B6" stroke-width="3" stroke-linecap="round" stroke-dasharray="16 12" transform="rotate(-15 80 74)" />
-                                        <circle cx="112" cy="78" r="3.5" fill="#FCD332" />
-                                        <circle cx="48" cy="70" r="2.5" fill="#FFFFFF" />
-                                    </svg>
+                                    <img src="assets/images/accredited-rainings.png" alt="Accredited Trainings" class="w-full h-full object-cover select-none pointer-events-none">
                                 </div>
                                 <!-- Big Number + Tilted Pill Badge (rounded-lg, no glow) -->
                                 <div class="metrics-num-wrap">
