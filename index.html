@@ -117,12 +117,6 @@
             }
         }
         /* 5. KPI Metrics Pinned Showcase (Wollo-inspired 2-Row Scroll Relay) */
-        #metrics-scroll-track {
-            margin-top: -100vh;
-            z-index: 30;
-            position: relative;
-        }
-
         .metrics-viewport {
             width: 100%;
             max-width: 72rem; /* max-w-6xl, aligned with navbar logo and button */
@@ -133,9 +127,11 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            position: relative;
+            position: absolute;
+            inset: 0;
             box-sizing: border-box;
             pointer-events: none;
+            z-index: 30;
         }
 
         .metrics-stage {
@@ -786,13 +782,14 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- 3 Business Area Cards: Scroll-driven Expansion Stage (Image 1 & 2) -->
-                <div id="solutions-cards-stage"
-                    class="absolute inset-x-0 w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 will-change-transform pointer-events-none select-none z-20">
-                    <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-center">
-                        
-                        <!-- Column 01 (Left Card, positioned in natural left column) -->
+            <!-- 3 Business Area Cards: Scroll-driven Expansion Stage (Image 1 & 2) -->
+            <div id="solutions-cards-stage"
+                class="absolute inset-0 flex items-center justify-center w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 will-change-transform pointer-events-none select-none z-20">
+                <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-center">
+                    
+                    <!-- Column 01 (Left Card, positioned in natural left column) -->
                         <div class="solutions-card-col w-full">
                             <div id="solutions-card-1" class="solutions-card w-full bg-[#F4F4F6] rounded-[2.5rem] md:rounded-[2.8rem] p-4 sm:p-5 flex flex-col justify-between border-0 shadow-none">
                                 <div class="px-5 sm:px-6 pt-6 pb-2 text-left">
@@ -911,18 +908,8 @@
                     </div>
                 </div>
 
-            </div>
-        </section>
-    </div>
-
-
-    <!-- 5. KPI METRICS PINNED SHOWCASE (Wollo-inspired 2-Row Scroll Relay) -->
-    <div id="metrics-scroll-track" class="relative w-full bg-white z-30">
-        <section id="metrics"
-            class="relative w-full h-screen overflow-hidden flex flex-col justify-center bg-white z-30 select-none">
-            
-            <!-- 2-Row Visible Viewport: exact max-w-6xl px-6 aligned with top navbar logo & button -->
-            <div id="metrics-viewport" class="metrics-viewport">
+            <!-- 5. KPI METRICS PINNED SHOWCASE (Wollo-inspired 2-Row Scroll Relay) -->
+            <div id="metrics-viewport" class="metrics-viewport absolute inset-0 z-30 pointer-events-none">
                 <!-- Sliding Rows Stage (Exactly 2 rows visible at a time) -->
                 <div id="metrics-stage" class="metrics-stage">
                     
@@ -1885,12 +1872,12 @@
                 }
             );
 
-            // 2. Pinned showcase for Section 3: pushes Explore Lexicon's up and reveals cards expanding from bottom
+            // 2. UNIFIED PINNED SHOWCASE: "EXPLORE LEXICON'S" -> 3 BUSINESS CARDS -> SEAMLESS CONVEYOR RELAY TO 3 KPI METRICS ROWS
             const solutionsTimeline = gsap.timeline({
                 scrollTrigger: {
                     trigger: "#solutions-scroll-track",
                     start: "top top",
-                    end: "+=2200",
+                    end: "+=4400",
                     pin: "#solutions-pin-section",
                     scrub: 0.8,
                     anticipatePin: 1,
@@ -1898,12 +1885,38 @@
                 }
             });
 
-            // Initial positioning: stage below viewport, lockup & canvas ready
+            const cardsStage = document.getElementById("solutions-cards-stage");
+            const metricsStage = document.getElementById("metrics-stage");
+            const row1 = document.getElementById("metrics-row-1");
+            const row2 = document.getElementById("metrics-row-2");
+            const row3 = document.getElementById("metrics-row-3");
+
+            const row1Photo = document.querySelector("#metrics-row-1 .metrics-photo-wrap");
+            const row2Photo = document.querySelector("#metrics-row-2 .metrics-photo-wrap");
+            const row3Photo = document.querySelector("#metrics-row-3 .metrics-photo-wrap");
+
+            const row1Num = document.querySelector("#metrics-num-1");
+            const row2Num = document.querySelector("#metrics-num-2");
+            const row3Num = document.querySelector("#metrics-num-3");
+
+            const row1Badge = document.querySelector("#metrics-row-1 .metrics-badge");
+            const row2Badge = document.querySelector("#metrics-row-2 .metrics-badge");
+            const row3Badge = document.querySelector("#metrics-row-3 .metrics-badge");
+
+            const row1Desc = document.querySelector("#metrics-row-1 .metrics-desc");
+            const row2Desc = document.querySelector("#metrics-row-2 .metrics-desc");
+            const row3Desc = document.querySelector("#metrics-row-3 .metrics-desc");
+
+            const div1 = document.getElementById("metrics-divider-1");
+            const div2 = document.getElementById("metrics-divider-2");
+            const div3 = document.getElementById("metrics-divider-3");
+
+            // Initial positioning: lockup, canvas, cards stage, and all 3 metrics rows
             gsap.set("#integrations-lockup", { x: 0, y: 0, scale: 1, autoAlpha: 1 });
             gsap.set("#solutions-matrix-canvas-wrap", { autoAlpha: 1 });
             gsap.set("#solutions-cards-stage", {
                 y: () => window.innerHeight * 0.95,
-                opacity: 0,
+                autoAlpha: 0,
                 pointerEvents: "none"
             });
             gsap.set(".solutions-card", {
@@ -1911,318 +1924,245 @@
                 transformOrigin: "center center"
             });
 
-            solutionsTimeline
-                // Step 1: Heading pushes slightly up & yellow SOLUTIONS marquee reveals
-                .to("#integrations-text", {
-                    y: -24,
-                    duration: 0.12,
-                    ease: "power2.out"
-                }, 0.04)
-                .to("#solutions-yellow-container", {
-                    autoAlpha: 1,
-                    y: 0,
-                    duration: 0.12,
-                    ease: "power2.out"
-                }, 0.06)
-
-                // Step 2: Lockup glides to top, cards show from bottom in half size (Image 2)
-                // Left card in left column, middle card in center column, right card in right column
-                .to("#integrations-lockup", {
-                    y: () => -window.innerHeight * 0.32,
-                    scale: 0.82,
-                    duration: 0.30,
-                    ease: "power2.inOut"
-                }, 0.18)
-                .to("#solutions-cards-stage", {
-                    y: () => window.innerHeight * 0.38,
-                    opacity: 0.95,
-                    duration: 0.30,
-                    ease: "power2.inOut"
-                }, 0.18)
-
-                // Step 3: Arrow & Explore Solutions fade out completely; cards expand smoothly to full size alone (Image 1)
-                .to("#integrations-lockup", {
-                    y: () => -window.innerHeight * 0.45,
-                    scale: 0.70,
-                    autoAlpha: 0,
-                    duration: 0.22,
-                    ease: "power2.out"
-                }, 0.44)
-                .to("#solutions-matrix-canvas-wrap", {
-                    autoAlpha: 0,
-                    duration: 0.20,
-                    ease: "power2.out"
-                }, 0.44)
-                .to("#solutions-cards-stage", {
-                    y: () => window.innerHeight * 0.08,
-                    opacity: 1,
-                    duration: 0.30,
-                    ease: "power2.out",
-                    onUpdate: function () {
-                        const stage = document.getElementById("solutions-cards-stage");
-                        if (stage) stage.style.pointerEvents = this.progress() > 0.65 ? "auto" : "none";
-                    }
-                }, 0.48)
-                .to(".solutions-card", {
-                    scale: 1.0,
-                    duration: 0.30,
-                    ease: "power2.out"
-                }, 0.48)
-
-                // Step 4: Hold state with 3 cards alone
-                .to("#solutions-cards-stage", {
-                    duration: 0.14
-                }, 0.76)
-
-                // Step 5: Smoothly glide cards UPWARDS and exit to top
-                .to("#solutions-cards-stage", {
-                    y: () => -window.innerHeight * 0.75,
-                    autoAlpha: 0,
-                    duration: 0.16,
-                    ease: "power2.in"
-                }, 0.88);
-
-            // SECTION 5: METRICS 2-ROW PINNED SCROLL RELAY (Wollo-inspired)
-            const metricsTrack = document.getElementById("metrics-scroll-track");
-            if (metricsTrack) {
-                const stage = document.getElementById("metrics-stage");
-                const row1 = document.getElementById("metrics-row-1");
-                const row2 = document.getElementById("metrics-row-2");
-                const row3 = document.getElementById("metrics-row-3");
-
-                const row1Photo = document.querySelector("#metrics-row-1 .metrics-photo-wrap");
-                const row2Photo = document.querySelector("#metrics-row-2 .metrics-photo-wrap");
-                const row3Photo = document.querySelector("#metrics-row-3 .metrics-photo-wrap");
-
-                const row1Num = document.querySelector("#metrics-num-1");
-                const row2Num = document.querySelector("#metrics-num-2");
-                const row3Num = document.querySelector("#metrics-num-3");
-
-                const row1Badge = document.querySelector("#metrics-row-1 .metrics-badge");
-                const row2Badge = document.querySelector("#metrics-row-2 .metrics-badge");
-                const row3Badge = document.querySelector("#metrics-row-3 .metrics-badge");
-
-                const row1Desc = document.querySelector("#metrics-row-1 .metrics-desc");
-                const row2Desc = document.querySelector("#metrics-row-2 .metrics-desc");
-                const row3Desc = document.querySelector("#metrics-row-3 .metrics-desc");
-
-                const div1 = document.getElementById("metrics-divider-1");
-                const div2 = document.getElementById("metrics-divider-2");
-                const div3 = document.getElementById("metrics-divider-3");
-
-                // Initial positions: ALL 3 ROWS start ALL THE WAY DOWN (below the browser viewport)
-                gsap.set(row1, { y: () => window.innerHeight, autoAlpha: 1 });
-                gsap.set(row2, { y: () => window.innerHeight * 1.25, autoAlpha: 1 });
-                gsap.set(row3, { y: () => window.innerHeight * 1.35, autoAlpha: 1 });
-
-                // Photos start as small square, numbers blurred, badges hidden, dividers hidden
+            // Initial metrics states: all 3 rows start completely below the viewport
+            if (row1 && row2 && row3) {
+                gsap.set([row1, row2, row3], { y: () => window.innerHeight * 1.15, autoAlpha: 1 });
                 gsap.set([row1Photo, row2Photo, row3Photo], { scale: 0.2, opacity: 0 });
                 gsap.set([row1Num, row2Num, row3Num], { filter: "blur(18px)", opacity: 0, y: 16 });
                 gsap.set([row1Badge, row2Badge, row3Badge], { scale: 0, opacity: 0 });
                 gsap.set([row1Desc, row2Desc, row3Desc], { opacity: 0, y: 16 });
                 gsap.set([div1, div2, div3], { opacity: 0 });
+            }
 
-                const val1 = { val: 0 };
-                const val2 = { val: 0 };
-                const val3 = { val: 0 };
+            const val1 = { val: 0 };
+            const val2 = { val: 0 };
+            const val3 = { val: 0 };
 
-                const metricsTL = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: "#metrics-scroll-track",
-                        start: "top top",
-                        end: "+=2600",
-                        pin: "#metrics",
-                        scrub: 0.8,
-                        anticipatePin: 1,
-                        invalidateOnRefresh: true,
-                    }
-                });
-
-                // Phase 1 (0.00 - 0.22): Row 1 enters from all the way down into Slot 1 (y: 0)
-                metricsTL.to(row1, {
-                    y: 0,
-                    duration: 0.22,
+            // PART 1: Cards Reveal & Showcase (0.00 -> 0.44)
+            solutionsTimeline
+                // Step 1: Heading pushes up & yellow SOLUTIONS marquee reveals
+                .to("#integrations-text", {
+                    y: -24,
+                    duration: 0.05,
                     ease: "power2.out"
-                }, 0.00);
+                }, 0.02)
+                .to("#solutions-yellow-container", {
+                    autoAlpha: 1,
+                    y: 0,
+                    duration: 0.05,
+                    ease: "power2.out"
+                }, 0.03)
 
-                // Row 1 photo expands from small square to full size
-                metricsTL.to(row1Photo, {
+                // Step 2: Lockup glides to top, cards peek from bottom in half size
+                .to("#integrations-lockup", {
+                    y: () => -window.innerHeight * 0.32,
+                    scale: 0.82,
+                    duration: 0.14,
+                    ease: "power2.inOut"
+                }, 0.08)
+                .to("#solutions-cards-stage", {
+                    y: () => window.innerHeight * 0.38,
+                    autoAlpha: 0.95,
+                    duration: 0.14,
+                    ease: "power2.inOut"
+                }, 0.08)
+
+                // Step 3: Arrow & Explore Solutions fade out completely; cards expand to full size perfectly centered
+                .to("#integrations-lockup", {
+                    y: () => -window.innerHeight * 0.45,
+                    scale: 0.70,
+                    autoAlpha: 0,
+                    duration: 0.12,
+                    ease: "power2.out"
+                }, 0.22)
+                .to("#solutions-matrix-canvas-wrap", {
+                    autoAlpha: 0,
+                    duration: 0.10,
+                    ease: "power2.out"
+                }, 0.22)
+                .to("#solutions-cards-stage", {
+                    y: 0,
+                    autoAlpha: 1,
+                    duration: 0.14,
+                    ease: "power2.out",
+                    onUpdate: function () {
+                        if (cardsStage) {
+                            const prog = solutionsTimeline.progress();
+                            cardsStage.style.pointerEvents = (prog >= 0.28 && prog <= 0.44) ? "auto" : "none";
+                        }
+                    }
+                }, 0.22)
+                .to(".solutions-card", {
+                    scale: 1.0,
+                    duration: 0.14,
+                    ease: "power2.out"
+                }, 0.22)
+
+                // Step 4: Hold state with 3 cards in dead center
+                .to({}, { duration: 0.08 }, 0.34)
+
+                // PART 2: SEAMLESS CONVEYOR RELAY (0.42 -> 1.00)
+                // Cards scroll smoothly UP and clear off the top
+                .to("#solutions-cards-stage", {
+                    y: () => -window.innerHeight * 1.05,
+                    autoAlpha: 0,
+                    duration: 0.10,
+                    ease: "power2.in"
+                }, 0.42)
+
+                // Row 1 enters from all the way down into Slot 1 (y: 0)
+                .to(row1, {
+                    y: 0,
+                    duration: 0.13,
+                    ease: "power2.out"
+                }, 0.46)
+                .to(row1Photo, {
                     scale: 1,
                     opacity: 1,
-                    duration: 0.20,
+                    duration: 0.11,
                     ease: "power2.out"
-                }, 0.02);
-
-                // Row 1 number deblurs and counts up
-                metricsTL.to(row1Num, {
+                }, 0.47)
+                .to(row1Num, {
                     filter: "blur(0px)",
                     opacity: 1,
                     y: 0,
-                    duration: 0.20,
+                    duration: 0.11,
                     ease: "power2.out"
-                }, 0.04);
-
-                metricsTL.to(val1, {
+                }, 0.48)
+                .to(val1, {
                     val: 1.7,
-                    duration: 0.22,
+                    duration: 0.13,
                     ease: "power2.out",
                     onUpdate: () => {
                         if (row1Num) row1Num.textContent = "+" + val1.val.toFixed(1) + "M";
                     }
-                }, 0.04);
-
-                // Row 1 badge & desc & divider reveal (splitting line does not show before text)
-                metricsTL.to(row1Badge, {
+                }, 0.48)
+                .to(row1Badge, {
                     scale: 1,
                     opacity: 1,
-                    duration: 0.16,
+                    duration: 0.09,
                     ease: "back.out(1.7)"
-                }, 0.10);
-
-                metricsTL.to([row1Desc, div1], {
+                }, 0.51)
+                .to([row1Desc, div1], {
                     opacity: 1,
                     y: 0,
-                    duration: 0.18,
+                    duration: 0.11,
                     stagger: 0.02,
                     ease: "power2.out"
-                }, 0.08);
+                }, 0.49)
 
-                // Phase 2 (0.10 - 0.32): Row 2 enters from all the way down into Slot 2 (y: 0)
-                metricsTL.to(row2, {
+                // Row 2 enters from all the way down into Slot 2 (y: 0)
+                .to(row2, {
                     y: 0,
-                    duration: 0.22,
+                    duration: 0.14,
                     ease: "power2.out"
-                }, 0.10);
-
-                // Row 2 photo expands
-                metricsTL.to(row2Photo, {
+                }, 0.54)
+                .to(row2Photo, {
                     scale: 1,
                     opacity: 1,
-                    duration: 0.20,
+                    duration: 0.12,
                     ease: "power2.out"
-                }, 0.12);
-
-                // Row 2 number deblurs and counts up
-                metricsTL.to(row2Num, {
+                }, 0.55)
+                .to(row2Num, {
                     filter: "blur(0px)",
                     opacity: 1,
                     y: 0,
-                    duration: 0.20,
+                    duration: 0.12,
                     ease: "power2.out"
-                }, 0.14);
-
-                metricsTL.to(val2, {
+                }, 0.56)
+                .to(val2, {
                     val: 630,
-                    duration: 0.22,
+                    duration: 0.14,
                     ease: "power2.out",
                     onUpdate: () => {
                         if (row2Num) row2Num.textContent = "+" + Math.round(val2.val);
                     }
-                }, 0.14);
-
-                // Row 2 badge & desc & divider reveal
-                metricsTL.to(row2Badge, {
+                }, 0.56)
+                .to(row2Badge, {
                     scale: 1,
                     opacity: 1,
-                    duration: 0.16,
+                    duration: 0.10,
                     ease: "back.out(1.7)"
-                }, 0.18);
-
-                metricsTL.to([row2Desc, div2], {
+                }, 0.60)
+                .to([row2Desc, div2], {
                     opacity: 1,
                     y: 0,
-                    duration: 0.18,
+                    duration: 0.12,
                     stagger: 0.02,
                     ease: "power2.out"
-                }, 0.16);
+                }, 0.58)
 
-                // Phase 3 (0.32 - 0.46): Hold state with Rows 1 & 2 in full view
-                metricsTL.to({}, { duration: 0.14 }, 0.32);
+                // Hold state with Rows 1 & 2 in full view
+                .to({}, { duration: 0.08 }, 0.68)
 
-                // Phase 4 (0.46 - 0.70): Relay to Row 3
-                // Row 1 moves ALL THE WAY UP and exits
-                metricsTL.to(row1, {
-                    y: () => -window.innerHeight * 0.65,
+                // Relay: Row 1 exits all the way up, Row 2 moves into Slot 1, Row 3 enters Slot 2 from all the way down
+                .to(row1, {
+                    y: () => -window.innerHeight * 0.75,
                     autoAlpha: 0,
-                    duration: 0.24,
+                    duration: 0.14,
                     ease: "power2.inOut"
-                }, 0.46);
-
-                // Row 2 glides up into Slot 1
-                const getHalfH = () => (stage ? stage.offsetHeight * 0.5 : 300);
-                metricsTL.to(row2, {
-                    y: () => -getHalfH(),
-                    duration: 0.24,
+                }, 0.76)
+                .to(row2, {
+                    y: () => -(metricsStage ? metricsStage.offsetHeight * 0.5 : 300),
+                    duration: 0.14,
                     ease: "power2.inOut"
-                }, 0.46);
-
-                // Row 3 enters from all the way down into Slot 2
-                metricsTL.to(row3, {
+                }, 0.76)
+                .to(row3, {
                     y: 0,
-                    duration: 0.24,
+                    duration: 0.14,
                     ease: "power2.out"
-                }, 0.48);
-
-                // Row 3 photo expands
-                metricsTL.to(row3Photo, {
+                }, 0.76)
+                .to(row3Photo, {
                     scale: 1,
                     opacity: 1,
-                    duration: 0.20,
+                    duration: 0.12,
                     ease: "power2.out"
-                }, 0.50);
-
-                // Row 3 number deblurs and counts up
-                metricsTL.to(row3Num, {
+                }, 0.77)
+                .to(row3Num, {
                     filter: "blur(0px)",
                     opacity: 1,
                     y: 0,
-                    duration: 0.20,
+                    duration: 0.12,
                     ease: "power2.out"
-                }, 0.52);
-
-                metricsTL.to(val3, {
+                }, 0.78)
+                .to(val3, {
                     val: 420,
-                    duration: 0.22,
+                    duration: 0.14,
                     ease: "power2.out",
                     onUpdate: () => {
                         if (row3Num) row3Num.textContent = "+" + Math.round(val3.val);
                     }
-                }, 0.52);
-
-                // Row 3 badge & desc & divider reveal
-                metricsTL.to(row3Badge, {
+                }, 0.78)
+                .to(row3Badge, {
                     scale: 1,
                     opacity: 1,
-                    duration: 0.16,
+                    duration: 0.10,
                     ease: "back.out(1.7)"
-                }, 0.58);
-
-                metricsTL.to([row3Desc, div3], {
+                }, 0.82)
+                .to([row3Desc, div3], {
                     opacity: 1,
                     y: 0,
-                    duration: 0.18,
+                    duration: 0.12,
                     stagger: 0.02,
                     ease: "power2.out"
-                }, 0.54);
+                }, 0.80)
 
-                // Phase 5 (0.70 - 0.84): Hold state with Rows 2 & 3 in full view
-                metricsTL.to({}, { duration: 0.14 }, 0.70);
+                // Hold state with Rows 2 & 3 in full view
+                .to({}, { duration: 0.05 }, 0.90)
 
-                // Phase 6 (0.84 - 1.00): Exit ALL THE WAY UP
-                metricsTL.to(row2, {
+                // Exit ALL THE WAY UP into Footer
+                .to(row2, {
+                    y: () => -window.innerHeight * 1.1,
+                    autoAlpha: 0,
+                    duration: 0.05,
+                    ease: "power2.in"
+                }, 0.95)
+                .to(row3, {
                     y: () => -window.innerHeight * 0.85,
                     autoAlpha: 0,
-                    duration: 0.16,
+                    duration: 0.05,
                     ease: "power2.in"
-                }, 0.84);
-
-                metricsTL.to(row3, {
-                    y: () => -window.innerHeight * 0.70,
-                    autoAlpha: 0,
-                    duration: 0.16,
-                    ease: "power2.in"
-                }, 0.84);
-            }
+                }, 0.95);
 
             window.switchBentoSlide = switchBentoSlide;
             window.startSlideTimer = startSlideTimer;
