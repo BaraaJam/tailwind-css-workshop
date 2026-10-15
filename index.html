@@ -556,7 +556,7 @@
                         
                         <!-- Column 01 (Left Card, positioned in natural left column) -->
                         <div class="solutions-card-col w-full">
-                            <div id="solutions-card-1" class="solutions-card w-full bg-[#F4F4F6] rounded-[2.5rem] md:rounded-[2.8rem] p-4 sm:p-5 flex flex-col justify-between h-[510px] sm:h-[530px] md:h-[550px] border-0 shadow-none transition-transform duration-300 hover:scale-[1.02]">
+                            <div id="solutions-card-1" class="solutions-card w-full bg-[#F4F4F6] rounded-[2.5rem] md:rounded-[2.8rem] p-4 sm:p-5 flex flex-col justify-between h-[510px] sm:h-[530px] md:h-[550px] border-0 shadow-none">
                                 <div class="p-6 sm:p-7 pt-7 pb-2 text-left">
                                     <h3 class="text-xl sm:text-2xl font-medium tracking-tight text-zinc-900 leading-snug">IT & Proffs-<br class="hidden sm:inline">utbildningar</h3>
                                 </div>
@@ -597,7 +597,7 @@
 
                         <!-- Column 02 (Middle Card, elevated stagger like Image 1) -->
                         <div class="solutions-card-col w-full md:-translate-y-8">
-                            <div id="solutions-card-2" class="solutions-card w-full bg-[#F4F4F6] rounded-[2.5rem] md:rounded-[2.8rem] p-4 sm:p-5 flex flex-col justify-between h-[510px] sm:h-[530px] md:h-[550px] border-0 shadow-none transition-transform duration-300 hover:scale-[1.02]">
+                            <div id="solutions-card-2" class="solutions-card w-full bg-[#F4F4F6] rounded-[2.5rem] md:rounded-[2.8rem] p-4 sm:p-5 flex flex-col justify-between h-[510px] sm:h-[530px] md:h-[550px] border-0 shadow-none">
                                 <div class="p-6 sm:p-7 pt-7 pb-2 text-left">
                                     <h3 class="text-xl sm:text-2xl font-medium tracking-tight text-zinc-900 leading-snug">Affärs- &amp;<br class="hidden sm:inline">Ledarskap</h3>
                                 </div>
@@ -637,7 +637,7 @@
 
                         <!-- Column 03 (Right Card, positioned in natural right column) -->
                         <div class="solutions-card-col w-full">
-                            <div id="solutions-card-3" class="solutions-card w-full bg-[#F4F4F6] rounded-[2.5rem] md:rounded-[2.8rem] p-4 sm:p-5 flex flex-col justify-between h-[510px] sm:h-[530px] md:h-[550px] border-0 shadow-none transition-transform duration-300 hover:scale-[1.02]">
+                            <div id="solutions-card-3" class="solutions-card w-full bg-[#F4F4F6] rounded-[2.5rem] md:rounded-[2.8rem] p-4 sm:p-5 flex flex-col justify-between h-[510px] sm:h-[530px] md:h-[550px] border-0 shadow-none">
                                 <div class="p-6 sm:p-7 pt-7 pb-2 text-left">
                                     <h3 class="text-xl sm:text-2xl font-medium tracking-tight text-zinc-900 leading-snug">Lexicon 365 &amp;<br class="hidden sm:inline">E-Learning</h3>
                                 </div>
@@ -1480,13 +1480,13 @@
                         trigger: "#solutions-scroll-track",
                         start: "top 50%",
                         end: "top top",
-                        scrub: true,
+                        scrub: 0.8,
                         invalidateOnRefresh: true,
                     },
                     yPercent: 0,
                     opacity: 1,
                     stagger: 0.02,
-                    ease: "none"
+                    ease: "power2.out"
                 }
             );
 
@@ -1497,88 +1497,87 @@
                     start: "top top",
                     end: "+=2600",
                     pin: "#solutions-pin-section",
-                    scrub: true,
+                    scrub: 0.8,
                     anticipatePin: 1,
                     invalidateOnRefresh: true,
                 }
             });
 
-            // Initial positioning: cards completely off-screen below fold, heading & arrow ready
+            // Initial positioning: stage below viewport, lockup & canvas ready
             gsap.set("#integrations-lockup", { x: 0, y: 0, scale: 1, autoAlpha: 1 });
             gsap.set("#solutions-matrix-canvas-wrap", { autoAlpha: 1 });
-            gsap.set("#solutions-cards-stage", { y: 0, scale: 1, opacity: 1, pointerEvents: "none" });
-            gsap.set(".solutions-card", {
-                y: () => window.innerHeight * 1.05,
-                scale: 0.72,
+            gsap.set("#solutions-cards-stage", {
+                y: () => window.innerHeight * 0.95,
                 opacity: 0,
+                pointerEvents: "none"
+            });
+            gsap.set(".solutions-card", {
+                scale: 0.72,
                 transformOrigin: "center center"
             });
 
             solutionsTimeline
-                // Step 1 (0.00 - 0.12): Yellow SOLUTIONS marquee reveals & settles
+                // Step 1: Heading pushes slightly up & yellow SOLUTIONS marquee reveals
                 .to("#integrations-text", {
                     y: -24,
                     duration: 0.12,
-                    ease: "none"
-                }, 0.00)
+                    ease: "power2.out"
+                }, 0.04)
                 .to("#solutions-yellow-container", {
                     autoAlpha: 1,
                     y: 0,
                     duration: 0.12,
-                    ease: "none"
-                }, 0.02)
+                    ease: "power2.out"
+                }, 0.06)
 
-                // Step 2 (0.12 - 0.50): Lockup glides to top, arrow visible, cards rise steadily from bottom into half size (Image 2)
+                // Step 2: Lockup glides to top, cards show from bottom in half size (Image 2)
                 // Left card in left column, middle card in center column, right card in right column
                 .to("#integrations-lockup", {
                     y: () => -window.innerHeight * 0.32,
                     scale: 0.82,
-                    autoAlpha: 1,
-                    duration: 0.38,
-                    ease: "none"
-                }, 0.12)
-                .to(".solutions-card", {
-                    y: () => window.innerHeight * 0.44,
-                    scale: 0.72,
-                    opacity: 1,
-                    duration: 0.38,
-                    ease: "none"
-                }, 0.12)
+                    duration: 0.32,
+                    ease: "power2.inOut"
+                }, 0.18)
+                .to("#solutions-cards-stage", {
+                    y: () => window.innerHeight * 0.38,
+                    opacity: 0.95,
+                    duration: 0.32,
+                    ease: "power2.inOut"
+                }, 0.18)
 
-                // Step 3 (0.50 - 0.54): Brief hold in half-size state
-                .to(".solutions-card", {
-                    duration: 0.04
-                }, 0.50)
-
-                // Step 4 (0.54 - 0.88): Arrow & Explore Solutions fade out completely; cards expand smoothly to full size alone
+                // Step 3: Arrow & Explore Solutions fade out completely; cards expand smoothly to full size alone (Image 1)
                 .to("#integrations-lockup", {
                     y: () => -window.innerHeight * 0.45,
                     scale: 0.70,
                     autoAlpha: 0,
                     duration: 0.34,
-                    ease: "none"
-                }, 0.54)
+                    ease: "power2.out"
+                }, 0.50)
                 .to("#solutions-matrix-canvas-wrap", {
                     autoAlpha: 0,
-                    duration: 0.30,
-                    ease: "none"
-                }, 0.54)
-                .to(".solutions-card", {
-                    y: 0,
-                    scale: 1.0,
+                    duration: 0.28,
+                    ease: "power2.out"
+                }, 0.50)
+                .to("#solutions-cards-stage", {
+                    y: () => window.innerHeight * 0.08,
                     opacity: 1,
                     duration: 0.34,
-                    ease: "none",
+                    ease: "power2.out",
                     onUpdate: function () {
                         const stage = document.getElementById("solutions-cards-stage");
                         if (stage) stage.style.pointerEvents = this.progress() > 0.65 ? "auto" : "none";
                     }
-                }, 0.54)
-
-                // Step 5 (0.88 - 1.00): Settled hold with 3 cards alone
+                }, 0.50)
                 .to(".solutions-card", {
-                    duration: 0.12
-                }, 0.88);
+                    scale: 1.0,
+                    duration: 0.34,
+                    ease: "power2.out"
+                }, 0.50)
+
+                // Step 4: Hold state with 3 cards alone
+                .to("#solutions-cards-stage", {
+                    duration: 0.16
+                }, 0.84);
 
             window.switchBentoSlide = switchBentoSlide;
             window.startSlideTimer = startSlideTimer;
