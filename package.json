@@ -1,0 +1,10 @@
+{
+  "name": "lexicon-tailwind-workshop",
+  "private": true,
+  "scripts": {
+    "build:assets": "node scripts/build-ascii-assets.cjs",
+    "build:css": "npx --yes tailwindcss@3.4.17 --input styles/tailwind.css --content index.html --output assets/vendor/tailwind.css --minify",
+    "build": "npm run build:assets && npm run build:css",
+    "test": "node --test"
+  }
+}

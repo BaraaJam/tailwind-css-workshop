@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="520" viewBox="0 0 720 520">
+  <defs>
+    <linearGradient id="plane" x1="75" y1="70" x2="650" y2="350" gradientUnits="userSpaceOnUse"><stop stop-color="#4314e5" stop-opacity=".85"/><stop offset=".48" stop-color="#6950f3" stop-opacity=".3"/><stop offset=".8" stop-color="#f8529e" stop-opacity=".8"/><stop offset="1" stop-color="#fcd332"/></linearGradient>
+    <linearGradient id="rim"><stop stop-color="#4314e5"/><stop offset=".55" stop-color="#a165e9"/><stop offset="1" stop-color="#f8529e"/></linearGradient>
+  </defs>
+  <path d="M190 210 Q360 370 530 210 L520 314 Q360 475 200 314Z" fill="url(#plane)" stroke="url(#rim)" stroke-width="8"/>
+  <path d="M207 292 Q360 417 513 292" fill="none" stroke="url(#rim)" stroke-opacity=".65" stroke-width="5"/>
+  <path d="M62 172 360 35 658 172 360 310Z" fill="url(#plane)" stroke="url(#rim)" stroke-width="8"/>
+  <path d="M62 172 360 310 658 172 658 192 360 330 62 192Z" fill="url(#rim)" opacity=".55"/>
+  <path d="M360 172 Q596 187 603 363" fill="none" stroke="url(#rim)" stroke-width="12"/>
+  <path d="M603 363 581 433 Q604 458 628 433Z" fill="url(#plane)" stroke="url(#rim)" stroke-width="5"/>
+  <circle cx="360" cy="172" r="14" fill="#6950f3"/>
+</svg>

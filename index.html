@@ -5,8 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lexicon - Tailwind CSS Workshop</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/vendor/tailwind.css">
     <style>
+        .ascii-background-layer {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
         /* Hide scrollbar for Chrome, Safari and Opera */
         ::-webkit-scrollbar {
             display: none !important;
@@ -28,28 +37,35 @@
         /* Seamless gliding marquee for uppercase SOLUTIONS: flows out to left and re-enters from right */
         @keyframes solutionsGlideLoop {
             0% {
-                transform: translateX(0);
+                transform: translate3d(0, 0, 0);
             }
             100% {
-                transform: translateX(-6.5em);
+                transform: translate3d(-50%, 0, 0);
             }
         }
 
         .solutions-glide-track {
-            display: inline-flex;
+            display: flex;
+            width: 200%;
+            flex: 0 0 200%;
             align-items: center;
             white-space: nowrap;
-            animation: solutionsGlideLoop 4.5s linear infinite;
+            animation: solutionsGlideLoop 10s linear infinite;
             will-change: transform;
         }
 
         .solutions-glide-item {
-            width: 6.5em;
-            flex-shrink: 0;
+            width: 50%;
+            flex: 0 0 50%;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             text-align: center;
+        }
+
+        .solutions-glide-item > span {
+            font-size: 0.94em;
+            letter-spacing: 0.025em;
         }
 
         #integrations-text {
@@ -57,9 +73,27 @@
         }
 
         #solutions-yellow-container {
-            font-size: clamp(3.0rem, 6.2vw, 6.6rem);
-            height: 1.25em;
-            width: 6.5em;
+            font-size: clamp(1.8rem, 4.5vw, 4.6rem);
+            height: 1.12em;
+            width: 6.2em;
+            max-width: calc(100vw - 3rem);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .solutions-glide-track { animation: none; }
+        }
+
+        @media (min-width: 1024px) and (max-height: 950px) {
+            .features-bento-grid { transform: scale(0.85); }
+        }
+        @media (min-width: 1024px) and (max-height: 800px) {
+            .features-bento-grid { transform: scale(0.7); }
+        }
+        @media (min-width: 1024px) and (max-height: 650px) {
+            .features-bento-grid { transform: scale(0.55); }
+        }
+        @media (max-width: 1023px) {
+            .features-bento-stage { justify-content: flex-start; padding-top: 80px; }
         }
     </style>
 </head>
@@ -93,7 +127,7 @@
         <section id="hero-section"
             class="relative w-full h-screen flex flex-col justify-between overflow-hidden px-6 pt-28 pb-0">
             <!-- Interactive ASCII Matrix Background Canvas (Graduation Cap / Skills Development) -->
-            <canvas id="hero-matrix-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-75"></canvas>
+            <canvas id="hero-matrix-canvas" aria-hidden="true" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
             <!-- Hero Center Text & Actions -->
             <div id="hero-text-mask"
                 class="relative max-w-4xl mx-auto z-10 p-10 w-full text-center will-change-transform">
@@ -143,7 +177,8 @@
             <!-- 3. ANALYTICS BENTO GRID (SECTION 2 - FULL SCREEN SHEET) -->
             <section id="features"
                 class="absolute inset-x-0 -bottom-1 w-full h-[calc(100vh+8px)] bg-white rounded-t-[2.5rem] md:rounded-t-[3.5rem] shadow-2xl flex flex-col px-6 pt-28 md:pt-[118px] pb-2 z-30 will-change-transform">
-                <div class="max-w-7xl mx-auto w-full flex flex-col h-full">
+                <canvas id="features-matrix-canvas" aria-hidden="true" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
+                <div class="relative z-10 max-w-7xl mx-auto w-full flex flex-col h-full">
                     <!-- Section 2 Headline (Settled in EXACT Same Position as Hero Headline: top 127px) -->
                     <div class="w-full text-center shrink-0 pt-0 md:pt-1">
                         <h2 id="features-headline"
@@ -158,10 +193,10 @@
                     </div>
 
                     <!-- Centering Wrapper: Guarantees equal gap from headline and bottom edge -->
-                    <div class="flex-1 flex flex-col justify-center w-full min-h-0">
+                    <div class="features-bento-stage flex-1 flex flex-col justify-center w-full min-h-0">
                         <!-- Bigger Bento Grid (Centered equally between headline and bottom fold) -->
                         <div
-                            class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch w-full -mt-2 max-h-[540px]">
+                            class="features-bento-grid grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch w-full -mt-2 max-h-[540px]">
                         <!-- Left Card: Interactive Bento (5 Cols) -->
                         <div
                             class="lg:col-span-5 bg-zinc-100/70 rounded-3xl p-6 md:p-8 flex flex-col justify-between min-h-[460px] md:min-h-[500px] select-none">
@@ -484,7 +519,7 @@
         <section id="solutions-pin-section"
             class="relative w-full h-screen overflow-hidden flex flex-col justify-center items-center px-6 bg-white z-20 select-none">
             <!-- Interactive ASCII Matrix Background Canvas (Downward Arrow) -->
-            <canvas id="solutions-matrix-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-70"></canvas>
+            <canvas id="solutions-matrix-canvas" aria-hidden="true" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
             
             <div id="solutions-hero-wrap" class="relative w-full max-w-7xl flex flex-col items-center justify-center z-10">
                 
@@ -501,11 +536,8 @@
                     <div id="solutions-yellow-container"
                         class="relative bg-[#FCD332] rounded-lg flex items-center justify-start overflow-hidden will-change-transform select-none shrink-0 mt-4 sm:mt-6 shadow-sm">
                         <!-- Continuous seamless glide marquee: flows out to left and re-enters from right without blink or cutoff -->
-                        <div class="solutions-glide-track inline-flex items-center whitespace-nowrap">
-                            <div class="solutions-glide-item">
-                                <span class="font-extrabold tracking-wider text-white/60 uppercase select-none leading-none">SOLUTIONS</span>
-                            </div>
-                            <div class="solutions-glide-item">
+                        <div class="solutions-glide-track" aria-label="SOLUTIONS">
+                            <div class="solutions-glide-item" aria-hidden="true">
                                 <span class="font-extrabold tracking-wider text-white/60 uppercase select-none leading-none">SOLUTIONS</span>
                             </div>
                             <div class="solutions-glide-item">
@@ -515,60 +547,127 @@
                     </div>
                 </div>
 
+                <!-- 3 Business Area Cards: Scroll-driven Expansion Stage (Image 1 & 2) -->
+                <div id="solutions-cards-stage"
+                    class="absolute inset-x-0 w-full max-w-6xl mx-auto px-4 sm:px-6 will-change-transform pointer-events-none select-none z-20">
+                    <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-7 items-center">
+                        
+                        <!-- Card 01 -->
+                        <div class="solutions-card bg-[#F4F4F6] rounded-[2.5rem] md:rounded-[2.8rem] p-3.5 sm:p-4 flex flex-col justify-between h-[510px] sm:h-[530px] md:h-[550px] border-0 shadow-none transition-transform duration-300 hover:scale-[1.02]">
+                            <div class="p-6 sm:p-7 pt-7 pb-2 text-left">
+                                <h3 class="text-xl sm:text-2xl font-medium tracking-tight text-zinc-900 leading-snug">IT & Proffs-<br class="hidden sm:inline">utbildningar</h3>
+                            </div>
+                            <div class="bg-[#F06A24] text-white rounded-[2rem] p-6 sm:p-7 h-[310px] sm:h-[340px] flex flex-col justify-between relative overflow-hidden select-none border-0 shadow-none">
+                                <div class="flex items-start justify-between relative z-10">
+                                    <span class="text-xs sm:text-sm font-medium opacity-90 leading-relaxed max-w-[150px]">AI, Python, C#.NET, ITIL, Azure</span>
+                                    <!-- 3D Soda Cup Badge -->
+                                    <svg class="w-20 h-24 sm:w-22 sm:h-28 -mt-4 -mr-2 drop-shadow-md select-none pointer-events-none" viewBox="0 0 68 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <!-- Angled straw -->
+                                        <path d="M46 6L32 30" stroke="#1E1B4B" stroke-width="5" stroke-linecap="round"/>
+                                        <path d="M54 2L44 7" stroke="#1E1B4B" stroke-width="5" stroke-linecap="round"/>
+                                        <!-- Translucent dome lid -->
+                                        <ellipse cx="32" cy="30" rx="20" ry="6.5" fill="#FFFFFF" fill-opacity="0.95" />
+                                        <ellipse cx="32" cy="28.5" rx="16" ry="4.5" fill="#FEE2E2" fill-opacity="0.7" />
+                                        <!-- Cup body with vivid gradient and 3D lighting -->
+                                        <path d="M14 30L20.5 72C21 75.5 24 78 27.5 78H36.5C40 78 43 75.5 43.5 72L50 30" fill="url(#cup-grad)" />
+                                        <!-- Rim highlight and reflection -->
+                                        <path d="M16 35C23 40 43 40 48 35" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-opacity="0.6" />
+                                        <path d="M22 45L25 68" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-opacity="0.3" />
+                                        <defs>
+                                            <linearGradient id="cup-grad" x1="14" y1="30" x2="50" y2="78" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#FF3B30" />
+                                                <stop offset="0.55" stop-color="#FF9500" />
+                                                <stop offset="1" stop-color="#FFCC00" />
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                </div>
+                                <div class="flex items-end justify-between relative z-10">
+                                    <span class="text-7xl sm:text-8xl md:text-9xl font-light tracking-tighter text-white leading-none">01</span>
+                                    <div class="w-9 h-6 sm:w-10 sm:h-7 rounded-full bg-white flex items-center justify-center text-zinc-900 text-xs sm:text-sm font-bold shadow-sm transition-transform hover:translate-x-0.5">
+                                        <span>→</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 02 (Middle, staggered higher like Image 1) -->
+                        <div class="solutions-card bg-[#F4F4F6] rounded-[2.5rem] md:rounded-[2.8rem] p-3.5 sm:p-4 flex flex-col justify-between h-[510px] sm:h-[530px] md:h-[550px] md:-translate-y-8 border-0 shadow-none transition-transform duration-300 hover:scale-[1.02]">
+                            <div class="p-6 sm:p-7 pt-7 pb-2 text-left">
+                                <h3 class="text-xl sm:text-2xl font-medium tracking-tight text-zinc-900 leading-snug">Affärs- &amp;<br class="hidden sm:inline">Ledarskap</h3>
+                            </div>
+                            <div class="bg-[#F8529E] text-white rounded-[2rem] p-6 sm:p-7 h-[310px] sm:h-[340px] flex flex-col justify-between relative overflow-hidden select-none border-0 shadow-none">
+                                <div class="flex items-start justify-between relative z-10">
+                                    <span class="text-xs sm:text-sm font-medium opacity-90 leading-relaxed max-w-[150px]">IPMA Project, Leadership & Teams</span>
+                                    <!-- 3D Layered Heart Badge -->
+                                    <svg class="w-20 h-20 sm:w-24 sm:h-24 -mt-3 -mr-2 drop-shadow-md select-none pointer-events-none rotate-6" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <!-- Outer 3D pink bevel -->
+                                        <path d="M34 58C34 58 10 43 10 25C10 16 16.5 9.5 25.5 9.5C30.5 9.5 34 14 34 14C34 14 37.5 9.5 42.5 9.5C51.5 9.5 58 16 58 25C58 43 34 58 34 58Z" fill="url(#heart-outer)" />
+                                        <!-- Middle white/soft cream highlight layer -->
+                                        <path d="M34 51C34 51 14 38 14 25C14 18.5 18.5 14 25.5 14C30 14 34 18.5 34 18.5C34 18.5 38 14 42.5 14C49.5 14 54 18.5 54 25C54 38 34 51 34 51Z" fill="#FFF1F2" fill-opacity="0.95" />
+                                        <!-- Deep midnight purple heart center -->
+                                        <path d="M34 44C34 44 20 33 20 23.5C20 18.5 23 16 27.5 16C31 16 34 19.5 34 19.5C34 19.5 37 16 40.5 16C45 16 48 18.5 48 23.5C48 33 34 44 34 44Z" fill="url(#heart-inner)" />
+                                        <defs>
+                                            <linearGradient id="heart-outer" x1="10" y1="9.5" x2="58" y2="58" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#FFA6C9" />
+                                                <stop offset="0.5" stop-color="#F43F5E" />
+                                                <stop offset="1" stop-color="#E11D48" />
+                                            </linearGradient>
+                                            <linearGradient id="heart-inner" x1="20" y1="16" x2="48" y2="44" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#312E81" />
+                                                <stop offset="1" stop-color="#0F0C20" />
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                </div>
+                                <div class="flex items-end justify-between relative z-10">
+                                    <span class="text-7xl sm:text-8xl md:text-9xl font-light tracking-tighter text-white leading-none">02</span>
+                                    <div class="w-9 h-6 sm:w-10 sm:h-7 rounded-full bg-white flex items-center justify-center text-zinc-900 text-xs sm:text-sm font-bold shadow-sm transition-transform hover:translate-x-0.5">
+                                        <span>→</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 03 -->
+                        <div class="solutions-card bg-[#F4F4F6] rounded-[2.5rem] md:rounded-[2.8rem] p-3.5 sm:p-4 flex flex-col justify-between h-[510px] sm:h-[530px] md:h-[550px] border-0 shadow-none transition-transform duration-300 hover:scale-[1.02]">
+                            <div class="p-6 sm:p-7 pt-7 pb-2 text-left">
+                                <h3 class="text-xl sm:text-2xl font-medium tracking-tight text-zinc-900 leading-snug">Lexicon 365 &amp;<br class="hidden sm:inline">E-Learning</h3>
+                            </div>
+                            <div class="bg-[#4314E5] text-white rounded-[2rem] p-6 sm:p-7 h-[310px] sm:h-[340px] flex flex-col justify-between relative overflow-hidden select-none border-0 shadow-none">
+                                <div class="flex items-start justify-between relative z-10">
+                                    <span class="text-xs sm:text-sm font-medium opacity-90 leading-relaxed max-w-[150px]">Digital Learning, MS Copilot, Support</span>
+                                    <!-- 3D Envelope Badge -->
+                                    <svg class="w-20 h-18 sm:w-24 sm:h-20 -mt-2 -mr-2 drop-shadow-md select-none pointer-events-none -rotate-6" viewBox="0 0 72 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <!-- Envelope pouch body -->
+                                        <rect x="6" y="8" width="60" height="42" rx="10" fill="url(#pouch-body)" />
+                                        <!-- Folded flap -->
+                                        <path d="M8 12L36 34L64 12" stroke="#4C1D95" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="#1E0E3E" fill-opacity="0.8" />
+                                        <!-- Glowing yellow snap button -->
+                                        <circle cx="36" cy="34" r="5" fill="#FCD332" stroke="#FFF59D" stroke-width="1.8" />
+                                        <defs>
+                                            <linearGradient id="pouch-body" x1="6" y1="8" x2="66" y2="50" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#2E1065" />
+                                                <stop offset="1" stop-color="#0F051D" />
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                </div>
+                                <div class="flex items-end justify-between relative z-10">
+                                    <span class="text-7xl sm:text-8xl md:text-9xl font-light tracking-tighter text-white leading-none">03</span>
+                                    <div class="w-9 h-6 sm:w-10 sm:h-7 rounded-full bg-white flex items-center justify-center text-zinc-900 text-xs sm:text-sm font-bold shadow-sm transition-transform hover:translate-x-0.5">
+                                        <span>→</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         </section>
     </div>
-
-    <!-- Business Area Cards Section (On their own section below the pinned showcase) -->
-    <section id="solutions-cards-section" class="relative w-full max-w-6xl mx-auto px-6 py-20 bg-white">
-        <div class="mb-10 text-center md:text-left">
-            <span class="text-xs font-semibold tracking-widest uppercase text-zinc-400">Lexicon Business Areas</span>
-            <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900 mt-2">Comprehensive Competence Solutions</h2>
-        </div>
-        <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-            <!-- Card 01 -->
-            <div class="solutions-card bg-zinc-50 border border-zinc-200/70 rounded-3xl p-3 shadow-sm hover:shadow-md transition">
-                <div class="p-5">
-                    <h3 class="text-lg font-medium text-zinc-900">IT & Proffsutbildningar</h3>
-                </div>
-                <div class="bg-[#F06A24] text-white rounded-2xl p-6 h-48 sm:h-52 flex flex-col justify-between">
-                    <span class="text-xs opacity-90">AI, Python, C#.NET, ITIL, Azure</span>
-                    <div class="flex items-end justify-between">
-                        <span class="text-5xl sm:text-6xl font-light leading-none">01</span>
-                        <span class="text-xl">→</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 02 (Staggered upward on desktop) -->
-            <div class="solutions-card bg-zinc-50 border border-zinc-200/70 rounded-3xl p-3 md:-translate-y-6 shadow-sm hover:shadow-md transition">
-                <div class="p-5">
-                    <h3 class="text-lg font-medium text-zinc-900">Affärs- & Ledarskap</h3>
-                </div>
-                <div class="bg-[#F8529E] text-white rounded-2xl p-6 h-48 sm:h-52 flex flex-col justify-between">
-                    <span class="text-xs opacity-90">IPMA Project, Leadership & Teams</span>
-                    <div class="flex items-end justify-between">
-                        <span class="text-5xl sm:text-6xl font-light leading-none">02</span>
-                        <span class="text-xl">→</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 03 -->
-            <div class="solutions-card bg-zinc-50 border border-zinc-200/70 rounded-3xl p-3 shadow-sm hover:shadow-md transition">
-                <div class="p-5">
-                    <h3 class="text-lg font-medium text-zinc-900">Lexicon 365 & E-Learning</h3>
-                </div>
-                <div class="bg-[#4314E5] text-white rounded-2xl p-6 h-48 sm:h-52 flex flex-col justify-between">
-                    <span class="text-xs opacity-90">Digital Learning, MS Copilot, Support</span>
-                    <div class="flex items-end justify-between">
-                        <span class="text-5xl sm:text-6xl font-light leading-none">03</span>
-                        <span class="text-xl">→</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- 5. KPI METRICS ROWS (Real Lexicongruppen Stats) -->
     <section id="metrics" class="max-w-6xl mx-auto px-6 py-20 divide-y divide-zinc-200">
@@ -606,7 +705,7 @@
         <div id="bottom-cta-banner"
             class="relative overflow-hidden bg-[#161328] text-white rounded-3xl p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl border border-white/10">
             <!-- Interactive ASCII Matrix Background Canvas (Question Mark Shape) -->
-            <canvas id="bottom-matrix-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-90"></canvas>
+            <canvas id="bottom-matrix-canvas" aria-hidden="true" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
             
             <div class="relative z-10 max-w-lg">
                 <span class="inline-block bg-[#F8529E] text-white text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-wider">
@@ -668,9 +767,9 @@
         </div>
     </footer>
 
-    <!-- GSAP & ScrollTrigger CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <!-- Local animation dependencies also support opening this page from disk. -->
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script src="assets/vendor/ScrollTrigger.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             gsap.registerPlugin(ScrollTrigger);
@@ -875,6 +974,7 @@
             // STAGE 2: Curtain Roll UP, Cards Stack UP, Purple Expansion, Purple Hold, & Section 2 Full Screen Transition
             const stage2Timeline = gsap.timeline({
                 scrollTrigger: {
+                    id: "hero-stage",
                     trigger: "#hero-scroll-track",
                     start: "top top",
                     end: "+=2200",
@@ -885,21 +985,7 @@
                     onUpdate: (self) => {
                         const p = self.progress;
 
-                        // Hero ASCII Matrix Beehive Swarm:
-                        // While viewing Hero (p <= 0.15), graduation cap is fully converged.
-                        // When scrolling down into purple curtain (p > 0.18), swarm disperses downward towards next section.
-                        // When scrolling back up to top (p <= 0.15), swarm flies up from below and re-converges!
-                        if (window.heroMatrix) {
-                            if (p > 0.18) {
-                                if (window.heroMatrix.targetProgress > 0) {
-                                    window.heroMatrix.triggerDisperse('down');
-                                }
-                            } else {
-                                if (window.heroMatrix.targetProgress < 1) {
-                                    window.heroMatrix.triggerFill('up');
-                                }
-                            }
-                        }
+                        // The ASCII scene handles arrivals when their destination enters view.
 
                         // Autonomous physics rain drop when Section 2 cards begin to show
                         if (p >= 0.58) {
@@ -1375,7 +1461,7 @@
             // SECTION 3: PINNED "EXPLORE LEXICON'S" + "SOLUTIONS" SMOOTH SCROLL SHOWCASE
             gsap.set(".reveal-char", { yPercent: 120, opacity: 0 });
             gsap.set("#integrations-text", { y: 0 });
-            gsap.set("#solutions-yellow-container", { scale: 0.8, opacity: 0, y: 30 });
+            gsap.set("#solutions-yellow-container", { opacity: 0, y: 30 });
             gsap.set("#integrations-lockup", { x: 0, y: 0, scale: 1 });
 
             // 1. Reveal Explore Lexicon's letters starting as Section 3 approaches center, completing at top top
@@ -1396,12 +1482,12 @@
                 }
             );
 
-            // 2. Pinned showcase for Section 3: pushes Explore Lexicon's up and reveals SOLUTIONS underneath
+            // 2. Pinned showcase for Section 3: pushes Explore Lexicon's up and reveals cards expanding from bottom
             const solutionsTimeline = gsap.timeline({
                 scrollTrigger: {
                     trigger: "#solutions-scroll-track",
                     start: "top top",
-                    end: "+=1600",
+                    end: "+=2600",
                     pin: "#solutions-pin-section",
                     scrub: 0.8,
                     anticipatePin: 1,
@@ -1409,75 +1495,75 @@
                 }
             });
 
-            solutionsTimeline
-                // Explore Lexicon's pushes slightly upwards
-                .to("#integrations-text", {
-                    y: -28,
-                    duration: 0.20,
-                    ease: "power2.out"
-                }, 0.10)
+            // Initial positioning of cards below viewport
+            gsap.set("#solutions-cards-stage", {
+                y: () => window.innerHeight * 0.95,
+                scale: 0.65,
+                opacity: 0,
+                pointerEvents: "none"
+            });
 
-                // Yellow container with marquee "SOLUTIONS" scales in smoothly from underneath
+            solutionsTimeline
+                // Step 1: Heading pushes slightly up & yellow SOLUTIONS marquee reveals
+                .to("#integrations-text", {
+                    y: -24,
+                    duration: 0.12,
+                    ease: "power2.out"
+                }, 0.04)
                 .to("#solutions-yellow-container", {
-                    scale: 1,
                     opacity: 1,
                     y: 0,
-                    duration: 0.20,
-                    ease: "back.out(1.6)"
-                }, 0.14)
+                    duration: 0.12,
+                    ease: "power2.out"
+                }, 0.06)
 
-                // Pinned hold to let the user admire the complete lockup alone
+                // Step 2: Lockup glides to top, cards show from bottom in half size (Image 2)
                 .to("#integrations-lockup", {
-                    duration: 0.60
-                }, 0.35);
+                    y: () => -window.innerHeight * 0.32,
+                    scale: 0.82,
+                    duration: 0.32,
+                    ease: "power2.inOut"
+                }, 0.18)
+                .to("#solutions-cards-stage", {
+                    y: () => window.innerHeight * 0.38,
+                    scale: 0.70,
+                    opacity: 0.95,
+                    duration: 0.32,
+                    ease: "power2.inOut"
+                }, 0.18)
 
-            // Section 3: Downward Arrow Beehive Swarm Convergence
-            // Scroll-based, not scroll-interactive:
-            // When ~50% of the section enters view (top 55%), the swarm flies in from top and forms the arrow all-at-once.
-            // Stays locked and does not break on small scroll adjustments.
-            ScrollTrigger.create({
-                trigger: "#solutions-scroll-track",
-                start: "top 55%",
-                end: "bottom 45%",
-                onEnter: () => {
-                    if (window.solutionsMatrix) window.solutionsMatrix.triggerFill('down');
-                },
-                onEnterBack: () => {
-                    if (window.solutionsMatrix) window.solutionsMatrix.triggerFill('up');
-                },
-                onLeave: () => {
-                    if (window.solutionsMatrix) window.solutionsMatrix.triggerDisperse('down');
-                },
-                onLeaveBack: () => {
-                    if (window.solutionsMatrix) window.solutionsMatrix.triggerDisperse('up');
-                }
-            });
+                // Step 3: Cards expand smoothly until they become full screen (Image 1)
+                .to("#integrations-lockup", {
+                    y: () => -window.innerHeight * 0.36,
+                    scale: 0.74,
+                    duration: 0.34,
+                    ease: "power2.out"
+                }, 0.50)
+                .to("#solutions-cards-stage", {
+                    y: () => window.innerHeight * 0.08,
+                    scale: 1.0,
+                    opacity: 1,
+                    duration: 0.34,
+                    ease: "power2.out",
+                    onUpdate: function () {
+                        const stage = document.getElementById("solutions-cards-stage");
+                        if (stage) stage.style.pointerEvents = this.progress() > 0.65 ? "auto" : "none";
+                    }
+                }, 0.50)
 
-            // 3. Pre-Footer Banner: Question Mark Beehive Swarm Convergence
-            // When ~50% of the banner enters view (top 60%), question mark arrives and forms all at once.
-            ScrollTrigger.create({
-                trigger: "#bottom-cta-banner",
-                start: "top 60%",
-                end: "bottom 20%",
-                onEnter: () => {
-                    if (window.bottomMatrix) window.bottomMatrix.triggerFill('down');
-                },
-                onEnterBack: () => {
-                    if (window.bottomMatrix) window.bottomMatrix.triggerFill('up');
-                },
-                onLeave: () => {
-                    if (window.bottomMatrix) window.bottomMatrix.triggerDisperse('down');
-                },
-                onLeaveBack: () => {
-                    if (window.bottomMatrix) window.bottomMatrix.triggerDisperse('up');
-                }
-            });
+                // Step 4: Hold state to let user admire and interact with the cards
+                .to("#solutions-cards-stage", {
+                    duration: 0.16
+                }, 0.84);
 
             window.switchBentoSlide = switchBentoSlide;
             window.startSlideTimer = startSlideTimer;
         });
     </script>
-    <!-- Interactive ASCII Matrix Background Script -->
+    <!-- Cached artwork, shared motion math, and the section relay renderer. -->
+    <script src="ascii-assets.js"></script>
+    <script src="ascii-motion.js"></script>
+    <script src="ascii-artwork.js"></script>
     <script src="ascii-matrix.js"></script>
 </body>
 
