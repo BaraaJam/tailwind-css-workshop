@@ -116,7 +116,161 @@
                 height: 310px;
             }
         }
+        /* 5. KPI Metrics Pinned Showcase (Wollo-inspired 2-Row Scroll Relay) */
+        .metrics-viewport {
+            width: 100%;
+            max-width: 1240px;
+            margin: 0 auto;
+            height: clamp(540px, 78vh, 640px);
+            overflow: hidden;
+            position: relative;
+        }
 
+        .metrics-rows-track {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            will-change: transform;
+        }
+
+        .metrics-row {
+            height: clamp(270px, 39vh, 320px);
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(228, 228, 231, 0.85);
+            position: relative;
+            will-change: transform, opacity;
+            padding: 0.5rem 0;
+        }
+
+        .metrics-row-grid {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: clamp(1.5rem, 3.5vw, 4rem);
+        }
+
+        .metrics-left-group {
+            display: flex;
+            align-items: center;
+            gap: clamp(1.5rem, 3.2vw, 3.2rem);
+            flex-shrink: 0;
+        }
+
+        .metrics-photo-wrap {
+            width: clamp(130px, 14vw, 185px);
+            height: clamp(130px, 14vw, 185px);
+            border-radius: 2.2rem;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            flex-shrink: 0;
+            position: relative;
+            transform-origin: center center;
+            will-change: transform, opacity;
+        }
+
+        .metrics-photo-wrap-1 {
+            background: linear-gradient(135deg, #160e33 0%, #28145e 45%, #4314e5 100%);
+            box-shadow: 0 20px 42px -12px rgba(67, 20, 229, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+        }
+
+        .metrics-photo-wrap-2 {
+            background: linear-gradient(135deg, #091a38 0%, #153e7e 45%, #2563eb 100%);
+            box-shadow: 0 20px 42px -12px rgba(37, 99, 235, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+        }
+
+        .metrics-photo-wrap-3 {
+            background: linear-gradient(135deg, #230838 0%, #4a126d 45%, #9333ea 100%);
+            box-shadow: 0 20px 42px -12px rgba(147, 51, 234, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+        }
+
+        .metrics-num-wrap {
+            position: relative;
+            display: inline-flex;
+            align-items: baseline;
+            flex-shrink: 0;
+        }
+
+        .metrics-badge {
+            position: absolute;
+            top: -18px;
+            left: 10px;
+            transform: rotate(-7deg);
+            transform-origin: center center;
+            padding: 0.38rem 1.15rem;
+            border-radius: 9999px;
+            font-size: clamp(0.78rem, 0.95vw, 0.92rem);
+            font-weight: 600;
+            color: #ffffff;
+            box-shadow: 0 8px 18px -4px rgba(0, 0, 0, 0.22);
+            z-index: 10;
+            white-space: nowrap;
+            letter-spacing: -0.01em;
+            pointer-events: none;
+            will-change: transform, opacity;
+        }
+
+        .metrics-badge-1 {
+            background: #ff6b18;
+            box-shadow: 0 8px 18px -4px rgba(255, 107, 24, 0.35);
+        }
+
+        .metrics-badge-2 {
+            background: #ff337f;
+            box-shadow: 0 8px 18px -4px rgba(255, 51, 127, 0.35);
+        }
+
+        .metrics-badge-3 {
+            background: #8b5cf6;
+            box-shadow: 0 8px 18px -4px rgba(139, 92, 246, 0.35);
+        }
+
+        .metrics-number {
+            font-size: clamp(4.4rem, 8.8vw, 9.2rem);
+            line-height: 0.88;
+            letter-spacing: -0.05em;
+            font-weight: 330;
+            color: #09090b;
+            white-space: nowrap;
+            will-change: filter, opacity, transform;
+        }
+
+        .metrics-desc {
+            max-width: 380px;
+            font-size: clamp(0.88rem, 1.05vw, 1.02rem);
+            line-height: 1.62;
+            color: #52525b;
+            font-weight: 400;
+            margin-left: auto;
+            will-change: opacity, transform;
+        }
+
+        @media (max-width: 768px) {
+            .metrics-viewport {
+                height: 82vh;
+            }
+            .metrics-row {
+                height: 41vh;
+            }
+            .metrics-row-grid {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+            .metrics-left-group {
+                gap: 1.25rem;
+            }
+            .metrics-desc {
+                margin-left: 0;
+                font-size: 0.85rem;
+                line-height: 1.4;
+            }
+        }
 
         @media (min-width: 1024px) and (max-height: 950px) {
             .features-bento-grid { transform: scale(0.85); }
@@ -713,36 +867,201 @@
     </div>
 
 
-    <!-- 5. KPI METRICS ROWS (Real Lexicongruppen Stats) -->
-    <section id="metrics" class="max-w-6xl mx-auto px-6 py-20 divide-y divide-zinc-200">
-        <div class="py-10 grid grid-cols-1 md:grid-cols-12 items-center gap-6">
-            <div
-                class="md:col-span-3 w-28 h-28 rounded-2xl bg-[#4314E5] flex items-center justify-center text-3xl text-white">
-                🎓</div>
-            <div class="md:col-span-5 relative">
-                <span
-                    class="inline-block bg-[#F06A24] text-white text-xs px-3 py-1 rounded-full -rotate-6 mb-1">Educated People</span>
-                <p class="text-6xl md:text-7xl font-light tracking-tight">1.7M+</p>
-            </div>
-            <p class="md:col-span-4 text-sm text-zinc-600">
-                Since 1979, Lexicon has developed skills for over 1.6 million people across Sweden, enabling companies to thrive.
-            </p>
-        </div>
+    <!-- 5. KPI METRICS PINNED SHOWCASE (Wollo-inspired 2-Row Scroll Relay) -->
+    <div id="metrics-scroll-track" class="relative w-full bg-white">
+        <section id="metrics"
+            class="relative w-full h-screen overflow-hidden flex flex-col justify-center px-6 sm:px-10 md:px-16 bg-white z-10 select-none">
+            
+            <!-- 2-Row Visible Viewport (Clips outside rows so only 2 rows are ever visible) -->
+            <div id="metrics-viewport" class="metrics-viewport">
+                <!-- Sliding Rows Track (Moves vertically to swap Row 1 out and Row 3 in) -->
+                <div id="metrics-rows-track" class="metrics-rows-track">
+                    
+                    <!-- ROW 1: Millions Educated (Initially Top Slot) -->
+                    <div id="metrics-row-1" class="metrics-row">
+                        <div class="metrics-row-grid">
+                            <div class="metrics-left-group">
+                                <!-- Squary 3D Artwork -->
+                                <div class="metrics-photo-wrap metrics-photo-wrap-1">
+                                    <svg class="w-full h-full select-none pointer-events-none drop-shadow-md" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <defs>
+                                            <radialGradient id="art1-glow" cx="80" cy="80" r="75" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#818CF8" stop-opacity="0.25" />
+                                                <stop offset="100%" stop-color="#1E1B4B" stop-opacity="0" />
+                                            </radialGradient>
+                                            <linearGradient id="bird-wing1" x1="40" y1="50" x2="130" y2="110" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#F43F5E" />
+                                                <stop offset="60%" stop-color="#A855F7" />
+                                                <stop offset="100%" stop-color="#6366F1" />
+                                            </linearGradient>
+                                            <linearGradient id="bird-wing2" x1="60" y1="70" x2="110" y2="120" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#FB923C" />
+                                                <stop offset="100%" stop-color="#F43F5E" />
+                                            </linearGradient>
+                                        </defs>
+                                        <circle cx="80" cy="80" r="70" fill="url(#art1-glow)" />
+                                        <!-- 3D Origami / Bird in Flight -->
+                                        <path d="M25 105C45 95 65 70 85 45C100 28 125 35 138 48C120 62 105 78 88 95C70 110 45 115 25 105Z" fill="url(#bird-wing1)" />
+                                        <path d="M55 100L95 82L80 118L55 100Z" fill="url(#bird-wing2)" opacity="0.95" />
+                                        <path d="M85 45L138 48L115 72L85 45Z" fill="#FEE2E2" opacity="0.85" />
+                                        <polygon points="25,105 32,102 29,109" fill="#FCD332" />
+                                        <!-- 3D Floating Parcel with Heart -->
+                                        <path d="M72 88L65 118L82 122L89 92" fill="#F97316" />
+                                        <path d="M68 95L86 98" stroke="#FFE4E6" stroke-width="2" stroke-linecap="round" />
+                                        <path d="M77 106C77 106 72 103 72 99C72 97 73.5 95.5 75.5 95.5C76.8 95.5 77 97 77 97C77 97 77.2 95.5 78.5 95.5C80.5 95.5 82 97 82 99C82 103 77 106 77 106Z" fill="#FFFFFF" />
+                                        <!-- 3D Smiling Sphere -->
+                                        <circle cx="126" cy="72" r="14" fill="#818CF8" fill-opacity="0.9" />
+                                        <ellipse cx="123" cy="70" rx="3.5" ry="1.5" fill="#FFFFFF" fill-opacity="0.8" />
+                                        <path d="M121 75C123 78 127 78 129 75" stroke="#1E1B4B" stroke-width="1.8" stroke-linecap="round" />
+                                        <!-- Floating Musical Notes and Stars -->
+                                        <circle cx="48" cy="48" r="2.5" fill="#F43F5E" />
+                                        <path d="M48 48L54 44" stroke="#F43F5E" stroke-width="1.5" stroke-linecap="round" />
+                                        <circle cx="58" cy="40" r="3" fill="#FCD332" />
+                                    </svg>
+                                </div>
+                                <!-- Big Number + Tilted Pill Badge -->
+                                <div class="metrics-num-wrap">
+                                    <span class="metrics-badge metrics-badge-1">
+                                        Millions Educated
+                                    </span>
+                                    <h3 id="metrics-num-1" class="metrics-number">
+                                        +0.0M
+                                    </h3>
+                                </div>
+                            </div>
+                            <!-- Description Paragraph -->
+                            <div class="metrics-desc-wrap">
+                                <p class="metrics-desc">
+                                    Since 1979, Lexicon has developed professional skills for over 1.7 million people across Sweden, enabling companies to thrive.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
 
-        <div class="py-10 grid grid-cols-1 md:grid-cols-12 items-center gap-6">
-            <div
-                class="md:col-span-3 w-28 h-28 rounded-2xl bg-[#F8529E] flex items-center justify-center text-3xl text-white">
-                👥</div>
-            <div class="md:col-span-5 relative">
-                <span
-                    class="inline-block bg-[#F8529E] text-white text-xs px-3 py-1 rounded-full -rotate-6 mb-1">Consultants & Trainers</span>
-                <p class="text-6xl md:text-7xl font-light tracking-tight">630+</p>
+                    <!-- ROW 2: Trainers & Consultants (Initially Bottom Slot, Moves to Top Slot) -->
+                    <div id="metrics-row-2" class="metrics-row">
+                        <div class="metrics-row-grid">
+                            <div class="metrics-left-group">
+                                <!-- Squary 3D Artwork -->
+                                <div class="metrics-photo-wrap metrics-photo-wrap-2">
+                                    <svg class="w-full h-full select-none pointer-events-none drop-shadow-md" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <defs>
+                                            <radialGradient id="art2-glow" cx="80" cy="80" r="75" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#38BDF8" stop-opacity="0.25" />
+                                                <stop offset="100%" stop-color="#0F172A" stop-opacity="0" />
+                                            </radialGradient>
+                                            <linearGradient id="body-grad" x1="40" y1="45" x2="115" y2="125" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#38BDF8" />
+                                                <stop offset="50%" stop-color="#2563EB" />
+                                                <stop offset="100%" stop-color="#1E1B4B" />
+                                            </linearGradient>
+                                            <linearGradient id="ring-grad" x1="30" y1="30" x2="135" y2="130" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#E879F9" />
+                                                <stop offset="45%" stop-color="#818CF8" />
+                                                <stop offset="100%" stop-color="#38BDF8" />
+                                            </linearGradient>
+                                        </defs>
+                                        <circle cx="80" cy="80" r="70" fill="url(#art2-glow)" />
+                                        <!-- Rear Orbiting Torus Ribbon -->
+                                        <ellipse cx="78" cy="82" rx="48" ry="46" stroke="url(#ring-grad)" stroke-width="13" stroke-linecap="round" stroke-dasharray="140 180" stroke-dashoffset="60" transform="rotate(-30 78 82)" opacity="0.6" />
+                                        <!-- 3D Geometric Isometric Prism / Device -->
+                                        <g transform="rotate(-15 80 80)">
+                                            <polygon points="52,65 80,48 80,105 52,118" fill="url(#body-grad)" />
+                                            <polygon points="80,48 108,65 108,118 80,105" fill="#1D4ED8" />
+                                            <polygon points="52,65 80,48 108,65 80,80" fill="#BAE6FD" fill-opacity="0.9" />
+                                            <polygon points="58,72 76,60 76,98 58,108" fill="#FFFFFF" fill-opacity="0.95" />
+                                            <circle cx="67" cy="82" r="5" fill="#FB923C" />
+                                            <polygon points="65,92 72,88 72,96" fill="#F43F5E" />
+                                        </g>
+                                        <!-- Front Orbiting Torus Ribbon -->
+                                        <ellipse cx="78" cy="82" rx="48" ry="46" stroke="url(#ring-grad)" stroke-width="13" stroke-linecap="round" stroke-dasharray="130 190" stroke-dashoffset="-70" transform="rotate(-30 78 82)" />
+                                        <path d="M42 55C50 42 65 38 82 40" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-opacity="0.8" />
+                                        <path d="M88 122C105 120 118 112 124 98" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-opacity="0.65" />
+                                        <circle cx="120" cy="42" r="4" fill="#FCD332" />
+                                        <circle cx="38" cy="118" r="3" fill="#38BDF8" />
+                                    </svg>
+                                </div>
+                                <!-- Big Number + Tilted Pill Badge -->
+                                <div class="metrics-num-wrap">
+                                    <span class="metrics-badge metrics-badge-2">
+                                        Trainers &amp; Consultants
+                                    </span>
+                                    <h3 id="metrics-num-2" class="metrics-number">
+                                        +0
+                                    </h3>
+                                </div>
+                            </div>
+                            <!-- Description Paragraph -->
+                            <div class="metrics-desc-wrap">
+                                <p class="metrics-desc">
+                                    Sweden's leading network of certified instructors, advisors, and corporate trainers delivering hands-on competence solutions.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ROW 3: Accredited Trainings (Enters Bottom Slot as Row 1 Leaves) -->
+                    <div id="metrics-row-3" class="metrics-row">
+                        <div class="metrics-row-grid">
+                            <div class="metrics-left-group">
+                                <!-- Squary 3D Artwork -->
+                                <div class="metrics-photo-wrap metrics-photo-wrap-3">
+                                    <svg class="w-full h-full select-none pointer-events-none drop-shadow-md" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <defs>
+                                            <radialGradient id="art3-glow" cx="80" cy="80" r="75" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#C084FC" stop-opacity="0.3" />
+                                                <stop offset="100%" stop-color="#2E1065" stop-opacity="0" />
+                                            </radialGradient>
+                                            <linearGradient id="book-grad" x1="40" y1="40" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#9333EA" />
+                                                <stop offset="50%" stop-color="#C084FC" />
+                                                <stop offset="100%" stop-color="#F43F5E" />
+                                            </linearGradient>
+                                            <linearGradient id="gold-core" x1="70" y1="65" x2="90" y2="105" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#FDE047" />
+                                                <stop offset="100%" stop-color="#EA580C" />
+                                            </linearGradient>
+                                        </defs>
+                                        <circle cx="80" cy="80" r="70" fill="url(#art3-glow)" />
+                                        <!-- 3D Open Academic Ledger / Diploma -->
+                                        <polygon points="78,42 34,60 34,115 78,98" fill="url(#book-grad)" />
+                                        <polygon points="76,46 38,62 38,111 76,96" fill="#FDF4FF" fill-opacity="0.95" />
+                                        <path d="M44 74H68M44 84H64M44 94H58" stroke="#8B5CF6" stroke-width="2.5" stroke-linecap="round" stroke-opacity="0.75" />
+                                        <polygon points="82,42 126,60 126,115 82,98" fill="#6B21A8" />
+                                        <polygon points="84,46 122,62 122,111 84,96" fill="#FAF5FF" fill-opacity="0.9" />
+                                        <path d="M92 74H116M92 84H112M92 94H106" stroke="#C084FC" stroke-width="2.5" stroke-linecap="round" stroke-opacity="0.75" />
+                                        <!-- 3D Floating Diamond Star Seal -->
+                                        <polygon points="80,52 92,68 80,84 68,68" fill="url(#gold-core)" />
+                                        <polygon points="80,52 86,68 80,84 74,68" fill="#FEF08A" fill-opacity="0.85" />
+                                        <ellipse cx="80" cy="74" rx="36" ry="14" stroke="#F472B6" stroke-width="3" stroke-linecap="round" stroke-dasharray="16 12" transform="rotate(-15 80 74)" />
+                                        <circle cx="112" cy="78" r="3.5" fill="#FCD332" />
+                                        <circle cx="48" cy="70" r="2.5" fill="#FFFFFF" />
+                                    </svg>
+                                </div>
+                                <!-- Big Number + Tilted Pill Badge -->
+                                <div class="metrics-num-wrap">
+                                    <span class="metrics-badge metrics-badge-3">
+                                        Accredited Trainings
+                                    </span>
+                                    <h3 id="metrics-num-3" class="metrics-number">
+                                        +0
+                                    </h3>
+                                </div>
+                            </div>
+                            <!-- Description Paragraph -->
+                            <div class="metrics-desc-wrap">
+                                <p class="metrics-desc">
+                                    Over 420 accredited courses and certifications spanning AI, Leadership, ITIL, Azure, Python, and Microsoft Copilot.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-            <p class="md:col-span-4 text-sm text-zinc-600">
-                With 420+ accredited courses and 47 years in the industry, our nationwide network delivers tailored competence solutions.
-            </p>
-        </div>
-    </section>
+
+        </section>
+    </div>
 
     <!-- 6. PRE-FOOTER CTA & FOOTER -->
     <footer class="max-w-6xl mx-auto px-6 pt-12 pb-16">
@@ -1614,6 +1933,174 @@
                 .to("#solutions-cards-stage", {
                     duration: 0.16
                 }, 0.84);
+
+            // SECTION 5: METRICS 2-ROW PINNED SCROLL RELAY (Wollo-inspired)
+            const metricsTrack = document.getElementById("metrics-scroll-track");
+            if (metricsTrack) {
+                const row1 = document.getElementById("metrics-row-1");
+                const row2 = document.getElementById("metrics-row-2");
+                const row3 = document.getElementById("metrics-row-3");
+
+                const row1Photo = document.querySelector("#metrics-row-1 .metrics-photo-wrap");
+                const row2Photo = document.querySelector("#metrics-row-2 .metrics-photo-wrap");
+                const row3Photo = document.querySelector("#metrics-row-3 .metrics-photo-wrap");
+
+                const row1Num = document.querySelector("#metrics-num-1");
+                const row2Num = document.querySelector("#metrics-num-2");
+                const row3Num = document.querySelector("#metrics-num-3");
+
+                const row1Badge = document.querySelector("#metrics-row-1 .metrics-badge");
+                const row2Badge = document.querySelector("#metrics-row-2 .metrics-badge");
+                const row3Badge = document.querySelector("#metrics-row-3 .metrics-badge");
+
+                const row1Desc = document.querySelector("#metrics-row-1 .metrics-desc");
+                const row2Desc = document.querySelector("#metrics-row-2 .metrics-desc");
+                const row3Desc = document.querySelector("#metrics-row-3 .metrics-desc");
+
+                const rowsTrack = document.getElementById("metrics-rows-track");
+
+                // Initial states: photos start as small square, numbers blurred, badges hidden
+                gsap.set([row1Photo, row2Photo], { scale: 0.18, opacity: 0 });
+                gsap.set([row1Num, row2Num], { filter: "blur(18px)", opacity: 0, y: 16 });
+                gsap.set([row1Badge, row2Badge], { scale: 0, opacity: 0 });
+                gsap.set([row1Desc, row2Desc], { opacity: 0, y: 16 });
+
+                gsap.set(row3Photo, { scale: 0.18, opacity: 0 });
+                gsap.set(row3Num, { filter: "blur(18px)", opacity: 0, y: 16 });
+                gsap.set(row3Badge, { scale: 0, opacity: 0 });
+                gsap.set(row3Desc, { opacity: 0, y: 16 });
+
+                const val1 = { val: 0 };
+                const val2 = { val: 0 };
+                const val3 = { val: 0 };
+
+                const metricsTL = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: "#metrics-scroll-track",
+                        start: "top top",
+                        end: "+=2200",
+                        pin: "#metrics",
+                        scrub: 0.8,
+                        anticipatePin: 1,
+                        invalidateOnRefresh: true,
+                    }
+                });
+
+                // Phase 1 (0.02 - 0.32): Row 1 & Row 2 entrance
+                // Photos expand from small square to full size
+                metricsTL.to([row1Photo, row2Photo], {
+                    scale: 1,
+                    opacity: 1,
+                    duration: 0.22,
+                    stagger: 0.05,
+                    ease: "power2.out"
+                }, 0.02);
+
+                // Numbers deblur and count up
+                metricsTL.to([row1Num, row2Num], {
+                    filter: "blur(0px)",
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.24,
+                    stagger: 0.05,
+                    ease: "power2.out"
+                }, 0.04);
+
+                metricsTL.to(val1, {
+                    val: 1.7,
+                    duration: 0.28,
+                    ease: "power2.out",
+                    onUpdate: () => {
+                        if (row1Num) row1Num.textContent = "+" + val1.val.toFixed(1) + "M";
+                    }
+                }, 0.04);
+
+                metricsTL.to(val2, {
+                    val: 630,
+                    duration: 0.28,
+                    ease: "power2.out",
+                    onUpdate: () => {
+                        if (row2Num) row2Num.textContent = "+" + Math.round(val2.val);
+                    }
+                }, 0.06);
+
+                // Badges pop in above
+                metricsTL.to([row1Badge, row2Badge], {
+                    scale: 1,
+                    opacity: 1,
+                    duration: 0.20,
+                    stagger: 0.05,
+                    ease: "back.out(1.7)"
+                }, 0.16);
+
+                metricsTL.to([row1Desc, row2Desc], {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.20,
+                    stagger: 0.05,
+                    ease: "power2.out"
+                }, 0.14);
+
+                // Step 2: Brief pause showing Row 1 & Row 2
+                metricsTL.to({}, { duration: 0.12 }, 0.32);
+
+                // Step 3 (0.44 - 0.82): Row 1 moves UP and exits, Row 2 moves to top slot, Row 3 enters bottom slot!
+                metricsTL.to("#metrics-row-1", {
+                    autoAlpha: 0,
+                    duration: 0.22,
+                    ease: "power2.in"
+                }, 0.44);
+
+                metricsTL.to(rowsTrack, {
+                    y: () => -(row1 ? row1.offsetHeight : 290),
+                    duration: 0.40,
+                    ease: "power1.inOut"
+                }, 0.44);
+
+                // At the same time, Row 3's photo expands from small square to full size!
+                metricsTL.to(row3Photo, {
+                    scale: 1,
+                    opacity: 1,
+                    duration: 0.30,
+                    ease: "power2.out"
+                }, 0.48);
+
+                // Row 3's number deblurs and counts up!
+                metricsTL.to(row3Num, {
+                    filter: "blur(0px)",
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.32,
+                    ease: "power2.out"
+                }, 0.50);
+
+                metricsTL.to(val3, {
+                    val: 420,
+                    duration: 0.34,
+                    ease: "power2.out",
+                    onUpdate: () => {
+                        if (row3Num) row3Num.textContent = "+" + Math.round(val3.val);
+                    }
+                }, 0.50);
+
+                // Row 3 badge pops in!
+                metricsTL.to(row3Badge, {
+                    scale: 1,
+                    opacity: 1,
+                    duration: 0.24,
+                    ease: "back.out(1.7)"
+                }, 0.62);
+
+                metricsTL.to(row3Desc, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.24,
+                    ease: "power2.out"
+                }, 0.58);
+
+                // Step 4: Hold state with Row 2 & Row 3 in full view
+                metricsTL.to({}, { duration: 0.18 }, 0.82);
+            }
 
             window.switchBentoSlide = switchBentoSlide;
             window.startSlideTimer = startSlideTimer;
