@@ -186,26 +186,35 @@
             white-space: nowrap;
         }
 
+        #card-purple {
+            background-color: #4718ca !important;
+        }
+
         .solutions-card {
-            height: 460px;
+            height: 520px;
         }
         @media (min-width: 640px) {
             .solutions-card {
-                height: 485px;
+                height: 550px;
             }
         }
         @media (min-width: 768px) {
             .solutions-card {
-                height: 505px;
+                height: 575px;
             }
         }
 
         .solutions-card-inner {
-            height: 285px;
+            height: 340px;
         }
         @media (min-width: 640px) {
             .solutions-card-inner {
-                height: 310px;
+                height: 370px;
+            }
+        }
+        @media (min-width: 768px) {
+            .solutions-card-inner {
+                height: 390px;
             }
         }
         /* 5. KPI Metrics Pinned Showcase (Wollo-inspired 2-Row Scroll Relay) */
@@ -595,9 +604,9 @@
             #hero-text-mask { padding: 24px 0; }
             #hero-headline { font-size: clamp(2rem, 6.8vw, 3.5rem); }
             #cards-stack-container { height: clamp(110px, 28svh, 230px); flex-shrink: 0; }
-            #card-yellow { width: 88%; left: 2%; }
-            #card-pink { width: 84%; left: 8%; transform: rotate(-3deg); }
-            #card-purple { width: 80%; left: 12%; transform: rotate(-6deg); }
+            #card-yellow { width: 92%; left: 2%; }
+            #card-pink { width: 92%; left: 4%; transform: rotate(-3deg); }
+            #card-purple { width: 92%; left: 6%; transform: rotate(-6deg); }
             #features {
                 position: absolute;
                 inset: 0 0 auto;
@@ -748,11 +757,11 @@
 
                 <!-- 3. Front Card: Deep Purple (#4718ca) -->
                 <div id="card-purple"
-                    class="absolute top-16 md:top-28 left-14 md:left-24 w-[96%] md:w-[98%] h-[360px] md:h-[460px] bg-[#4718ca] rounded-t-[2.5rem] md:rounded-t-[3.5rem] -rotate-[10deg] origin-top-left flex items-center justify-center overflow-hidden will-change-transform">
+                    class="absolute top-16 md:top-28 left-14 md:left-24 w-[96%] md:w-[98%] h-[360px] md:h-[460px] bg-[#4718ca] rounded-t-[2.5rem] md:rounded-t-[3.5rem] -rotate-[10deg] origin-top-left overflow-hidden will-change-transform">
                     <img id="purple-card-img"
                         src="assets/images/purple-card.png"
                         alt="Lexicon Learning Ecosystem"
-                        class="h-full w-auto max-w-full object-contain pointer-events-none select-none" />
+                        class="w-full h-full object-cover object-bottom select-none pointer-events-none" />
                 </div>
 
             </div>
@@ -1146,28 +1155,9 @@
                                 </div>
                                 <div class="solutions-card-inner bg-[#F06A24] text-white rounded-[2rem] p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden select-none border-0 shadow-none">
                                     <div class="flex items-start justify-between relative z-10">
-                                        <span class="text-xs sm:text-sm font-medium opacity-90 leading-relaxed max-w-[180px]">AI, Python, C#.NET, ITIL, Azure</span>
-                                        <!-- 3D Soda Cup Badge -->
-                                        <svg class="w-20 h-24 sm:w-22 sm:h-28 -mt-4 -mr-2 drop-shadow-md select-none pointer-events-none" viewBox="0 0 68 84" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <!-- Angled straw -->
-                                            <path d="M46 6L32 30" stroke="#1E1B4B" stroke-width="5" stroke-linecap="round"/>
-                                            <path d="M54 2L44 7" stroke="#1E1B4B" stroke-width="5" stroke-linecap="round"/>
-                                            <!-- Translucent dome lid -->
-                                            <ellipse cx="32" cy="30" rx="20" ry="6.5" fill="#FFFFFF" fill-opacity="0.95" />
-                                            <ellipse cx="32" cy="28.5" rx="16" ry="4.5" fill="#FEE2E2" fill-opacity="0.7" />
-                                            <!-- Cup body with vivid gradient and 3D lighting -->
-                                            <path d="M14 30L20.5 72C21 75.5 24 78 27.5 78H36.5C40 78 43 75.5 43.5 72L50 30" fill="url(#cup-grad)" />
-                                            <!-- Rim highlight and reflection -->
-                                            <path d="M16 35C23 40 43 40 48 35" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-opacity="0.6" />
-                                            <path d="M22 45L25 68" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-opacity="0.3" />
-                                            <defs>
-                                                <linearGradient id="cup-grad" x1="14" y1="30" x2="50" y2="78" gradientUnits="userSpaceOnUse">
-                                                    <stop stop-color="#FF3B30" />
-                                                    <stop offset="0.55" stop-color="#FF9500" />
-                                                    <stop offset="1" stop-color="#FFCC00" />
-                                                </linearGradient>
-                                            </defs>
-                                        </svg>
+                                        <span class="text-xs sm:text-sm font-medium opacity-90 leading-relaxed max-w-[170px]">AI, Python, C#.NET, ITIL, Azure</span>
+                                        <!-- 3D Icon 01 Badge -->
+                                        <img src="assets/images/01.png" alt="01" class="w-24 h-28 sm:w-28 sm:h-32 -mt-4 -mr-2 object-contain drop-shadow-md select-none pointer-events-none" />
                                     </div>
                                     <div class="flex items-end justify-between relative z-10">
                                         <span class="solutions-card-number font-light tracking-tighter text-white leading-none">01</span>
@@ -1184,27 +1174,9 @@
                                 </div>
                                 <div class="solutions-card-inner bg-[#F8529E] text-white rounded-[2rem] p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden select-none border-0 shadow-none">
                                     <div class="flex items-start justify-between relative z-10">
-                                        <span class="text-xs sm:text-sm font-medium opacity-90 leading-relaxed max-w-[180px]">IPMA Project, Leadership & Teams</span>
-                                        <!-- 3D Layered Heart Badge -->
-                                        <svg class="w-20 h-20 sm:w-24 sm:h-24 -mt-3 -mr-2 drop-shadow-md select-none pointer-events-none rotate-6" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <!-- Outer 3D pink bevel -->
-                                            <path d="M34 58C34 58 10 43 10 25C10 16 16.5 9.5 25.5 9.5C30.5 9.5 34 14 34 14C34 14 37.5 9.5 42.5 9.5C51.5 9.5 58 16 58 25C58 43 34 58 34 58Z" fill="url(#heart-outer)" />
-                                            <!-- Middle white/soft cream highlight layer -->
-                                            <path d="M34 51C34 51 14 38 14 25C14 18.5 18.5 14 25.5 14C30 14 34 18.5 34 18.5C34 18.5 38 14 42.5 14C49.5 14 54 18.5 54 25C54 38 34 51 34 51Z" fill="#FFF1F2" fill-opacity="0.95" />
-                                            <!-- Deep midnight purple heart center -->
-                                            <path d="M34 44C34 44 20 33 20 23.5C20 18.5 23 16 27.5 16C31 16 34 19.5 34 19.5C34 19.5 37 16 40.5 16C45 16 48 18.5 48 23.5C48 33 34 44 34 44Z" fill="url(#heart-inner)" />
-                                            <defs>
-                                                <linearGradient id="heart-outer" x1="10" y1="9.5" x2="58" y2="58" gradientUnits="userSpaceOnUse">
-                                                    <stop stop-color="#FFA6C9" />
-                                                    <stop offset="0.5" stop-color="#F43F5E" />
-                                                    <stop offset="1" stop-color="#E11D48" />
-                                                </linearGradient>
-                                                <linearGradient id="heart-inner" x1="20" y1="16" x2="48" y2="44" gradientUnits="userSpaceOnUse">
-                                                    <stop stop-color="#312E81" />
-                                                    <stop offset="1" stop-color="#0F0C20" />
-                                                </linearGradient>
-                                            </defs>
-                                        </svg>
+                                        <span class="text-xs sm:text-sm font-medium opacity-90 leading-relaxed max-w-[170px]">IPMA Project, Leadership & Teams</span>
+                                        <!-- 3D Icon 02 Badge -->
+                                        <img src="assets/images/02.png" alt="02" class="w-24 h-24 sm:w-28 sm:h-28 -mt-3 -mr-2 object-contain drop-shadow-md select-none pointer-events-none" />
                                     </div>
                                     <div class="flex items-end justify-between relative z-10">
                                         <span class="solutions-card-number font-light tracking-tighter text-white leading-none">02</span>
@@ -1221,22 +1193,9 @@
                                 </div>
                                 <div class="solutions-card-inner bg-[#4314E5] text-white rounded-[2rem] p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden select-none border-0 shadow-none">
                                     <div class="flex items-start justify-between relative z-10">
-                                        <span class="text-xs sm:text-sm font-medium opacity-90 leading-relaxed max-w-[180px]">Digital Learning, MS Copilot, Support</span>
-                                        <!-- 3D Envelope Badge -->
-                                        <svg class="w-20 h-18 sm:w-24 sm:h-20 -mt-2 -mr-2 drop-shadow-md select-none pointer-events-none -rotate-6" viewBox="0 0 72 58" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <!-- Envelope pouch body -->
-                                            <rect x="6" y="8" width="60" height="42" rx="10" fill="url(#pouch-body)" />
-                                            <!-- Folded flap -->
-                                            <path d="M8 12L36 34L64 12" stroke="#4C1D95" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="#1E0E3E" fill-opacity="0.8" />
-                                            <!-- Glowing yellow snap button -->
-                                            <circle cx="36" cy="34" r="5" fill="#FCD332" stroke="#FFF59D" stroke-width="1.8" />
-                                            <defs>
-                                                <linearGradient id="pouch-body" x1="6" y1="8" x2="66" y2="50" gradientUnits="userSpaceOnUse">
-                                                    <stop stop-color="#2E1065" />
-                                                    <stop offset="1" stop-color="#0F051D" />
-                                                </linearGradient>
-                                            </defs>
-                                        </svg>
+                                        <span class="text-xs sm:text-sm font-medium opacity-90 leading-relaxed max-w-[170px]">Digital Learning, MS Copilot, Support</span>
+                                        <!-- 3D Icon 03 Badge -->
+                                        <img src="assets/images/03.png" alt="03" class="w-24 h-24 sm:w-28 sm:h-28 -mt-2 -mr-2 object-contain drop-shadow-md select-none pointer-events-none" />
                                     </div>
                                     <div class="flex items-end justify-between relative z-10">
                                         <span class="solutions-card-number font-light tracking-tighter text-white leading-none">03</span>
@@ -1446,6 +1405,7 @@
             gsap.set(".hashtag-pill", { y: -420, opacity: 1 });
             gsap.set("#hero-buttons-group", { transformOrigin: "center center" });
             gsap.set(["#card-yellow", "#card-pink", "#card-purple"], { transformOrigin: "bottom center" });
+            gsap.set(purpleCard, { width: () => yellowCard.offsetWidth });
             }
             // Helper functions to position dots, dashed drop-lines, and badges along the curve path
             function setChartPoint1(dist, val) {
