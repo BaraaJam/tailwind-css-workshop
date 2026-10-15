@@ -746,10 +746,13 @@
                     class="absolute top-14 md:top-[80px] left-8 md:left-11 w-[96%] md:w-[98%] h-[350px] md:h-[450px] bg-[#F8529E] rounded-t-[2.5rem] md:rounded-t-[3.5rem] -rotate-[4deg] origin-top-left will-change-transform">
                 </div>
 
-                <!-- 3. Front Card: Deep Purple (#4314E5) -->
+                <!-- 3. Front Card: Deep Purple (#4718ca) -->
                 <div id="card-purple"
-                    class="absolute top-16 md:top-28 left-14 md:left-24 w-[96%] md:w-[98%] h-[360px] md:h-[460px] bg-[#4314E5] rounded-t-[2.5rem] md:rounded-t-[3.5rem] -rotate-[10deg] origin-top-left flex items-center justify-center overflow-hidden will-change-transform">
-                    <!-- Blueprint placeholder for 2.5D Illustration Stage -->
+                    class="absolute top-16 md:top-28 left-14 md:left-24 w-[96%] md:w-[98%] h-[360px] md:h-[460px] bg-[#4718ca] rounded-t-[2.5rem] md:rounded-t-[3.5rem] -rotate-[10deg] origin-top-left flex items-center justify-center overflow-hidden will-change-transform">
+                    <img id="purple-card-img"
+                        src="assets/images/purple-card.png"
+                        alt="Lexicon Learning Ecosystem"
+                        class="h-full w-auto max-w-full object-contain pointer-events-none select-none" />
                 </div>
 
             </div>
@@ -1264,7 +1267,7 @@
                                         Millions Educated
                                     </span>
                                     <h3 id="metrics-num-1" class="metrics-number">
-                                        +1.7M
+                                        +0.0M
                                     </h3>
                                 </div>
                             </div>
@@ -1293,7 +1296,7 @@
                                         Trainers &amp; Consultants
                                     </span>
                                     <h3 id="metrics-num-2" class="metrics-number">
-                                        +630
+                                        +0
                                     </h3>
                                 </div>
                             </div>
@@ -1322,7 +1325,7 @@
                                         Accredited Trainings
                                     </span>
                                     <h3 id="metrics-num-3" class="metrics-number">
-                                        +420
+                                        +0
                                     </h3>
                                 </div>
                             </div>
@@ -2189,20 +2192,6 @@
                 }
             );
 
-            // 2. UNIFIED PINNED SHOWCASE: "EXPLORE LEXICON'S" -> 3 BUSINESS CARDS -> SEAMLESS CONVEYOR RELAY TO 3 KPI METRICS ROWS
-            const solutionsTimeline = gsap.timeline({
-                scrollTrigger: {
-                    id: "solutions-stage",
-                    trigger: "#solutions-scroll-track",
-                    start: "top top",
-                    end: "+=3400",
-                    pin: "#solutions-pin-section",
-                    scrub: 1,
-                    anticipatePin: 1,
-                    invalidateOnRefresh: true,
-                }
-            });
-
             const cardsStage = document.getElementById("solutions-cards-stage");
             const metricsStage = document.getElementById("metrics-stage");
             const row1 = document.getElementById("metrics-row-1");
@@ -2229,6 +2218,93 @@
             const div2 = document.getElementById("metrics-divider-2");
             const div3 = document.getElementById("metrics-divider-3");
 
+            const metricsAnimated = { row1: false, row2: false, row3: false };
+            let metricTween1 = null, metricTween2 = null, metricTween3 = null;
+
+            function animateMetric1() {
+                if (metricTween1) metricTween1.kill();
+                const obj = { val: 0 };
+                metricTween1 = gsap.to(obj, {
+                    val: 1.7,
+                    duration: 1.6,
+                    ease: "power2.out",
+                    onUpdate: () => {
+                        if (row1Num) row1Num.textContent = "+" + obj.val.toFixed(1) + "M";
+                    }
+                });
+            }
+
+            function animateMetric2() {
+                if (metricTween2) metricTween2.kill();
+                const obj = { val: 0 };
+                metricTween2 = gsap.to(obj, {
+                    val: 630,
+                    duration: 1.6,
+                    ease: "power2.out",
+                    onUpdate: () => {
+                        if (row2Num) row2Num.textContent = "+" + Math.round(obj.val);
+                    }
+                });
+            }
+
+            function animateMetric3() {
+                if (metricTween3) metricTween3.kill();
+                const obj = { val: 0 };
+                metricTween3 = gsap.to(obj, {
+                    val: 420,
+                    duration: 1.6,
+                    ease: "power2.out",
+                    onUpdate: () => {
+                        if (row3Num) row3Num.textContent = "+" + Math.round(obj.val);
+                    }
+                });
+            }
+
+            function resetMetricNumbers() {
+                if (!metricsAnimated.row1 && !metricsAnimated.row2 && !metricsAnimated.row3) return;
+                metricsAnimated.row1 = false;
+                metricsAnimated.row2 = false;
+                metricsAnimated.row3 = false;
+                if (metricTween1) metricTween1.kill();
+                if (metricTween2) metricTween2.kill();
+                if (metricTween3) metricTween3.kill();
+                if (row1Num) row1Num.textContent = "+0.0M";
+                if (row2Num) row2Num.textContent = "+0";
+                if (row3Num) row3Num.textContent = "+0";
+            }
+
+            // 2. UNIFIED PINNED SHOWCASE: "EXPLORE LEXICON'S" -> 3 BUSINESS CARDS -> SEAMLESS CONVEYOR RELAY TO 3 KPI METRICS ROWS
+            const solutionsTimeline = gsap.timeline({
+                scrollTrigger: {
+                    id: "solutions-stage",
+                    trigger: "#solutions-scroll-track",
+                    start: "top top",
+                    end: "+=3400",
+                    pin: "#solutions-pin-section",
+                    scrub: 1,
+                    anticipatePin: 1,
+                    invalidateOnRefresh: true,
+                    onUpdate: (self) => {
+                        const p = self.progress;
+                        if (p >= 0.46 && !metricsAnimated.row1) {
+                            metricsAnimated.row1 = true;
+                            animateMetric1();
+                        }
+                        if (p >= 0.54 && !metricsAnimated.row2) {
+                            metricsAnimated.row2 = true;
+                            animateMetric2();
+                        }
+                        if (p >= 0.76 && !metricsAnimated.row3) {
+                            metricsAnimated.row3 = true;
+                            animateMetric3();
+                        }
+                        if (p < 0.38) {
+                            resetMetricNumbers();
+                        }
+                    }
+                }
+            });
+
             // Initial positioning: lockup, canvas, cards stage, and all 3 metrics rows
             gsap.set("#integrations-lockup", { x: 0, y: 0, scale: 1, autoAlpha: 1 });
             gsap.set("#solutions-matrix-canvas-wrap", { autoAlpha: 1 });
@@ -2250,6 +2326,7 @@
                 gsap.set([row1Badge, row2Badge, row3Badge], { scale: 0, opacity: 0 });
                 gsap.set([row1Desc, row2Desc, row3Desc], { opacity: 0, y: 16 });
                 gsap.set([div1, div2, div3], { opacity: 0 });
+                resetMetricNumbers();
             }
 
             // PART 1: Cards Reveal & Showcase (0.00 -> 0.44)
