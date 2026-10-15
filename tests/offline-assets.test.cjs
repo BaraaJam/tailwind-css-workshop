@@ -33,3 +33,16 @@ test('font and canvas source images are embedded without file-origin reads', () 
         assert.ok(!/(?:href|src)\s*=\s*["'](?:https?:|file:)/.test(svg));
     }
 });
+
+test('website fonts are embedded so headings and body text also work from disk', () => {
+    const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+    assert.ok(/href="assets\/vendor\/fonts\.css"/.test(html), 'website font stylesheet is not linked');
+    const css = fs.readFileSync(path.join(root, 'assets/vendor/fonts.css'), 'utf8');
+    const fonts = [...css.matchAll(/url\("data:font\/woff2;base64,([^"]+)"\)/g)];
+    assert.equal(fonts.length, 2);
+    for (const [index, file] of ['head.woff2', 'disc.woff2'].entries()) {
+        assert.deepEqual(Buffer.from(fonts[index][1], 'base64'), fs.readFileSync(path.join(root, 'assets/fonts', file)));
+    }
+    assert.match(css, /font-weight: 100 900/);
+    assert.ok(!/src:\s*url\(['"]?assets\/fonts/.test(html));
+});

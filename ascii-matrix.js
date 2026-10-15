@@ -112,11 +112,14 @@
             const heading = document.getElementById('features-headline').getBoundingClientRect();
             const compact = !window.matchMedia('(min-width: 1024px) and (min-height: 600px)').matches;
             const mobile = rects[1].width < 768;
+            const scale = M.layoutScale(document.documentElement.clientWidth, window.innerHeight);
             const diplomaRatio = this.surfaces[0].image.naturalWidth / this.surfaces[0].image.naturalHeight;
-            const diplomaHeight = Math.round(Math.min(rects[1].height * (mobile ? 0.28 : 0.34), compact ? 140 : mobile ? 220 : 280, rects[1].width * 0.35));
+            const diplomaHeight = Math.round(Math.min(rects[1].height * (mobile ? 0.28 : 0.34), (compact ? 140 : mobile ? 220 : 280) * scale, rects[1].width * 0.35));
             const diplomaWidth = Math.round(diplomaHeight * diplomaRatio);
-            const diplomaX = Math.round(mobile ? rects[1].width * 0.05 : Math.max(30, (rects[1].width - 1280) / 2 + 20));
-            const diplomaY = Math.round(mobile ? Math.max(65, rects[1].height * 0.09) : Math.max(115, rects[1].height * 0.12));
+            const diplomaX = Math.round(mobile ? rects[1].width * 0.05 : Math.max(30 * scale, heading.left - rects[1].left + 20 * scale));
+            const diplomaBaseY = Math.max(115, rects[1].height * 0.12);
+            const diplomaHeadingY = heading.top - rects[1].top + (heading.height - diplomaHeight) / 2;
+            const diplomaY = Math.round(mobile ? Math.max(65, rects[1].height * 0.09) : diplomaBaseY + (diplomaHeadingY - diplomaBaseY) * M.clamp((scale - 1) * 2));
             this.surfaces[0].artBounds = {
                 x: compact ? (rects[1].width - diplomaWidth) / 2 : diplomaX,
                 y: compact ? heading.bottom - rects[1].top + 20 : diplomaY,
@@ -153,6 +156,7 @@
                 arrowEnd: this.arrowEnd,
                 diplomaReturn,
                 footerTop: footer.top + window.scrollY,
+                footerStart: showcase ? window.ScrollTrigger?.getById('footer-stage')?.start : undefined,
                 viewportHeight: this.height,
             });
             this.layoutDirty = false;
@@ -218,7 +222,7 @@
             };
             // A bounded palette keeps first-flight rasterization small in Edge too.
             relay.tints = couriers.map(courier => Array.from({ length: 5 }, (_, i) => `rgb(${mix(source.cells[courier.from].rgb, destination.cells[courier.to].rgb, i / 4).map(value => Math.min(255, Math.round(value / 32) * 32)).join(',')})`));
-            relay.atlas = window.AsciiArtwork.flightAtlas(relay.tints, this.width < 768 ? 8 : 9, this.dpr);
+            relay.atlas = window.AsciiArtwork.flightAtlas(relay.tints, (this.width < 768 ? 8 : 9) * M.layoutScale(this.width, this.height), this.dpr);
             this.activeRelay = relay;
         }
 

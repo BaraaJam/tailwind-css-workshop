@@ -5,6 +5,10 @@
     else root.AsciiMotion = api;
 })(typeof window === 'object' ? window : globalThis, function () {
     const clamp = value => Math.max(0, Math.min(1, value));
+    // Matches the fluid root font above 1920px, with height limiting ultrawides.
+    function layoutScale(width, height) {
+        return Math.max(1, Math.min(2.5, (width - 640) / 1280, (height - 360) / 720));
+    }
     function hash(seed, salt = 0) {
         let n = Math.imul(seed + 1, 2654435761) ^ Math.imul(salt + 7, 40503);
         n = Math.imul(n ^ (n >>> 15), 2246822519);
@@ -26,8 +30,8 @@
         while (stage > 0 && y <= boundaries[stage - 1].backward) stage--;
         return stage;
     }
-    function sectionBoundaries({ solutionsTop, solutionsBottom, arrowEnd, diplomaReturn, footerTop, viewportHeight }) {
-        const footerArrival = footerTop - viewportHeight * 0.60;
+    function sectionBoundaries({ solutionsTop, solutionsBottom, arrowEnd, diplomaReturn, footerTop, footerStart, viewportHeight }) {
+        const footerArrival = footerStart ?? footerTop - viewportHeight * 0.60;
         return [
             {
                 forward: solutionsTop - viewportHeight * 0.35,
@@ -119,5 +123,5 @@
             y: (hash(cell.seed, 82) - 0.5) * spread * 1.4 * amount,
         };
     }
-    return { clamp, hash, createTween, valueAt, retarget, stageAt, sectionBoundaries, showcaseRect, makeCouriers, cellProgress, curvePoint, pixelRatio, rasterSize, wave, flightEndpoint, afkPulse, deformOffset };
+    return { clamp, layoutScale, hash, createTween, valueAt, retarget, stageAt, sectionBoundaries, showcaseRect, makeCouriers, cellProgress, curvePoint, pixelRatio, rasterSize, wave, flightEndpoint, afkPulse, deformOffset };
 });

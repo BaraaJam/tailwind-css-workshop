@@ -1,0 +1,5 @@
+disc.woff2: Complete upright Inter Variable, including Latin letters, Swedish characters, and digits.
+Source: https://github.com/rsms/inter/blob/master/docs/font-files/InterVariable.woff2
+License: Inter-LICENSE.txt (SIL Open Font License 1.1).
+
+head.woff2: Existing user-supplied ES Build Neutral Regular.

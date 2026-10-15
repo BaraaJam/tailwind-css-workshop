@@ -62,6 +62,24 @@ test('a scaled footer uses its layout size without rebuilding the artwork', () =
     assert.equal(artwork.rect.width, 795);
 });
 
+test('4K artwork and characters grow together without multiplying the particle density', () => {
+    const Artwork = artworkClass({ window: { AsciiMotion: motion, devicePixelRatio: 1, innerWidth: 3840, innerHeight: 2160 } });
+    const arrow = Object.assign(Object.create(Artwork.prototype), {
+        canvas: { clientWidth: 3840, clientHeight: 2160 },
+        options: { shape: 'arrow' }, image: { naturalWidth: 600, naturalHeight: 900 },
+        build() {},
+    });
+    arrow.resize({ width: 3840, height: 2160 });
+    assert.equal(arrow.pitch, 30);
+    assert.equal(arrow.bounds().width, 1500);
+    assert.ok(arrow.bounds().height < 2160);
+    const logo = Object.assign(Object.create(Artwork.prototype), {
+        width: 2880, height: 525, options: { shape: 'logo' },
+        image: { naturalWidth: 1200, naturalHeight: 210 },
+    });
+    assert.ok(logo.bounds().width >= 2600);
+});
+
 test('cropped glyph atlases still paint cells at their original canvas positions', () => {
     const Artwork = artworkClass(), draws = [], cleared = [];
     const artwork = Object.assign(Object.create(Artwork.prototype), {

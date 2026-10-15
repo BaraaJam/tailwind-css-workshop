@@ -75,6 +75,16 @@ test('overlapping footer and pinned metrics never select the arrow again', () =>
     assert.equal(motion.stageAt(3750, stage, bounds), 1, 'return while Explore Solutions is visible');
 });
 
+test('an overlapping footer waits for its reveal before receiving the question mark', () => {
+    const bounds = motion.sectionBoundaries({
+        solutionsTop: 3100, solutionsBottom: 7400, arrowEnd: 3800,
+        footerTop: 7022, footerStart: 6500, viewportHeight: 900,
+    });
+    assert.equal(motion.stageAt(6490, 1, bounds), 1);
+    assert.equal(motion.stageAt(6500, 1, bounds), 2);
+    assert.equal(motion.stageAt(6400, 2, bounds), 2);
+});
+
 test('the arrow anchor leaves with its own showcase instead of staying over metrics', () => {
     const rect = { top: 0, bottom: 1000, left: 24, width: 1400, height: 1000 };
     const anchored = motion.showcaseRect(rect, 5700, 3770);
@@ -112,6 +122,15 @@ test('render resolution respects the pixel budget on large and high-DPI screens'
         assert.ok(w * h * scale * scale <= 1500001);
         assert.ok(scale <= dpr);
     }
+});
+
+test('large-screen scaling grows continuously and respects short ultrawide viewports', () => {
+    assert.equal(motion.layoutScale(1920, 1080), 1);
+    assert.equal(motion.layoutScale(2560, 1440), 1.5);
+    assert.equal(motion.layoutScale(3840, 2160), 2.5);
+    assert.equal(motion.layoutScale(3440, 1080), 1);
+    assert.equal(motion.layoutScale(7680, 4320), 2.5);
+    assert.ok(motion.layoutScale(1921, 1081) < 1.001);
 });
 
 test('pinning subpixel height changes reuse the same raster cache', () => {

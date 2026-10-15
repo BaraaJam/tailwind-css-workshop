@@ -1,6 +1,6 @@
 /* Sample local artwork once and keep the finished glyphs in a tile atlas. */
 (function () {
-    const { hash, rasterSize, wave, afkPulse, deformOffset } = window.AsciiMotion;
+    const { hash, layoutScale, rasterSize, wave, afkPulse, deformOffset } = window.AsciiMotion;
     const FONT = '"Lexicon Matrix", ui-monospace, monospace';
     let fontReady;
     class AsciiArtwork {
@@ -62,6 +62,7 @@
 
         bounds() {
             const { width: w, height: h } = this;
+            const scale = layoutScale(window.innerWidth || w, window.innerHeight || h);
             const mobile = w < 768;
             const ratio = this.image.naturalWidth / this.image.naturalHeight;
             let width, cx, cy;
@@ -72,11 +73,11 @@
             } else if (this.options.shape === 'diploma') {
                 return this.artBounds || { x: Math.round(w * 0.08), y: Math.round(h * 0.12), width: Math.min(w * 0.35, 280), height: Math.min(h * 0.35, 245), rotation: -15 * Math.PI / 180 };
             } else if (this.options.shape === 'arrow') {
-                width = Math.min(w * 0.86, h * 0.72, 600);
-                const height = Math.min(h * 0.91, 900);
+                width = Math.min(w * 0.86, h * 0.72, 600 * scale);
+                const height = Math.min(h * 0.91, 900 * scale);
                 return { x: (w - width) / 2, y: h * 0.55 - height / 2, width, height };
             } else if (this.options.shape === 'logo') {
-                width = Math.min(w * 0.98, h * 0.96 * ratio, 1080);
+                width = Math.min(w * 0.98, h * 0.96 * ratio, 1080 * scale);
                 cx = w * 0.5;
                 cy = h * 0.5;
             } else {
@@ -91,22 +92,24 @@
             this.rect = rect;
             this.displayRect = rect;
             const { width, height, dpr, pixelWidth, pixelHeight } = rasterSize(this.canvas?.clientWidth || rect.width, this.canvas?.clientHeight || rect.height, window.devicePixelRatio);
+            const scale = layoutScale(window.innerWidth || width, window.innerHeight || height);
             const boundsKey = this.artBounds ? JSON.stringify(this.artBounds) : '';
             const sameBounds = !this.artBounds || (this.cachedArtBounds && Object.keys(this.artBounds).every(key => Math.abs(this.artBounds[key] - this.cachedArtBounds[key]) <= 2));
             // ScrollTrigger rounds a pinned 678.4px section to 679px at 125% zoom.
             // Reuse its atlas for that rounding; rebuilding would cancel the live relay.
-            if (Math.abs(width - this.width) <= 2 && Math.abs(height - this.height) <= 2 && (width < 768) === (this.width < 768) && window.devicePixelRatio === this.deviceScale && sameBounds) {
+            if (Math.abs(width - this.width) <= 2 && Math.abs(height - this.height) <= 2 && (width < 768) === (this.width < 768) && window.devicePixelRatio === this.deviceScale && Math.abs(scale - (this.layoutScale || 1)) < 0.001 && sameBounds) {
                 if (this.flightCanvas) this.positionFlight();
                 return false;
             }
             this.boundsKey = boundsKey;
             this.cachedArtBounds = this.artBounds ? { ...this.artBounds } : null;
             this.deviceScale = window.devicePixelRatio;
+            this.layoutScale = scale;
             this.width = width;
             this.height = height;
             this.dpr = dpr;
             const logo = this.options.shape === 'logo';
-            this.pitch = Math.round(this.options.pitch || (logo ? Math.max(5, Math.min(16, this.bounds().height / 10)) : (width < 768 ? 11 : 12)));
+            this.pitch = Math.round(this.options.pitch || (logo ? Math.max(5, Math.min(16 * scale, this.bounds().height / 10)) : (width < 768 ? 11 : 12) * scale));
             for (const canvas of [this.canvas, this.flightCanvas].filter(Boolean)) {
                 canvas.width = pixelWidth;
                 canvas.height = pixelHeight;

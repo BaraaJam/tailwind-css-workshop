@@ -1,0 +1,3 @@
+Lenis 1.3.26, https://github.com/darkroomengineering/lenis
+Local files: lenis.min.js and lenis.css from the published lenis@1.3.26 package.
+License: lenis-LICENSE.txt (MIT).
