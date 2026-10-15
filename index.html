@@ -340,16 +340,16 @@
             margin-right: auto;
             padding-left: 1.5rem;
             padding-right: 1.5rem;
-            padding-top: 2rem;
-            padding-bottom: 5rem;
+            padding-top: 1rem;
+            padding-bottom: 2rem;
             margin-top: 0;
         }
 
         #bottom-cta-banner {
             width: 100%;
-            min-height: clamp(420px, 46vh, 490px);
-            border-radius: 2.6rem;
-            padding: clamp(2rem, 3.8vw, 3.5rem);
+            min-height: clamp(300px, 34vh, 370px);
+            border-radius: 2.4rem;
+            padding: clamp(1.75rem, 2.8vw, 2.5rem);
             background: #161328;
             box-shadow: none;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -364,13 +364,13 @@
         }
 
         #bottom-cta-headline {
-            font-size: clamp(1.9rem, 3.1vw, 2.9rem);
+            font-size: clamp(1.7rem, 2.6vw, 2.4rem);
             line-height: 1.15;
             font-weight: 400;
             letter-spacing: -0.03em;
             color: #ffffff;
-            max-width: 29rem;
-            margin-bottom: 2rem;
+            max-width: 28rem;
+            margin-bottom: 1.5rem;
             text-align: center;
         }
 
@@ -393,6 +393,26 @@
             background-color: #ffffff;
             color: #09090b;
             border-color: #ffffff;
+        }
+
+        #footer-logo-wrap {
+            position: relative;
+            width: 100%;
+            height: 68px;
+            max-height: 68px;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        #footer-logo-matrix-canvas {
+            width: 100%;
+            height: 100%;
+            max-height: 68px;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -1161,7 +1181,7 @@
             <!-- Interactive ASCII Matrix Background Canvas (Question Mark Shape) -->
             <canvas id="bottom-matrix-canvas" aria-hidden="true" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
             
-            <div class="relative z-10 flex flex-col items-center text-center max-w-lg md:ml-8 lg:ml-16 pt-6 sm:pt-8">
+            <div class="relative z-10 flex flex-col items-center text-center max-w-lg md:ml-8 lg:ml-16 pt-2 sm:pt-4">
                 <h2 id="bottom-cta-headline">
                     Strengthen Your Organization's Competence Today.
                 </h2>
@@ -1174,11 +1194,11 @@
         </div>
 
         <!-- Static Company Logo ASCII Matrix Shape (Like Hero Section Static Shape) -->
-        <div id="footer-logo-wrap" class="relative w-full h-32 sm:h-40 my-6 flex items-center justify-center overflow-hidden">
+        <div id="footer-logo-wrap" class="relative w-full h-14 sm:h-16 my-2 flex items-center justify-center overflow-hidden">
             <canvas id="footer-logo-matrix-canvas" aria-hidden="true" class="w-full h-full pointer-events-none z-0"></canvas>
         </div>
 
-        <div class="mt-4 mb-4 flex flex-wrap items-center justify-between gap-6 text-sm font-medium text-zinc-900">
+        <div class="mt-2 mb-2 flex flex-wrap items-center justify-between gap-6 text-sm font-medium text-zinc-900">
             <div class="flex flex-wrap gap-8">
                 <a href="#trainings" class="hover:text-zinc-600 transition">Trainings</a>
                 <a href="#services" class="hover:text-zinc-600 transition">Services</a>
@@ -1935,7 +1955,7 @@
                 scrollTrigger: {
                     trigger: "#solutions-scroll-track",
                     start: "top top",
-                    end: "+=3800",
+                    end: "+=2800",
                     pin: "#solutions-pin-section",
                     scrub: 0.8,
                     anticipatePin: 1,
@@ -2205,35 +2225,21 @@
                     ease: "power2.out"
                 }, 0.80)
 
-                // Hold state with Rows 2 & 3 in full view
-                .to({}, { duration: 0.04 }, 0.84)
+                // Hold state with Rows 2 & 3 in full view; page scroll takes over naturally into footer
+                .to({}, { duration: 0.08 }, 0.92);
 
-                // Exit ALL THE WAY UP into Footer naturally matching other sections
-                .to(row2, {
-                    y: () => -window.innerHeight * 1.1,
-                    autoAlpha: 0,
-                    duration: 0.12,
-                    ease: "power1.inOut"
-                }, 0.88)
-                .to(row3, {
-                    y: () => -window.innerHeight * 0.85,
-                    autoAlpha: 0,
-                    duration: 0.12,
-                    ease: "power1.inOut"
-                }, 0.88);
-
-            // SECTION 6: FOOTER CTA BANNER SMOOTH SCROLL EXPANSION (80% -> 100%)
+            // SECTION 6: FOOTER CTA BANNER SMOOTH SCROLL EXPANSION (82% -> 100%)
             const footerCard = document.getElementById("bottom-cta-banner");
             if (footerCard) {
                 gsap.fromTo(footerCard,
-                    { scale: 0.80, transformOrigin: "center center" },
+                    { scale: 0.82, transformOrigin: "center center" },
                     {
                         scale: 1.0,
                         ease: "power2.out",
                         scrollTrigger: {
                             trigger: footerCard,
                             start: "top 95%",
-                            end: "top 60%",
+                            end: "top 65%",
                             scrub: 0.8,
                             invalidateOnRefresh: true,
                         }

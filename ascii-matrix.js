@@ -14,7 +14,7 @@
             this.surfaces = CONFIG.map(options => new window.AsciiArtwork(document.getElementById(options.id), options));
             this.hero = new window.AsciiArtwork(document.getElementById('hero-matrix-canvas'), { shape: 'cap', seed: 1, static: true });
             const footerCanvas = document.getElementById('footer-logo-matrix-canvas');
-            this.footerLogo = footerCanvas ? new window.AsciiArtwork(footerCanvas, { shape: 'logo', seed: 5, static: true }) : null;
+            this.footerLogo = footerCanvas ? new window.AsciiArtwork(footerCanvas, { shape: 'logo', seed: 5, static: true, noDeform: true }) : null;
             this.artworks = [this.hero, ...this.surfaces, ...(this.footerLogo ? [this.footerLogo] : [])];
             this.canvas = document.createElement('canvas');
             if (typeof document === 'object' && document.body && typeof document.body.appendChild === 'function') {

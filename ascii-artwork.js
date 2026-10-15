@@ -51,7 +51,7 @@
                 const height = Math.min(h * 0.91, 900);
                 return { x: (w - width) / 2, y: h * 0.55 - height / 2, width, height };
             } else if (this.options.shape === 'logo') {
-                width = Math.min(w * (mobile ? 0.80 : 0.50), h * 0.80 * ratio, 480);
+                width = Math.min(w * (mobile ? 0.85 : 0.45), h * 0.94 * ratio, 320);
                 cx = w * 0.5;
                 cy = h * 0.5;
             } else {
@@ -76,7 +76,7 @@
             this.width = width;
             this.height = height;
             this.dpr = dpr;
-            this.pitch = width < 768 ? 11 : 12;
+            this.pitch = Math.round(this.options.pitch || (this.options.shape === 'logo' ? 6 : (width < 768 ? 11 : 12)));
             for (const canvas of [this.canvas, this.flightCanvas].filter(Boolean)) {
                 canvas.width = pixelWidth;
                 canvas.height = pixelHeight;
@@ -110,7 +110,7 @@
                     let ink = 0, r = 0, g = 0, b = 0, maximum = 0, samples = 0;
                     for (let sy = row * pitch; sy < Math.min((row + 1) * pitch, sample.height); sy += 2) {
                         for (let sx = col * pitch; sx < Math.min((col + 1) * pitch, sample.width); sx += 2) {
-                            const index = (sy * sample.width + sx) * 4;
+                            const index = (Math.floor(sy) * sample.width + Math.floor(sx)) * 4;
                             const alpha = pixels[index + 3] / 255;
                             ink += alpha;
                             r += pixels[index] * alpha;
@@ -198,11 +198,11 @@
         }
 
         idle(now, idleFor = 0) {
-            const pulse = afkPulse(idleFor);
+            const pulse = this.options.noDeform ? 0 : afkPulse(idleFor);
             const previous = this.deformAmount || 0;
             const elapsed = this.lastIdle == null ? 0 : now - this.lastIdle;
             this.lastIdle = now;
-            const amount = pulse > 0 ? pulse : Math.max(0, previous - elapsed / 550);
+            const amount = this.options.noDeform ? 0 : (pulse > 0 ? pulse : Math.max(0, previous - elapsed / 550));
             this.deformAmount = amount;
             if (amount > 0) {
                 const bounds = this.bounds();
