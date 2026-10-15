@@ -83,6 +83,98 @@
             .solutions-glide-track { animation: none; }
         }
 
+        .solutions-card-number {
+            font-size: clamp(5.4rem, 8.4vw, 9.8rem);
+            line-height: 0.88;
+            letter-spacing: -0.05em;
+        }
+
+        .solutions-card-title {
+            font-size: clamp(1.15rem, 1.55vw, 1.45rem);
+            white-space: nowrap;
+        }
+
+        .solutions-card {
+            height: 460px;
+        }
+        @media (min-width: 640px) {
+            .solutions-card {
+                height: 485px;
+            }
+        }
+        @media (min-width: 768px) {
+            .solutions-card {
+                height: 505px;
+            }
+        }
+
+        .solutions-card-inner {
+            height: 285px;
+        }
+        @media (min-width: 640px) {
+            .solutions-card-inner {
+                height: 310px;
+            }
+        }
+
+        /* Statement Showcase Section (Wollo-inspired) */
+        #statement-pin-section {
+            height: 100vh;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #statement-headline {
+            max-width: 60rem;
+            font-size: clamp(1.85rem, 3.2vw, 3.25rem);
+            line-height: 1.38;
+        }
+
+        .statement-char {
+            display: inline-block;
+            will-change: transform, opacity;
+        }
+
+        .statement-icon-slot {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            vertical-align: middle;
+            height: 1.1em;
+            width: 0;
+            opacity: 0;
+            overflow: visible;
+            will-change: width, margin, opacity;
+        }
+
+        .statement-icon-slot svg {
+            width: 2.8rem;
+            height: 2.8rem;
+        }
+        @media (min-width: 640px) {
+            .statement-icon-slot svg {
+                width: 3.3rem;
+                height: 3.3rem;
+            }
+        }
+        @media (min-width: 768px) {
+            .statement-icon-slot svg {
+                width: 3.8rem;
+                height: 3.8rem;
+            }
+        }
+
+        .statement-icon-inner {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transform: scale(0) rotate(-25deg);
+            will-change: transform;
+        }
+
         @media (min-width: 1024px) and (max-height: 950px) {
             .features-bento-grid { transform: scale(0.85); }
         }
@@ -556,11 +648,11 @@
                         
                         <!-- Column 01 (Left Card, positioned in natural left column) -->
                         <div class="solutions-card-col w-full">
-                            <div id="solutions-card-1" class="solutions-card w-full bg-[#F4F4F6] rounded-[2.5rem] md:rounded-[2.8rem] p-4 sm:p-5 flex flex-col justify-between h-[510px] sm:h-[530px] md:h-[550px] border-0 shadow-none">
-                                <div class="p-6 sm:p-7 pt-7 pb-2 text-left">
-                                    <h3 class="text-xl sm:text-2xl font-medium tracking-tight text-zinc-900 leading-snug">IT & Proffs-<br class="hidden sm:inline">utbildningar</h3>
+                            <div id="solutions-card-1" class="solutions-card w-full bg-[#F4F4F6] rounded-[2.5rem] md:rounded-[2.8rem] p-4 sm:p-5 flex flex-col justify-between border-0 shadow-none">
+                                <div class="px-5 sm:px-6 pt-6 pb-2 text-left">
+                                    <h3 class="solutions-card-title font-medium tracking-tight text-zinc-900 leading-none">IT &amp; Proffsutbildningar</h3>
                                 </div>
-                                <div class="bg-[#F06A24] text-white rounded-[2rem] p-6 sm:p-7 h-[310px] sm:h-[340px] flex flex-col justify-between relative overflow-hidden select-none border-0 shadow-none">
+                                <div class="solutions-card-inner bg-[#F06A24] text-white rounded-[2rem] p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden select-none border-0 shadow-none">
                                     <div class="flex items-start justify-between relative z-10">
                                         <span class="text-xs sm:text-sm font-medium opacity-90 leading-relaxed max-w-[180px]">AI, Python, C#.NET, ITIL, Azure</span>
                                         <!-- 3D Soda Cup Badge -->
@@ -586,7 +678,7 @@
                                         </svg>
                                     </div>
                                     <div class="flex items-end justify-between relative z-10">
-                                        <span class="text-7xl sm:text-8xl md:text-9xl font-light tracking-tighter text-white leading-none">01</span>
+                                        <span class="solutions-card-number font-light tracking-tighter text-white leading-none">01</span>
                                         <div class="w-9 h-6 sm:w-10 sm:h-7 rounded-full bg-white flex items-center justify-center text-zinc-900 text-xs sm:text-sm font-bold shadow-sm transition-transform hover:translate-x-0.5">
                                             <span>→</span>
                                         </div>
@@ -597,11 +689,11 @@
 
                         <!-- Column 02 (Middle Card, elevated stagger like Image 1) -->
                         <div class="solutions-card-col w-full md:-translate-y-8">
-                            <div id="solutions-card-2" class="solutions-card w-full bg-[#F4F4F6] rounded-[2.5rem] md:rounded-[2.8rem] p-4 sm:p-5 flex flex-col justify-between h-[510px] sm:h-[530px] md:h-[550px] border-0 shadow-none">
-                                <div class="p-6 sm:p-7 pt-7 pb-2 text-left">
-                                    <h3 class="text-xl sm:text-2xl font-medium tracking-tight text-zinc-900 leading-snug">Affärs- &amp;<br class="hidden sm:inline">Ledarskap</h3>
+                            <div id="solutions-card-2" class="solutions-card w-full bg-[#F4F4F6] rounded-[2.5rem] md:rounded-[2.8rem] p-4 sm:p-5 flex flex-col justify-between border-0 shadow-none">
+                                <div class="px-5 sm:px-6 pt-6 pb-2 text-left">
+                                    <h3 class="solutions-card-title font-medium tracking-tight text-zinc-900 leading-none">Affärs- &amp; Ledarskap</h3>
                                 </div>
-                                <div class="bg-[#F8529E] text-white rounded-[2rem] p-6 sm:p-7 h-[310px] sm:h-[340px] flex flex-col justify-between relative overflow-hidden select-none border-0 shadow-none">
+                                <div class="solutions-card-inner bg-[#F8529E] text-white rounded-[2rem] p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden select-none border-0 shadow-none">
                                     <div class="flex items-start justify-between relative z-10">
                                         <span class="text-xs sm:text-sm font-medium opacity-90 leading-relaxed max-w-[180px]">IPMA Project, Leadership & Teams</span>
                                         <!-- 3D Layered Heart Badge -->
@@ -626,7 +718,7 @@
                                         </svg>
                                     </div>
                                     <div class="flex items-end justify-between relative z-10">
-                                        <span class="text-7xl sm:text-8xl md:text-9xl font-light tracking-tighter text-white leading-none">02</span>
+                                        <span class="solutions-card-number font-light tracking-tighter text-white leading-none">02</span>
                                         <div class="w-9 h-6 sm:w-10 sm:h-7 rounded-full bg-white flex items-center justify-center text-zinc-900 text-xs sm:text-sm font-bold shadow-sm transition-transform hover:translate-x-0.5">
                                             <span>→</span>
                                         </div>
@@ -637,11 +729,11 @@
 
                         <!-- Column 03 (Right Card, positioned in natural right column) -->
                         <div class="solutions-card-col w-full">
-                            <div id="solutions-card-3" class="solutions-card w-full bg-[#F4F4F6] rounded-[2.5rem] md:rounded-[2.8rem] p-4 sm:p-5 flex flex-col justify-between h-[510px] sm:h-[530px] md:h-[550px] border-0 shadow-none">
-                                <div class="p-6 sm:p-7 pt-7 pb-2 text-left">
-                                    <h3 class="text-xl sm:text-2xl font-medium tracking-tight text-zinc-900 leading-snug">Lexicon 365 &amp;<br class="hidden sm:inline">E-Learning</h3>
+                            <div id="solutions-card-3" class="solutions-card w-full bg-[#F4F4F6] rounded-[2.5rem] md:rounded-[2.8rem] p-4 sm:p-5 flex flex-col justify-between border-0 shadow-none">
+                                <div class="px-5 sm:px-6 pt-6 pb-2 text-left">
+                                    <h3 class="solutions-card-title font-medium tracking-tight text-zinc-900 leading-none">Lexicon 365 &amp; E-Learning</h3>
                                 </div>
-                                <div class="bg-[#4314E5] text-white rounded-[2rem] p-6 sm:p-7 h-[310px] sm:h-[340px] flex flex-col justify-between relative overflow-hidden select-none border-0 shadow-none">
+                                <div class="solutions-card-inner bg-[#4314E5] text-white rounded-[2rem] p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden select-none border-0 shadow-none">
                                     <div class="flex items-start justify-between relative z-10">
                                         <span class="text-xs sm:text-sm font-medium opacity-90 leading-relaxed max-w-[180px]">Digital Learning, MS Copilot, Support</span>
                                         <!-- 3D Envelope Badge -->
@@ -661,7 +753,7 @@
                                         </svg>
                                     </div>
                                     <div class="flex items-end justify-between relative z-10">
-                                        <span class="text-7xl sm:text-8xl md:text-9xl font-light tracking-tighter text-white leading-none">03</span>
+                                        <span class="solutions-card-number font-light tracking-tighter text-white leading-none">03</span>
                                         <div class="w-9 h-6 sm:w-10 sm:h-7 rounded-full bg-white flex items-center justify-center text-zinc-900 text-xs sm:text-sm font-bold shadow-sm transition-transform hover:translate-x-0.5">
                                             <span>→</span>
                                         </div>
@@ -673,6 +765,96 @@
                     </div>
                 </div>
 
+            </div>
+        </section>
+    </div>
+
+    <!-- 4.5 SECTION 4: STATEMENT SHOWCASE (Inspired by Wollo / Lexicon Excellence) -->
+    <div id="statement-scroll-track" class="relative w-full bg-white">
+        <section id="statement-pin-section"
+            class="relative w-full min-h-screen flex flex-col justify-center items-center px-6 py-20 sm:py-28 bg-white z-10 select-none overflow-hidden">
+            <div class="w-full max-w-5xl mx-auto text-center">
+                <h2 id="statement-headline"
+                    class="font-normal text-zinc-900 tracking-tight text-center mx-auto will-change-transform">
+                    <span class="statement-word inline-block overflow-hidden py-1"><span class="statement-char inline-block">Lexicon's</span></span>
+                    <span class="statement-word inline-block overflow-hidden py-1"><span class="statement-char inline-block">Intelligent</span></span>
+                    <span class="statement-word inline-block overflow-hidden py-1"><span class="statement-char inline-block">Programs</span></span>
+                    <span class="statement-word inline-block overflow-hidden py-1"><span class="statement-char inline-block">Empower</span></span>
+                    <br class="hidden md:inline">
+                    <span class="statement-word inline-block overflow-hidden py-1"><span class="statement-char inline-block">Forward-Thinking</span></span>
+                    <!-- Inline Push Slot 1: 3D Isometric Heart Badge -->
+                    <span class="statement-icon-slot inline-flex items-center justify-center align-middle overflow-hidden align-[-0.15em] mx-0">
+                        <span class="statement-icon-inner inline-flex items-center justify-center">
+                            <svg class="drop-shadow-md select-none pointer-events-none" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M34 58C34 58 10 43 10 25C10 16 16.5 9.5 25.5 9.5C30.5 9.5 34 14 34 14C34 14 37.5 9.5 42.5 9.5C51.5 9.5 58 16 58 25C58 43 34 58 34 58Z" fill="url(#stmt-heart-outer)" />
+                                <path d="M34 51C34 51 14 38 14 25C14 18.5 18.5 14 25.5 14C30 14 34 18.5 34 18.5C34 18.5 38 14 42.5 14C49.5 14 54 18.5 54 25C54 38 34 51 34 51Z" fill="#FFF1F2" />
+                                <path d="M34 44C34 44 20 33 20 23.5C20 18.5 23 16 27.5 16C31 16 34 19.5 34 19.5C34 19.5 37 16 40.5 16C45 16 48 18.5 48 23.5C48 33 34 44 34 44Z" fill="url(#stmt-heart-inner)" />
+                                <ellipse cx="27" cy="22" rx="4.5" ry="2.5" fill="#FFFFFF" fill-opacity="0.6" transform="rotate(-25 27 22)" />
+                                <defs>
+                                    <linearGradient id="stmt-heart-outer" x1="10" y1="9.5" x2="58" y2="58" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#FFA6C9" />
+                                        <stop offset="0.45" stop-color="#F43F5E" />
+                                        <stop offset="1" stop-color="#BE123C" />
+                                    </linearGradient>
+                                    <linearGradient id="stmt-heart-inner" x1="20" y1="16" x2="48" y2="44" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#4314E5" />
+                                        <stop offset="0.6" stop-color="#312E81" />
+                                        <stop offset="1" stop-color="#0F0C20" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </span>
+                    </span>
+                    <span class="statement-word inline-block overflow-hidden py-1"><span class="statement-char inline-block">Teams</span></span>
+                    <span class="statement-word inline-block overflow-hidden py-1"><span class="statement-char inline-block">in</span></span>
+                    <span class="statement-word inline-block overflow-hidden py-1"><span class="statement-char inline-block">Real-Time,</span></span>
+                    <br class="hidden md:inline">
+                    <span class="statement-word inline-block overflow-hidden py-1"><span class="statement-char inline-block">Delivering</span></span>
+                    <span class="statement-word inline-block overflow-hidden py-1"><span class="statement-char inline-block">Future-Proof</span></span>
+                    <span class="statement-word inline-block overflow-hidden py-1"><span class="statement-char inline-block">Skills</span></span>
+                    <!-- Inline Push Slot 2: 3D Sunset Hologram Sphere Badge -->
+                    <span class="statement-icon-slot inline-flex items-center justify-center align-middle overflow-hidden align-[-0.15em] mx-0">
+                        <span class="statement-icon-inner inline-flex items-center justify-center">
+                            <svg class="drop-shadow-md select-none pointer-events-none" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#stmt-sphere-clip)">
+                                    <circle cx="34" cy="34" r="30" fill="url(#stmt-sunset-base)" />
+                                    <path d="M4 32 Q34 37 64 32 L64 37 Q34 42 4 37 Z" fill="#FF7A59" fill-opacity="0.9" />
+                                    <path d="M4 39 Q34 43 64 39 L64 43 Q34 47 4 43 Z" fill="#8B5CF6" fill-opacity="0.9" />
+                                    <path d="M4 45 Q34 48 64 45 L64 48 Q34 51 4 48 Z" fill="#3B82F6" fill-opacity="0.9" />
+                                    <path d="M4 50 Q34 53 64 50 L64 54 Q34 57 4 54 Z" fill="#1E1B4B" fill-opacity="0.95" />
+                                    <circle cx="34" cy="22" r="14" fill="url(#stmt-sun-glow)" />
+                                    <circle cx="34" cy="34" r="30" fill="url(#stmt-sphere-shading)" />
+                                </g>
+                                <path d="M12 18 C18 10, 32 6, 46 10 C36 9, 22 13, 16 24 C14 22, 13 20, 12 18 Z" fill="#FFFFFF" fill-opacity="0.75" />
+                                <defs>
+                                    <clipPath id="stmt-sphere-clip">
+                                        <circle cx="34" cy="34" r="30" />
+                                    </clipPath>
+                                    <linearGradient id="stmt-sunset-base" x1="34" y1="4" x2="34" y2="64" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#FDE047" />
+                                        <stop offset="0.25" stop-color="#FB923C" />
+                                        <stop offset="0.55" stop-color="#F43F5E" />
+                                        <stop offset="0.8" stop-color="#7C3AED" />
+                                        <stop offset="1" stop-color="#1E1B4B" />
+                                    </linearGradient>
+                                    <radialGradient id="stmt-sun-glow" cx="34" cy="22" r="14" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#FFFFFF" stop-opacity="0.95" />
+                                        <stop offset="0.4" stop-color="#FEF08A" stop-opacity="0.85" />
+                                        <stop offset="1" stop-color="#FDE047" stop-opacity="0" />
+                                    </radialGradient>
+                                    <radialGradient id="stmt-sphere-shading" cx="24" cy="20" r="36" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0.6" stop-color="#000000" stop-opacity="0" />
+                                        <stop offset="1" stop-color="#090514" stop-opacity="0.5" />
+                                    </radialGradient>
+                                </defs>
+                            </svg>
+                        </span>
+                    </span>
+                    <span class="statement-word inline-block overflow-hidden py-1"><span class="statement-char inline-block">and</span></span>
+                    <br class="hidden md:inline">
+                    <span class="statement-word inline-block overflow-hidden py-1"><span class="statement-char inline-block">Measurable</span></span>
+                    <span class="statement-word inline-block overflow-hidden py-1"><span class="statement-char inline-block">Impact.</span></span>
+                </h2>
             </div>
         </section>
     </div>
@@ -1550,14 +1732,14 @@
                     y: () => -window.innerHeight * 0.45,
                     scale: 0.70,
                     autoAlpha: 0,
-                    duration: 0.34,
+                    duration: 0.24,
                     ease: "power2.out"
-                }, 0.50)
+                }, 0.46)
                 .to("#solutions-matrix-canvas-wrap", {
                     autoAlpha: 0,
-                    duration: 0.28,
+                    duration: 0.22,
                     ease: "power2.out"
-                }, 0.50)
+                }, 0.46)
                 .to("#solutions-cards-stage", {
                     y: () => window.innerHeight * 0.08,
                     opacity: 1,
@@ -1578,6 +1760,66 @@
                 .to("#solutions-cards-stage", {
                     duration: 0.16
                 }, 0.84);
+
+            // SECTION 4: STATEMENT SHOWCASE SCROLL-DRIVEN ANIMATION (Wollo-inspired)
+            const statementTrack = document.getElementById("statement-scroll-track");
+            if (statementTrack) {
+                gsap.set("#statement-headline .statement-char", { yPercent: 115, opacity: 0 });
+                gsap.set("#statement-headline", { scale: 1.05, y: 30 });
+                gsap.set(".statement-icon-slot", { width: 0, opacity: 0, margin: "0 0px" });
+                gsap.set(".statement-icon-inner", { scale: 0, rotate: -25, opacity: 0 });
+
+                const stmtTimeline = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: "#statement-scroll-track",
+                        start: "top top",
+                        end: "+=1600",
+                        pin: "#statement-pin-section",
+                        scrub: 0.8,
+                        anticipatePin: 1,
+                        invalidateOnRefresh: true,
+                    }
+                });
+
+                // Phase 1: Reveal words sliding up from below (matching Explore Lexicon's)
+                stmtTimeline.to("#statement-headline .statement-char", {
+                    yPercent: 0,
+                    opacity: 1,
+                    stagger: 0.024,
+                    duration: 0.38,
+                    ease: "power2.out"
+                }, 0.04);
+
+                // Phase 2: Icons expand horizontally, pushing the text back/aside and blooming with 3D rotation
+                stmtTimeline.to(".statement-icon-slot", {
+                    width: () => window.innerWidth < 640 ? 44 : window.innerWidth < 1024 ? 54 : 64,
+                    margin: () => window.innerWidth < 640 ? "0 4px" : "0 10px",
+                    opacity: 1,
+                    duration: 0.32,
+                    ease: "power2.out"
+                }, 0.22);
+
+                stmtTimeline.to(".statement-icon-inner", {
+                    scale: 1,
+                    rotate: 0,
+                    opacity: 1,
+                    duration: 0.36,
+                    ease: "back.out(1.6)"
+                }, 0.22);
+
+                // Headline camera pushback / settle
+                stmtTimeline.to("#statement-headline", {
+                    scale: 1.0,
+                    y: 0,
+                    duration: 0.40,
+                    ease: "power2.out"
+                }, 0.20);
+
+                // Phase 3: Hold state with full composition
+                stmtTimeline.to("#statement-headline", {
+                    duration: 0.35
+                }, 0.65);
+            }
 
             window.switchBentoSlide = switchBentoSlide;
             window.startSlideTimer = startSlideTimer;
