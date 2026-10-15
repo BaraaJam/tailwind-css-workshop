@@ -62,7 +62,7 @@ test('each shape including the cap deforms while AFK and reforms after input', (
             ctx: { drawImage(...args) { draws.push(args); }, clearRect() {} }, clear() {},
             paintFull() { restored++; },
         });
-        artwork.idle(1000, 5500);
+        artwork.idle(1000, 9000);
         assert.equal(artwork.deformAmount, 1);
         assert.notDeepEqual(draws[0].slice(1, 5), draws[0].slice(5, 9));
         artwork.idle(2000, 0);

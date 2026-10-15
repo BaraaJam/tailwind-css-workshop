@@ -93,17 +93,17 @@
         return { x: point.x, y };
     }
     function afkPulse(idleFor) {
-        if (idleFor < 3500) return 0;
-        const local = (idleFor - 3500) % 9000;
-        if (local < 1800) {
-            const p = local / 1800;
+        if (idleFor < 5500) return 0;
+        const local = (idleFor - 5500) % 11600;
+        if (local < 2800) {
+            const p = local / 2800;
             return Math.sin(p * Math.PI / 2) ** 2;
         }
-        if (local < 3800) {
+        if (local < 5800) {
             return 1;
         }
-        if (local < 6000) {
-            const p = (local - 3800) / 2200;
+        if (local < 8600) {
+            const p = (local - 5800) / 2800;
             return Math.cos(p * Math.PI / 2) ** 2;
         }
         return 0;

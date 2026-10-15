@@ -103,15 +103,15 @@ test('offscreen endpoints enter near the viewport so travel remains visible', ()
     assert.ok(Math.abs(motion.flightEndpoint({ x: 0, y: -30.001 }, 1080).y + 30) < 0.002);
 });
 
-test('AFK deformation starts after 3.5 seconds, deforms slower, holds, and reforms', () => {
-    assert.equal(motion.afkPulse(3400), 0);
-    assert.equal(motion.afkPulse(3500), 0);
-    assert.ok(motion.afkPulse(4400) > 0 && motion.afkPulse(4400) < 1);
-    assert.equal(motion.afkPulse(5500), 1);
-    assert.equal(motion.afkPulse(6500), 1);
-    assert.ok(motion.afkPulse(8400) > 0 && motion.afkPulse(8400) < 1);
-    assert.equal(motion.afkPulse(9600), 0);
-    assert.equal(motion.afkPulse(14500), motion.afkPulse(5500));
+test('AFK deformation starts after 5.5 seconds, deforms slower, holds, and reforms', () => {
+    assert.equal(motion.afkPulse(5400), 0);
+    assert.equal(motion.afkPulse(5500), 0);
+    assert.ok(motion.afkPulse(6900) > 0 && motion.afkPulse(6900) < 1);
+    assert.equal(motion.afkPulse(9000), 1);
+    assert.equal(motion.afkPulse(10000), 1);
+    assert.ok(motion.afkPulse(12000) > 0 && motion.afkPulse(12000) < 1);
+    assert.equal(motion.afkPulse(14500), 0);
+    assert.equal(motion.afkPulse(20600), motion.afkPulse(9000));
     const cell = { seed: 12 };
     assert.equal(motion.deformOffset(cell, 0, 100).x, 0);
     assert.ok(Math.abs(motion.deformOffset(cell, 1, 100).x) > 0);

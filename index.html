@@ -521,7 +521,7 @@
             <!-- Interactive ASCII Matrix Background Canvas (Downward Arrow) -->
             <canvas id="solutions-matrix-canvas" aria-hidden="true" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
             
-            <div id="solutions-hero-wrap" class="relative w-full max-w-7xl flex flex-col items-center justify-center z-10">
+            <div id="solutions-hero-wrap" class="relative w-full max-w-[1400px] flex flex-col items-center justify-center z-10">
                 
                 <!-- Main Lockup (Word "Explore Lexicon's" + Yellow "SOLUTIONS" Container Underneath) -->
                 <div id="integrations-lockup" class="relative flex flex-col items-center justify-center text-center will-change-transform">
@@ -549,114 +549,120 @@
 
                 <!-- 3 Business Area Cards: Scroll-driven Expansion Stage (Image 1 & 2) -->
                 <div id="solutions-cards-stage"
-                    class="absolute inset-x-0 w-full max-w-6xl mx-auto px-4 sm:px-6 will-change-transform pointer-events-none select-none z-20">
-                    <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-7 items-center">
+                    class="absolute inset-x-0 w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 will-change-transform pointer-events-none select-none z-20">
+                    <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-center">
                         
-                        <!-- Card 01 -->
-                        <div class="solutions-card bg-[#F4F4F6] rounded-[2.5rem] md:rounded-[2.8rem] p-3.5 sm:p-4 flex flex-col justify-between h-[510px] sm:h-[530px] md:h-[550px] border-0 shadow-none transition-transform duration-300 hover:scale-[1.02]">
-                            <div class="p-6 sm:p-7 pt-7 pb-2 text-left">
-                                <h3 class="text-xl sm:text-2xl font-medium tracking-tight text-zinc-900 leading-snug">IT & Proffs-<br class="hidden sm:inline">utbildningar</h3>
-                            </div>
-                            <div class="bg-[#F06A24] text-white rounded-[2rem] p-6 sm:p-7 h-[310px] sm:h-[340px] flex flex-col justify-between relative overflow-hidden select-none border-0 shadow-none">
-                                <div class="flex items-start justify-between relative z-10">
-                                    <span class="text-xs sm:text-sm font-medium opacity-90 leading-relaxed max-w-[150px]">AI, Python, C#.NET, ITIL, Azure</span>
-                                    <!-- 3D Soda Cup Badge -->
-                                    <svg class="w-20 h-24 sm:w-22 sm:h-28 -mt-4 -mr-2 drop-shadow-md select-none pointer-events-none" viewBox="0 0 68 84" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <!-- Angled straw -->
-                                        <path d="M46 6L32 30" stroke="#1E1B4B" stroke-width="5" stroke-linecap="round"/>
-                                        <path d="M54 2L44 7" stroke="#1E1B4B" stroke-width="5" stroke-linecap="round"/>
-                                        <!-- Translucent dome lid -->
-                                        <ellipse cx="32" cy="30" rx="20" ry="6.5" fill="#FFFFFF" fill-opacity="0.95" />
-                                        <ellipse cx="32" cy="28.5" rx="16" ry="4.5" fill="#FEE2E2" fill-opacity="0.7" />
-                                        <!-- Cup body with vivid gradient and 3D lighting -->
-                                        <path d="M14 30L20.5 72C21 75.5 24 78 27.5 78H36.5C40 78 43 75.5 43.5 72L50 30" fill="url(#cup-grad)" />
-                                        <!-- Rim highlight and reflection -->
-                                        <path d="M16 35C23 40 43 40 48 35" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-opacity="0.6" />
-                                        <path d="M22 45L25 68" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-opacity="0.3" />
-                                        <defs>
-                                            <linearGradient id="cup-grad" x1="14" y1="30" x2="50" y2="78" gradientUnits="userSpaceOnUse">
-                                                <stop stop-color="#FF3B30" />
-                                                <stop offset="0.55" stop-color="#FF9500" />
-                                                <stop offset="1" stop-color="#FFCC00" />
-                                            </linearGradient>
-                                        </defs>
-                                    </svg>
+                        <!-- Column 01 (Left Card, positioned in natural left column) -->
+                        <div class="solutions-card-col w-full">
+                            <div id="solutions-card-1" class="solutions-card w-full bg-[#F4F4F6] rounded-[2.5rem] md:rounded-[2.8rem] p-4 sm:p-5 flex flex-col justify-between h-[510px] sm:h-[530px] md:h-[550px] border-0 shadow-none transition-transform duration-300 hover:scale-[1.02]">
+                                <div class="p-6 sm:p-7 pt-7 pb-2 text-left">
+                                    <h3 class="text-xl sm:text-2xl font-medium tracking-tight text-zinc-900 leading-snug">IT & Proffs-<br class="hidden sm:inline">utbildningar</h3>
                                 </div>
-                                <div class="flex items-end justify-between relative z-10">
-                                    <span class="text-7xl sm:text-8xl md:text-9xl font-light tracking-tighter text-white leading-none">01</span>
-                                    <div class="w-9 h-6 sm:w-10 sm:h-7 rounded-full bg-white flex items-center justify-center text-zinc-900 text-xs sm:text-sm font-bold shadow-sm transition-transform hover:translate-x-0.5">
-                                        <span>→</span>
+                                <div class="bg-[#F06A24] text-white rounded-[2rem] p-6 sm:p-7 h-[310px] sm:h-[340px] flex flex-col justify-between relative overflow-hidden select-none border-0 shadow-none">
+                                    <div class="flex items-start justify-between relative z-10">
+                                        <span class="text-xs sm:text-sm font-medium opacity-90 leading-relaxed max-w-[180px]">AI, Python, C#.NET, ITIL, Azure</span>
+                                        <!-- 3D Soda Cup Badge -->
+                                        <svg class="w-20 h-24 sm:w-22 sm:h-28 -mt-4 -mr-2 drop-shadow-md select-none pointer-events-none" viewBox="0 0 68 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <!-- Angled straw -->
+                                            <path d="M46 6L32 30" stroke="#1E1B4B" stroke-width="5" stroke-linecap="round"/>
+                                            <path d="M54 2L44 7" stroke="#1E1B4B" stroke-width="5" stroke-linecap="round"/>
+                                            <!-- Translucent dome lid -->
+                                            <ellipse cx="32" cy="30" rx="20" ry="6.5" fill="#FFFFFF" fill-opacity="0.95" />
+                                            <ellipse cx="32" cy="28.5" rx="16" ry="4.5" fill="#FEE2E2" fill-opacity="0.7" />
+                                            <!-- Cup body with vivid gradient and 3D lighting -->
+                                            <path d="M14 30L20.5 72C21 75.5 24 78 27.5 78H36.5C40 78 43 75.5 43.5 72L50 30" fill="url(#cup-grad)" />
+                                            <!-- Rim highlight and reflection -->
+                                            <path d="M16 35C23 40 43 40 48 35" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-opacity="0.6" />
+                                            <path d="M22 45L25 68" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-opacity="0.3" />
+                                            <defs>
+                                                <linearGradient id="cup-grad" x1="14" y1="30" x2="50" y2="78" gradientUnits="userSpaceOnUse">
+                                                    <stop stop-color="#FF3B30" />
+                                                    <stop offset="0.55" stop-color="#FF9500" />
+                                                    <stop offset="1" stop-color="#FFCC00" />
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="flex items-end justify-between relative z-10">
+                                        <span class="text-7xl sm:text-8xl md:text-9xl font-light tracking-tighter text-white leading-none">01</span>
+                                        <div class="w-9 h-6 sm:w-10 sm:h-7 rounded-full bg-white flex items-center justify-center text-zinc-900 text-xs sm:text-sm font-bold shadow-sm transition-transform hover:translate-x-0.5">
+                                            <span>→</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Card 02 (Middle, staggered higher like Image 1) -->
-                        <div class="solutions-card bg-[#F4F4F6] rounded-[2.5rem] md:rounded-[2.8rem] p-3.5 sm:p-4 flex flex-col justify-between h-[510px] sm:h-[530px] md:h-[550px] md:-translate-y-8 border-0 shadow-none transition-transform duration-300 hover:scale-[1.02]">
-                            <div class="p-6 sm:p-7 pt-7 pb-2 text-left">
-                                <h3 class="text-xl sm:text-2xl font-medium tracking-tight text-zinc-900 leading-snug">Affärs- &amp;<br class="hidden sm:inline">Ledarskap</h3>
-                            </div>
-                            <div class="bg-[#F8529E] text-white rounded-[2rem] p-6 sm:p-7 h-[310px] sm:h-[340px] flex flex-col justify-between relative overflow-hidden select-none border-0 shadow-none">
-                                <div class="flex items-start justify-between relative z-10">
-                                    <span class="text-xs sm:text-sm font-medium opacity-90 leading-relaxed max-w-[150px]">IPMA Project, Leadership & Teams</span>
-                                    <!-- 3D Layered Heart Badge -->
-                                    <svg class="w-20 h-20 sm:w-24 sm:h-24 -mt-3 -mr-2 drop-shadow-md select-none pointer-events-none rotate-6" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <!-- Outer 3D pink bevel -->
-                                        <path d="M34 58C34 58 10 43 10 25C10 16 16.5 9.5 25.5 9.5C30.5 9.5 34 14 34 14C34 14 37.5 9.5 42.5 9.5C51.5 9.5 58 16 58 25C58 43 34 58 34 58Z" fill="url(#heart-outer)" />
-                                        <!-- Middle white/soft cream highlight layer -->
-                                        <path d="M34 51C34 51 14 38 14 25C14 18.5 18.5 14 25.5 14C30 14 34 18.5 34 18.5C34 18.5 38 14 42.5 14C49.5 14 54 18.5 54 25C54 38 34 51 34 51Z" fill="#FFF1F2" fill-opacity="0.95" />
-                                        <!-- Deep midnight purple heart center -->
-                                        <path d="M34 44C34 44 20 33 20 23.5C20 18.5 23 16 27.5 16C31 16 34 19.5 34 19.5C34 19.5 37 16 40.5 16C45 16 48 18.5 48 23.5C48 33 34 44 34 44Z" fill="url(#heart-inner)" />
-                                        <defs>
-                                            <linearGradient id="heart-outer" x1="10" y1="9.5" x2="58" y2="58" gradientUnits="userSpaceOnUse">
-                                                <stop stop-color="#FFA6C9" />
-                                                <stop offset="0.5" stop-color="#F43F5E" />
-                                                <stop offset="1" stop-color="#E11D48" />
-                                            </linearGradient>
-                                            <linearGradient id="heart-inner" x1="20" y1="16" x2="48" y2="44" gradientUnits="userSpaceOnUse">
-                                                <stop stop-color="#312E81" />
-                                                <stop offset="1" stop-color="#0F0C20" />
-                                            </linearGradient>
-                                        </defs>
-                                    </svg>
+                        <!-- Column 02 (Middle Card, elevated stagger like Image 1) -->
+                        <div class="solutions-card-col w-full md:-translate-y-8">
+                            <div id="solutions-card-2" class="solutions-card w-full bg-[#F4F4F6] rounded-[2.5rem] md:rounded-[2.8rem] p-4 sm:p-5 flex flex-col justify-between h-[510px] sm:h-[530px] md:h-[550px] border-0 shadow-none transition-transform duration-300 hover:scale-[1.02]">
+                                <div class="p-6 sm:p-7 pt-7 pb-2 text-left">
+                                    <h3 class="text-xl sm:text-2xl font-medium tracking-tight text-zinc-900 leading-snug">Affärs- &amp;<br class="hidden sm:inline">Ledarskap</h3>
                                 </div>
-                                <div class="flex items-end justify-between relative z-10">
-                                    <span class="text-7xl sm:text-8xl md:text-9xl font-light tracking-tighter text-white leading-none">02</span>
-                                    <div class="w-9 h-6 sm:w-10 sm:h-7 rounded-full bg-white flex items-center justify-center text-zinc-900 text-xs sm:text-sm font-bold shadow-sm transition-transform hover:translate-x-0.5">
-                                        <span>→</span>
+                                <div class="bg-[#F8529E] text-white rounded-[2rem] p-6 sm:p-7 h-[310px] sm:h-[340px] flex flex-col justify-between relative overflow-hidden select-none border-0 shadow-none">
+                                    <div class="flex items-start justify-between relative z-10">
+                                        <span class="text-xs sm:text-sm font-medium opacity-90 leading-relaxed max-w-[180px]">IPMA Project, Leadership & Teams</span>
+                                        <!-- 3D Layered Heart Badge -->
+                                        <svg class="w-20 h-20 sm:w-24 sm:h-24 -mt-3 -mr-2 drop-shadow-md select-none pointer-events-none rotate-6" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <!-- Outer 3D pink bevel -->
+                                            <path d="M34 58C34 58 10 43 10 25C10 16 16.5 9.5 25.5 9.5C30.5 9.5 34 14 34 14C34 14 37.5 9.5 42.5 9.5C51.5 9.5 58 16 58 25C58 43 34 58 34 58Z" fill="url(#heart-outer)" />
+                                            <!-- Middle white/soft cream highlight layer -->
+                                            <path d="M34 51C34 51 14 38 14 25C14 18.5 18.5 14 25.5 14C30 14 34 18.5 34 18.5C34 18.5 38 14 42.5 14C49.5 14 54 18.5 54 25C54 38 34 51 34 51Z" fill="#FFF1F2" fill-opacity="0.95" />
+                                            <!-- Deep midnight purple heart center -->
+                                            <path d="M34 44C34 44 20 33 20 23.5C20 18.5 23 16 27.5 16C31 16 34 19.5 34 19.5C34 19.5 37 16 40.5 16C45 16 48 18.5 48 23.5C48 33 34 44 34 44Z" fill="url(#heart-inner)" />
+                                            <defs>
+                                                <linearGradient id="heart-outer" x1="10" y1="9.5" x2="58" y2="58" gradientUnits="userSpaceOnUse">
+                                                    <stop stop-color="#FFA6C9" />
+                                                    <stop offset="0.5" stop-color="#F43F5E" />
+                                                    <stop offset="1" stop-color="#E11D48" />
+                                                </linearGradient>
+                                                <linearGradient id="heart-inner" x1="20" y1="16" x2="48" y2="44" gradientUnits="userSpaceOnUse">
+                                                    <stop stop-color="#312E81" />
+                                                    <stop offset="1" stop-color="#0F0C20" />
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="flex items-end justify-between relative z-10">
+                                        <span class="text-7xl sm:text-8xl md:text-9xl font-light tracking-tighter text-white leading-none">02</span>
+                                        <div class="w-9 h-6 sm:w-10 sm:h-7 rounded-full bg-white flex items-center justify-center text-zinc-900 text-xs sm:text-sm font-bold shadow-sm transition-transform hover:translate-x-0.5">
+                                            <span>→</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Card 03 -->
-                        <div class="solutions-card bg-[#F4F4F6] rounded-[2.5rem] md:rounded-[2.8rem] p-3.5 sm:p-4 flex flex-col justify-between h-[510px] sm:h-[530px] md:h-[550px] border-0 shadow-none transition-transform duration-300 hover:scale-[1.02]">
-                            <div class="p-6 sm:p-7 pt-7 pb-2 text-left">
-                                <h3 class="text-xl sm:text-2xl font-medium tracking-tight text-zinc-900 leading-snug">Lexicon 365 &amp;<br class="hidden sm:inline">E-Learning</h3>
-                            </div>
-                            <div class="bg-[#4314E5] text-white rounded-[2rem] p-6 sm:p-7 h-[310px] sm:h-[340px] flex flex-col justify-between relative overflow-hidden select-none border-0 shadow-none">
-                                <div class="flex items-start justify-between relative z-10">
-                                    <span class="text-xs sm:text-sm font-medium opacity-90 leading-relaxed max-w-[150px]">Digital Learning, MS Copilot, Support</span>
-                                    <!-- 3D Envelope Badge -->
-                                    <svg class="w-20 h-18 sm:w-24 sm:h-20 -mt-2 -mr-2 drop-shadow-md select-none pointer-events-none -rotate-6" viewBox="0 0 72 58" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <!-- Envelope pouch body -->
-                                        <rect x="6" y="8" width="60" height="42" rx="10" fill="url(#pouch-body)" />
-                                        <!-- Folded flap -->
-                                        <path d="M8 12L36 34L64 12" stroke="#4C1D95" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="#1E0E3E" fill-opacity="0.8" />
-                                        <!-- Glowing yellow snap button -->
-                                        <circle cx="36" cy="34" r="5" fill="#FCD332" stroke="#FFF59D" stroke-width="1.8" />
-                                        <defs>
-                                            <linearGradient id="pouch-body" x1="6" y1="8" x2="66" y2="50" gradientUnits="userSpaceOnUse">
-                                                <stop stop-color="#2E1065" />
-                                                <stop offset="1" stop-color="#0F051D" />
-                                            </linearGradient>
-                                        </defs>
-                                    </svg>
+                        <!-- Column 03 (Right Card, positioned in natural right column) -->
+                        <div class="solutions-card-col w-full">
+                            <div id="solutions-card-3" class="solutions-card w-full bg-[#F4F4F6] rounded-[2.5rem] md:rounded-[2.8rem] p-4 sm:p-5 flex flex-col justify-between h-[510px] sm:h-[530px] md:h-[550px] border-0 shadow-none transition-transform duration-300 hover:scale-[1.02]">
+                                <div class="p-6 sm:p-7 pt-7 pb-2 text-left">
+                                    <h3 class="text-xl sm:text-2xl font-medium tracking-tight text-zinc-900 leading-snug">Lexicon 365 &amp;<br class="hidden sm:inline">E-Learning</h3>
                                 </div>
-                                <div class="flex items-end justify-between relative z-10">
-                                    <span class="text-7xl sm:text-8xl md:text-9xl font-light tracking-tighter text-white leading-none">03</span>
-                                    <div class="w-9 h-6 sm:w-10 sm:h-7 rounded-full bg-white flex items-center justify-center text-zinc-900 text-xs sm:text-sm font-bold shadow-sm transition-transform hover:translate-x-0.5">
-                                        <span>→</span>
+                                <div class="bg-[#4314E5] text-white rounded-[2rem] p-6 sm:p-7 h-[310px] sm:h-[340px] flex flex-col justify-between relative overflow-hidden select-none border-0 shadow-none">
+                                    <div class="flex items-start justify-between relative z-10">
+                                        <span class="text-xs sm:text-sm font-medium opacity-90 leading-relaxed max-w-[180px]">Digital Learning, MS Copilot, Support</span>
+                                        <!-- 3D Envelope Badge -->
+                                        <svg class="w-20 h-18 sm:w-24 sm:h-20 -mt-2 -mr-2 drop-shadow-md select-none pointer-events-none -rotate-6" viewBox="0 0 72 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <!-- Envelope pouch body -->
+                                            <rect x="6" y="8" width="60" height="42" rx="10" fill="url(#pouch-body)" />
+                                            <!-- Folded flap -->
+                                            <path d="M8 12L36 34L64 12" stroke="#4C1D95" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="#1E0E3E" fill-opacity="0.8" />
+                                            <!-- Glowing yellow snap button -->
+                                            <circle cx="36" cy="34" r="5" fill="#FCD332" stroke="#FFF59D" stroke-width="1.8" />
+                                            <defs>
+                                                <linearGradient id="pouch-body" x1="6" y1="8" x2="66" y2="50" gradientUnits="userSpaceOnUse">
+                                                    <stop stop-color="#2E1065" />
+                                                    <stop offset="1" stop-color="#0F051D" />
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="flex items-end justify-between relative z-10">
+                                        <span class="text-7xl sm:text-8xl md:text-9xl font-light tracking-tighter text-white leading-none">03</span>
+                                        <div class="w-9 h-6 sm:w-10 sm:h-7 rounded-full bg-white flex items-center justify-center text-zinc-900 text-xs sm:text-sm font-bold shadow-sm transition-transform hover:translate-x-0.5">
+                                            <span>→</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1496,11 +1502,14 @@
             });
 
             // Initial positioning of cards below viewport
-            gsap.set("#solutions-cards-stage", {
+            gsap.set("#integrations-lockup", { x: 0, y: 0, scale: 1, opacity: 1 });
+            gsap.set("#solutions-matrix-canvas", { opacity: 1 });
+            gsap.set("#solutions-cards-stage", { y: 0, scale: 1, opacity: 1, pointerEvents: "none" });
+            gsap.set(".solutions-card", {
                 y: () => window.innerHeight * 0.95,
-                scale: 0.65,
+                scale: 0.72,
                 opacity: 0,
-                pointerEvents: "none"
+                transformOrigin: "center center"
             });
 
             solutionsTimeline
@@ -1517,44 +1526,52 @@
                     ease: "power2.out"
                 }, 0.06)
 
-                // Step 2: Lockup glides to top, cards show from bottom in half size (Image 2)
+                // Step 2: Lockup glides to top, arrow visible, cards show from bottom in half size (Image 2)
+                // Left card in left column, middle card in center column, right card in right column
                 .to("#integrations-lockup", {
                     y: () => -window.innerHeight * 0.32,
                     scale: 0.82,
-                    duration: 0.32,
+                    opacity: 1,
+                    duration: 0.28,
                     ease: "power2.inOut"
-                }, 0.18)
-                .to("#solutions-cards-stage", {
-                    y: () => window.innerHeight * 0.38,
-                    scale: 0.70,
-                    opacity: 0.95,
-                    duration: 0.32,
+                }, 0.16)
+                .to(".solutions-card", {
+                    y: () => window.innerHeight * 0.44,
+                    scale: 0.72,
+                    opacity: 1,
+                    duration: 0.28,
                     ease: "power2.inOut"
-                }, 0.18)
+                }, 0.16)
 
-                // Step 3: Cards expand smoothly until they become full screen (Image 1)
+                // Step 3: Arrow and Explore Solutions go away; cards expand smoothly to full size alone
                 .to("#integrations-lockup", {
-                    y: () => -window.innerHeight * 0.36,
-                    scale: 0.74,
-                    duration: 0.34,
+                    y: () => -window.innerHeight * 0.45,
+                    scale: 0.70,
+                    opacity: 0,
+                    duration: 0.32,
                     ease: "power2.out"
-                }, 0.50)
-                .to("#solutions-cards-stage", {
-                    y: () => window.innerHeight * 0.08,
+                }, 0.44)
+                .to("#solutions-matrix-canvas", {
+                    opacity: 0,
+                    duration: 0.28,
+                    ease: "power2.out"
+                }, 0.44)
+                .to(".solutions-card", {
+                    y: 0,
                     scale: 1.0,
                     opacity: 1,
-                    duration: 0.34,
+                    duration: 0.32,
                     ease: "power2.out",
                     onUpdate: function () {
                         const stage = document.getElementById("solutions-cards-stage");
-                        if (stage) stage.style.pointerEvents = this.progress() > 0.65 ? "auto" : "none";
+                        if (stage) stage.style.pointerEvents = this.progress() > 0.60 ? "auto" : "none";
                     }
-                }, 0.50)
+                }, 0.44)
 
-                // Step 4: Hold state to let user admire and interact with the cards
-                .to("#solutions-cards-stage", {
-                    duration: 0.16
-                }, 0.84);
+                // Step 4: Hold state with the 3 cards alone
+                .to(".solutions-card", {
+                    duration: 0.24
+                }, 0.76);
 
             window.switchBentoSlide = switchBentoSlide;
             window.startSlideTimer = startSlideTimer;
