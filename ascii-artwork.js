@@ -51,7 +51,7 @@
                 const height = Math.min(h * 0.91, 900);
                 return { x: (w - width) / 2, y: h * 0.55 - height / 2, width, height };
             } else if (this.options.shape === 'logo') {
-                width = Math.min(w * (mobile ? 0.85 : 0.45), h * 0.94 * ratio, 320);
+                width = Math.min(w * (mobile ? 0.90 : 0.60), h * 0.94 * ratio, 500);
                 cx = w * 0.5;
                 cy = h * 0.5;
             } else {
@@ -76,7 +76,7 @@
             this.width = width;
             this.height = height;
             this.dpr = dpr;
-            this.pitch = Math.round(this.options.pitch || (this.options.shape === 'logo' ? 6 : (width < 768 ? 11 : 12)));
+            this.pitch = Math.round(this.options.pitch || (this.options.shape === 'logo' ? (width < 768 ? 9 : 10) : (width < 768 ? 11 : 12)));
             for (const canvas of [this.canvas, this.flightCanvas].filter(Boolean)) {
                 canvas.width = pixelWidth;
                 canvas.height = pixelHeight;
