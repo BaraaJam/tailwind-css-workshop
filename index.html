@@ -213,6 +213,22 @@
             height: 340px;
         }
 
+        .solutions-card-inner > div:last-child {
+            position: absolute;
+            inset: auto 0 0;
+            padding: inherit;
+            padding-bottom: 1rem;
+        }
+
+        .solutions-card-inner img {
+            width: 15rem;
+            height: 16rem;
+            max-width: 65%;
+            margin-top: 1rem;
+            flex-shrink: 0;
+            object-fit: contain;
+        }
+
         @media (min-width: 640px) {
             .solutions-card-inner {
                 height: 370px;
@@ -1659,11 +1675,11 @@
                                 class="solutions-card-inner bg-[#F06A24] text-white rounded-[2rem] p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden select-none border-0 shadow-none">
                                 <div class="flex items-start justify-between relative z-10">
                                     <span
-                                        class="text-xs sm:text-sm font-medium opacity-90 leading-relaxed max-w-[130px] sm:max-w-[150px]">AI,
+                                        class="text-xs sm:text-sm font-medium opacity-90 leading-relaxed max-w-[170px]">AI,
                                         Python, C#.NET, ITIL, Azure</span>
                                     <!-- 3D Icon 01 Badge -->
                                     <img src="assets/images/01.png" alt="01"
-                                        class="absolute -top-3 -right-3 w-28 h-32 sm:w-32 sm:h-36 object-contain drop-shadow-md select-none pointer-events-none" />
+                                        class="w-24 h-28 sm:w-28 sm:h-32 -mt-4 -mr-2 object-contain drop-shadow-md  select-none pointer-events-none" />
                                 </div>
                                 <div class="flex items-end justify-between relative z-10">
                                     <span
@@ -1686,11 +1702,11 @@
                                 class="solutions-card-inner bg-[#F8529E] text-white rounded-[2rem] p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden select-none border-0 shadow-none">
                                 <div class="flex items-start justify-between relative z-10">
                                     <span
-                                        class="text-xs sm:text-sm font-medium opacity-90 leading-relaxed max-w-[130px] sm:max-w-[150px]">IPMA
+                                        class="text-xs sm:text-sm font-medium opacity-90 leading-relaxed max-w-[170px]">IPMA
                                         Project, Leadership & Teams</span>
                                     <!-- 3D Icon 02 Badge -->
                                     <img src="assets/images/02.png" alt="02"
-                                        class="absolute -top-2 -right-3 w-28 h-28 sm:w-32 sm:h-32 object-contain drop-shadow-md select-none pointer-events-none" />
+                                        class="w-24 h-24 sm:w-28 sm:h-28 -mt-3 -mr-2 object-contain drop-shadow-md select-none pointer-events-none" />
                                 </div>
                                 <div class="flex items-end justify-between relative z-10">
                                     <span
@@ -1713,11 +1729,11 @@
                                 class="solutions-card-inner bg-[#4314E5] text-white rounded-[2rem] p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden select-none border-0 shadow-none">
                                 <div class="flex items-start justify-between relative z-10">
                                     <span
-                                        class="text-xs sm:text-sm font-medium opacity-90 leading-relaxed max-w-[130px] sm:max-w-[150px]">Digital
+                                        class="text-xs sm:text-sm font-medium opacity-90 leading-relaxed max-w-[170px]">Digital
                                         Learning, MS Copilot, Support</span>
                                     <!-- 3D Icon 03 Badge -->
                                     <img src="assets/images/03.png" alt="03"
-                                        class="absolute -top-2 -right-3 w-28 h-28 sm:w-32 sm:h-32 object-contain drop-shadow-md select-none pointer-events-none" />
+                                        class="w-24 h-24 sm:w-28 sm:h-28 -mt-2 -mr-2 object-contain drop-shadow-md select-none pointer-events-none" />
                                 </div>
                                 <div class="flex items-end justify-between relative z-10">
                                     <span
@@ -1747,7 +1763,7 @@
                                 <!-- Big Number + Tilted Pill Badge (rounded-lg, no glow) -->
                                 <div class="metrics-num-wrap">
                                     <span class="metrics-badge metrics-badge-1">
-                                         Millions Educated
+                                        Millions Educated
                                     </span>
                                     <h3 id="metrics-num-1" class="metrics-number">
                                         +0.0M
