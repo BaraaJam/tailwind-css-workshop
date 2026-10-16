@@ -57,7 +57,7 @@
             letter-spacing: -0.05em;
         }
 
-        /* Numbers explicitly use Disc font as requested ("same for the numbers") */
+        /* Display numbers use the heading font. */
         .metrics-number,
         .solutions-card-number,
         #metrics-num-1,
@@ -66,9 +66,11 @@
         [id*="num"],
         [id*="stat"],
         [id*="val"],
+        #chart-text-1,
+        #chart-text-2,
         .metric-value,
         .font-mono {
-            font-family: var(--font-disc) !important;
+            font-family: var(--font-head) !important;
         }
 
         /* Descriptions & smaller texts explicitly use Disc */
@@ -177,6 +179,18 @@
 
         #card-purple {
             background-color: #4718ca !important;
+        }
+
+        #purple-card-img {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 100vw;
+            height: auto;
+            min-height: 100svh;
+            max-width: none;
+            transform: translateX(-50%);
+            object-position: 50% 0%;
         }
 
         .solutions-card {
@@ -312,7 +326,7 @@
         .metrics-photo-wrap img {
             width: 100%;
             height: 100%;
-            object-fit: fill;
+            object-fit: cover;
             object-position: center;
             display: block;
         }
@@ -1148,7 +1162,7 @@
                 <div id="card-purple"
                     class="absolute top-16 md:top-28 left-14 md:left-24 w-[96%] md:w-[98%] h-[360px] md:h-[460px] bg-[#4718ca] rounded-t-[2.5rem] md:rounded-t-[3.5rem] -rotate-[10deg] origin-top-left overflow-hidden will-change-transform">
                     <img id="purple-card-img" src="assets/images/purple-card.png" alt="Lexicon Learning Ecosystem"
-                        class="w-full h-full object-cover object-bottom select-none pointer-events-none" />
+                        class="object-cover select-none pointer-events-none" />
                 </div>
 
             </div>
@@ -1450,7 +1464,7 @@
                                             <p class="text-xs sm:text-sm font-medium text-zinc-900">Pass Rate on
                                                 Certifications</p>
                                             <p
-                                                class="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-zinc-900">
+                                                class="metric-value text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-zinc-900">
                                                 <span id="stat-pass-rate">96</span>%
                                             </p>
                                         </div>
@@ -1460,7 +1474,7 @@
                                             <p class="text-xs sm:text-sm font-medium text-white/95">Educated Since 1979
                                             </p>
                                             <p
-                                                class="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-white">
+                                                class="metric-value text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-white">
                                                 <span id="stat-educated">1.7</span>M
                                             </p>
                                         </div>
@@ -1532,7 +1546,7 @@
                                                     <text id="chart-text-1" x="37.7" y="167.9"
                                                         dominant-baseline="central" fill="#ffffff" font-size="9.5"
                                                         font-weight="700" text-anchor="middle"
-                                                        font-family="LexiconDisc, system-ui, sans-serif">+15%</text>
+                                                        font-family="LexiconHead, system-ui, sans-serif">+15%</text>
                                                 </g>
                                                 <g id="chart-badge-2">
                                                     <rect x="168.5" y="140.7" width="38" height="22" rx="11"
@@ -1540,7 +1554,7 @@
                                                     <text id="chart-text-2" x="187.5" y="151.7"
                                                         dominant-baseline="central" fill="#ffffff" font-size="9.5"
                                                         font-weight="700" text-anchor="middle"
-                                                        font-family="LexiconDisc, system-ui, sans-serif">+36%</text>
+                                                        font-family="LexiconHead, system-ui, sans-serif">+36%</text>
                                                 </g>
                                             </svg>
                                         </div>
@@ -1728,12 +1742,12 @@
                                 <!-- Squary 3D Artwork (Bigger: 200px, No glow) -->
                                 <div class="metrics-photo-wrap metrics-photo-wrap-1">
                                     <img src="assets/images/millions-educated.png" alt="Millions Educated"
-                                        class="w-full h-full object-fill select-none pointer-events-none">
+                                        class="w-full h-full object-cover select-none pointer-events-none">
                                 </div>
                                 <!-- Big Number + Tilted Pill Badge (rounded-lg, no glow) -->
                                 <div class="metrics-num-wrap">
                                     <span class="metrics-badge metrics-badge-1">
-                                        Millions Educated
+                                         Millions Educated
                                     </span>
                                     <h3 id="metrics-num-1" class="metrics-number">
                                         +0.0M
@@ -1759,7 +1773,7 @@
                                 <!-- Squary 3D Artwork (Bigger: 200px, No glow) -->
                                 <div class="metrics-photo-wrap metrics-photo-wrap-2">
                                     <img src="assets/images/trainers-consultants.png" alt="Trainers and Consultants"
-                                        class="w-full h-full object-fill select-none pointer-events-none">
+                                        class="w-full h-full object-cover select-none pointer-events-none">
                                 </div>
                                 <!-- Big Number + Tilted Pill Badge (rounded-lg, no glow) -->
                                 <div class="metrics-num-wrap">
@@ -1790,7 +1804,7 @@
                                 <!-- Squary 3D Artwork (Bigger: 200px, No glow) -->
                                 <div class="metrics-photo-wrap metrics-photo-wrap-3">
                                     <img src="assets/images/accredited-rainings.png" alt="Accredited Trainings"
-                                        class="w-full h-full object-fill select-none pointer-events-none">
+                                        class="w-full h-full object-cover select-none pointer-events-none">
                                 </div>
                                 <!-- Big Number + Tilted Pill Badge (rounded-lg, no glow) -->
                                 <div class="metrics-num-wrap">
@@ -1901,6 +1915,7 @@
             const yellowCard = document.querySelector("#card-yellow");
             const pinkCard = document.querySelector("#card-pink");
             const purpleCard = document.querySelector("#card-purple");
+            const purpleImage = document.querySelector("#purple-card-img");
             const featuresSection = document.querySelector("#features");
 
             const navbarLogo = document.querySelector("#navbar-logo");
@@ -2126,6 +2141,7 @@
             responsive.add({ desktop: presentationQuery, compact: compactQuery }, ({ conditions }) => {
                 const featuresOverflow = () => conditions.compact ? Math.max(0, featuresSection.scrollHeight - heroSection.clientHeight) : 0;
                 const heroScrollDistance = () => 2200 * presentationScale();
+                const purpleArtworkHeight = () => Math.max(heroSection.clientHeight, purpleImage.offsetHeight);
                 let pinkLayout = readHeroCardLayout(pinkCard);
                 let purpleLayout = readHeroCardLayout(purpleCard);
                 let featuresPan;
@@ -2369,15 +2385,20 @@
                         duration: 0.20,
                         ease: "power1.inOut"
                     }, 0)
-                    // 7. Phase 2: Purple Card expands to cover full viewport width & height
+                    // Open the width while the fixed-size artwork stays centered inside the card.
                     .to(purpleCard, {
-                        top: () => -cardsContainer.offsetTop,
                         left: () => -cardsContainer.offsetLeft,
                         width: () => heroSection.offsetWidth,
-                        height: () => heroSection.offsetHeight,
-                        duration: 0.25,
+                        duration: 0.23,
                         ease: "power1.inOut"
-                    }, 0.18)
+                    }, 0.20)
+                    // Unfold to the image's natural height; both bottoms arrive together at the handoff.
+                    .to(purpleCard, {
+                        top: () => heroSection.clientHeight - purpleArtworkHeight() - cardsContainer.offsetTop,
+                        height: purpleArtworkHeight,
+                        duration: 0.38,
+                        ease: "none"
+                    }, 0.20)
                     // 8. Edges transition to full bleed at top so no white cutouts at top corners
                     .to(purpleCard, {
                         borderRadius: "0px",
@@ -2413,11 +2434,6 @@
                         duration: 0.08,
                         ease: "power1.inOut"
                     }, 0.38)
-                    // 11. PURPLE HOLD: User scrolls through pure purple screen
-                    .to(purpleCard, {
-                        opacity: 1,
-                        duration: 0.18
-                    }, 0.40)
                     // 12. Section 2 (White card) rises UP from bottom over purple
                     .fromTo(featuresSection, { y: () => heroSection.clientHeight + 8 }, {
                         y: 0,
@@ -2493,6 +2509,11 @@
                     hashtagsDropped = false;
                 };
             });
+
+            // New artwork dimensions must also update the unfolding endpoints.
+            if (!purpleImage.complete) {
+                purpleImage.addEventListener("load", () => ScrollTrigger.refresh(), { once: true });
+            }
 
             // Bento Slide Interactive Timer
             const bentoVisibility = new IntersectionObserver(entries => {
