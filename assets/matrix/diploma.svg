@@ -1,22 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="288" height="252" viewBox="0 3 24 21" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<svg xmlns="http://www.w3.org/2000/svg" width="288" height="276" viewBox="0 2 24 23" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <!-- Tabler Icons certificate, MIT. See TABLER-LICENSE and SOURCES.md. -->
   <defs>
-    <linearGradient id="diploma-body" x1="3" y1="5" x2="21" y2="21" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#4314e5" stop-opacity=".75"/>
-      <stop offset=".45" stop-color="#6950f3" stop-opacity=".35"/>
-      <stop offset=".8" stop-color="#f8529e" stop-opacity=".7"/>
-      <stop offset="1" stop-color="#f59e0b" stop-opacity=".9"/>
-    </linearGradient>
     <linearGradient id="diploma-edge" x1="3" y1="5" x2="21" y2="23" gradientUnits="userSpaceOnUse">
       <stop stop-color="#4314e5"/>
       <stop offset=".48" stop-color="#7c3aed"/>
       <stop offset=".8" stop-color="#f8529e"/>
       <stop offset="1" stop-color="#f59e0b"/>
     </linearGradient>
+    <mask id="seal-clearance" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="25">
+      <rect width="24" height="25" fill="white"/>
+      <circle cx="17.5" cy="17" r="4" fill="black"/>
+    </mask>
   </defs>
-  <path d="M5 5h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2z" fill="url(#diploma-body)" stroke="url(#diploma-edge)" stroke-width="2"/>
-  <rect x="4.8" y="6.8" width="14.4" height="10.4" rx="1" fill="none" stroke="#6950f3" stroke-opacity=".4" stroke-width="0.9"/>
-  <path d="M6 9l12 0M6 12l4 0M6 15l3 0" stroke="url(#diploma-edge)" stroke-width="1.6"/>
-  <circle cx="15" cy="15" r="3" fill="#f8529e" fill-opacity=".85" stroke="url(#diploma-edge)" stroke-width="1.8"/>
-  <path d="M13 17.5v4.5l2 -1.5l2 1.5v-4.5" fill="#fcd332" fill-opacity=".95" stroke="url(#diploma-edge)" stroke-width="1.6"/>
+  <path d="M5 5h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2z" stroke="url(#diploma-edge)" stroke-width="1.3" mask="url(#seal-clearance)"/>
+  <path d="M6.5 9h9.5M6.5 12h5.5M6.5 15h3.5" stroke="#6950f3" stroke-width="1.1"/>
+  <path d="M15.8 19.1l-.8 4.1 2.5-1.4 2.5 1.4-.8-4.1" stroke="url(#diploma-edge)" stroke-width="1.2"/>
+  <circle cx="17.5" cy="17" r="2.6" stroke="#f8529e" stroke-width="1.4"/>
 </svg>

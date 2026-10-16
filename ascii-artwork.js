@@ -136,7 +136,7 @@
             }
             const pixels = ctx.getImageData(0, 0, sample.width, sample.height).data;
             const cells = [], pitch = this.pitch;
-            const strength = this.options.shape === 'logo' ? 1 : this.options.dark ? 0.92 : (this.width < 768 ? 0.60 : 0.82);
+            const strength = ['logo', 'diploma'].includes(this.options.shape) ? 1 : this.options.dark ? 0.92 : (this.width < 768 ? 0.60 : 0.82);
             for (let row = 0; row * pitch < this.height; row++) {
                 for (let col = 0; col * pitch < this.width; col++) {
                     const seed = row * 65536 + col + this.options.seed * 997;
