@@ -1,0 +1,25 @@
+# Local dependencies and generated deployment output
+/node_modules/
+/dist/
+
+# Keep local verification files off GitHub
+/tests/
+/playwright-report/
+/test-results/
+/coverage/
+
+# Unused local artwork experiment
+/assets/images/purple-card1.png
+
+# Local settings, credentials, and scratch files
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+*.log
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
+Desktop.ini

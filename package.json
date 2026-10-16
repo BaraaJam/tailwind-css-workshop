@@ -1,10 +1,14 @@
 {
-  "name": "lexicon-tailwind-workshop",
+  "name": "lexicon-website",
   "private": true,
   "scripts": {
     "build:assets": "node scripts/build-ascii-assets.cjs",
-    "build:css": "npx --yes tailwindcss@3.4.17 --input styles/tailwind.css --content index.html --output assets/vendor/tailwind.css --minify",
+    "build:css": "node scripts/build-css.cjs",
     "build": "npm run build:assets && npm run build:css",
+    "build:deploy": "npm run build && node scripts/prepare-deploy.cjs",
     "test": "node --test"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.17"
   }
 }
