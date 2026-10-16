@@ -1,6 +1,12 @@
 # Lexicon website
 
-Static website with local fonts, Tailwind CSS, GSAP, and ASCII artwork.
+**[Open the live preview →](https://baraajam.github.io/tailwind-css-workshop/)**
+
+A frontend design project built in three days, with responsive layouts, scroll
+animations, and interactive ASCII artwork. Built with Tailwind CSS, GSAP, and local fonts.
+
+The text about Lexicon is placeholder copy for the design and may not accurately
+describe the company's services.
 
 ## Build
 
